@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Usuario") 
 public class Usuario{
 
-    @Id  
+    @Id
     private String id;
     private String login;
     private String password;

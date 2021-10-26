@@ -34,7 +34,7 @@ public class UsuarioController {
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
-			Optional<Usuario> optUser = user.findById(usuarios.getId());
+			Optional<Usuario> optUser = user.findByLogin(usuarios.getLogin());
 			if (optUser.isPresent())
 				throw new UsuarioDuplicadoException();
 			else {
