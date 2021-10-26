@@ -10,7 +10,6 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(features = "src/test/java/features",
 		glue = "uclm.grupo2.sigeva.cucumber.pruebas",
 		plugin = { "pretty" }
-		// Prueba
 
 )
 
