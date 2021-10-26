@@ -15,7 +15,7 @@ public class Usuario{
     private String password;
     private String nombre;
     private String apellidos;
-    private int telefono;
+    private String telefono;
     private String dni;
     private String rol;
 
@@ -32,7 +32,8 @@ public class Usuario{
         return dni;
     }
     public void setDni(String dni) {
-        this.dni = DigestUtils.sha512Hex(dni);
+    	
+        this.dni = dni;
     }
     public String getRol() {
         return rol;
@@ -67,11 +68,11 @@ public class Usuario{
     public void setPassword(String password) {
         this.password = DigestUtils.sha512Hex(password);
     }
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
