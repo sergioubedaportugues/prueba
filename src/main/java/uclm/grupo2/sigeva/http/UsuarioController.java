@@ -54,7 +54,7 @@ public class UsuarioController {
 					throw new CamposVaciosException();
 				if(!((usuarios.getRol().equals("Sanitario")) || (usuarios.getRol().equals("Admin")) || (usuarios.getRol().equals("Paciente"))))
 					throw new RolInvalidoException();
-					
+				usuarios.setDni(DigestUtils.sha512Hex(usuarios.getDni()));
 				user.save(usuarios);
 
 				}
@@ -84,8 +84,8 @@ public class UsuarioController {
 		Integer.parseInt(telefono);
 		return true;
 	}
-	/*private static boolean validarDni(String dni) throws FormatoDniException{
-		if(dni.length()!=9) 
+	private static boolean validarDni(String dni) throws FormatoDniException{
+		if(dni.length()!=9)
 			return false;
         for (int i = 0; i < dni.length()-1; i++) {
             if (!Character.isDigit(dni.charAt(i))) {
@@ -94,7 +94,6 @@ public class UsuarioController {
         }
         if(!Character.isAlphabetic(dni.charAt(8)))
         	return false;
-        dni = DigestUtils.sha512Hex(dni);
         return true;
-	}*/
+	}
 }
