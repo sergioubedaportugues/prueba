@@ -35,7 +35,6 @@ public class UsuarioController {
 	public Optional<Usuario> getUsuario(@PathVariable int id){
 		return user.findById(id);
 	}
-	
 	@DeleteMapping("/delete/{id}")
 	public String deleteUsuarios(@PathVariable int id) {
 		user.deleteById(id);

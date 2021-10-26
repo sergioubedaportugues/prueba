@@ -1,5 +1,7 @@
 package uclm.grupo2.sigeva.model;
 
+import java.util.UUID;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,28 +9,71 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Usuario{
 	
 	@Id
-	private int id;
+	private String id;
+	private String login;
+	private String password;
 	private String nombre;
-	public int getId() {
-		return id;
+	private String apellidos;
+	private String dni;
+	private String rol;
+	
+	public Usuario() {
+		this.id = UUID.randomUUID().toString();
 	}
-	public void setId(int id) {
-		this.id = id;
+	
+	public String getApellidos() {
+		return apellidos;
 	}
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + "]";
+		return "Usuario [id=" + id + ", login=" + login + ", password=" + password + ", nombre=" + nombre
+				+ ", apellidos=" + apellidos + ", dni=" + dni + ", rol=" + rol + "]";
 	}
-	
-	
-
-
 }
 	
 	
