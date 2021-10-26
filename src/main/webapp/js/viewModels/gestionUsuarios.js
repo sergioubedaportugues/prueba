@@ -10,7 +10,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.password = ko.observable();
 			self.nombre = ko.observable("");
 			self.apellidos = ko.observable("");
-			self.telefono = ko.observable("");
+			self.telefono = ko.observable();
 			self.dni= ko.observable("");
 			self.rol = ko.observable("");
 
@@ -118,7 +118,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
            
             $.ajax(data);
         }*/
-		
+		mostrarMensajes(azul, rojo) {
+			let self = this;
+			setTimeout(function() {
+          		self.message(azul);
+          		self.error(rojo);
+        	}, 3000);
+
+		}	
 		connected() {
 			accUtils.announce('Gestión de usuarios page loaded.');
 			document.title = "Gestión Usuarios";
