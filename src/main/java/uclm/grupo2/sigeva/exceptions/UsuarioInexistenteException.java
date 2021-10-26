@@ -1,14 +1,14 @@
 package uclm.grupo2.sigeva.exceptions;
 
-public class UsuarioInexistenteException extends Exception{
-	
-	public UsuarioInexistenteException() {
-		 
-		//Constructor
-	}
+import org.springframework.http.HttpStatus;
 
-	@Override
-	public String getMessage() {
-		return "El usuario introducido no existe ";
+public class UsuarioInexistenteException extends SigevaExceptions{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6216941878556677681L;
+
+	public UsuarioInexistenteException() {
+		super(HttpStatus.CONFLICT, "El usuario introducido no existe.");
 	}
 }

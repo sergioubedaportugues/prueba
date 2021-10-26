@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -17,6 +18,7 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
+@RequestMapping("gestionUsuarios")
 public class UsuarioController {
 
 	@Autowired
@@ -35,11 +37,10 @@ public class UsuarioController {
 	public Optional<Usuario> getUsuario(@PathVariable String id){
 		return user.findById(id);
 	}
-	
-	@DeleteMapping("/delete/{id}")
+	/*@DeleteMapping("/delete/{id}")
 	public String deleteUsuarios(@PathVariable String id) {
 		user.deleteById(id);
 		return "Usuario eliminado con id: "+id;
-	}
+	}*/
 	
 }

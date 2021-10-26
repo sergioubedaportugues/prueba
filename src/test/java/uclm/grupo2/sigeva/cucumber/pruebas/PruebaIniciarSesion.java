@@ -1,8 +1,8 @@
 package uclm.grupo2.sigeva.cucumber.pruebas;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
 
 public class PruebaIniciarSesion {
 	

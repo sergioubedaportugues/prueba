@@ -1,14 +1,10 @@
 package uclm.grupo2.sigeva.model;
 
-
 import java.util.UUID;
-
-
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 @Document(collection = "Usuario") 
 public class Usuario{
@@ -26,7 +22,6 @@ public class Usuario{
     public Usuario() {
     	this.id=UUID.randomUUID().toString();
     }
-
     public String getApellidos() {
         return apellidos;
     }
@@ -37,7 +32,7 @@ public class Usuario{
         return dni;
     }
     public void setDni(String dni) {
-        this.dni = DigestUtils.sha512Hex(dni);;
+        this.dni = DigestUtils.sha512Hex(dni);
     }
     public String getRol() {
         return rol;
@@ -72,8 +67,6 @@ public class Usuario{
     public void setPassword(String password) {
         this.password = DigestUtils.sha512Hex(password);
     }
-    
-
 	public int getTelefono() {
 		return telefono;
 	}
@@ -87,19 +80,4 @@ public class Usuario{
 		return "Usuario [id=" + id + ", login=" + login + ", password=" + password + ", nombre=" + nombre
 				+ ", apellidos=" + apellidos + ", telefono=" + telefono + ", dni=" + dni + ", rol=" + rol + "]";
 	}
-
-	
-
-
-
-
 }
-	
-	
-	
-	
-	
-	
-	
-	
-
