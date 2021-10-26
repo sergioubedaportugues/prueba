@@ -1,15 +1,15 @@
 package uclm.grupo2.sigeva.exceptions;
 
-public class AccesoDenegadoException extends Exception{
-	
-	public AccesoDenegadoException() {
-		
-		//Constructor
-	}
-	
-	@Override
-	public String getMessage() {
-		return "No tiene permitido acceso a esta funcionalidad";
-	}
+import org.springframework.http.HttpStatus;
 
+public class AccesoDenegadoException extends SigevaExceptions {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4027902561416116007L;
+
+	public AccesoDenegadoException() {
+		super(HttpStatus.CONFLICT, "No tiene permitido acceso a esta funcionalidad");
+	
+	}
 }
