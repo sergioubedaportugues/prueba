@@ -32,7 +32,7 @@ public class Usuario{
         return dni;
     }
     public void setDni(String dni) {
-        this.dni = DigestUtils.sha512Hex(dni);;
+        this.dni = DigestUtils.sha512Hex(dni);
     }
     public String getRol() {
         return rol;
