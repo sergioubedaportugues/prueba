@@ -2,15 +2,14 @@ package uclm.grupo2.sigeva.cucumber;
 
 import org.junit.runner.RunWith;
 
-
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 
-@CucumberOptions(features = "src/test/java/features",
+@CucumberOptions(features = "sigeva/src/test/java/features",
 		glue = "uclm.grupo2.sigeva.cucumber.pruebas",
-		plugin = { "pretty", "html:target/cucumber-html-report", "json:target/cucumber.json" }
+		plugin = { "pretty" }
 
 )
 
