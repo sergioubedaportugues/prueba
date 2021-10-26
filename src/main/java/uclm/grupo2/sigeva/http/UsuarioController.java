@@ -32,11 +32,11 @@ public class UsuarioController {
 		return user.findAll();
 	}
 	@GetMapping("/findAllUsers/{id}")
-	public Optional<Usuario> getUsuario(@PathVariable int id){
+	public Optional<Usuario> getUsuario(@PathVariable String id){
 		return user.findById(id);
 	}
 	@DeleteMapping("/delete/{id}")
-	public String deleteUsuarios(@PathVariable int id) {
+	public String deleteUsuarios(@PathVariable String id) {
 		user.deleteById(id);
 		return "Usuario eliminado con id: "+id;
 	}
