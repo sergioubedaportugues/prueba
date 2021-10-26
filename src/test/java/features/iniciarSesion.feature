@@ -20,22 +20,13 @@
 Feature: Iniciar sesion
 
   @tag1
-  Scenario: Iniciar sesion
-    Given un "nombre" 
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
+  Scenario: Iniciar sesion satisfactoriamente Usuario
+    Given acceso con "login" y "password" correctos 
+    When los datos son correctos
+    Then accedo a la pantalla principal
 
   @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
-
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+  Scenario: Acceder con contrasena erronea
+    Given acceso con "login" y "password"
+    When los datos son incorrectos
+    Then se lanza una excepcion
