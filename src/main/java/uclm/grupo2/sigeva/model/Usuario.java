@@ -14,6 +14,7 @@ public class Usuario{
 	private String password;
 	private String nombre;
 	private String apellidos;
+	private int telefono;
 	private String dni;
 	private String rol;
 	
@@ -68,11 +69,18 @@ public class Usuario{
 	public void setId(String id) {
 		this.id = id;
 	}
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
+	}
 
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", login=" + login + ", password=" + password + ", nombre=" + nombre
-				+ ", apellidos=" + apellidos + ", dni=" + dni + ", rol=" + rol + "]";
+				+ ", apellidos=" + apellidos + ", telefono=" + telefono + ", dni=" + dni + ", rol=" + rol + "]";
 	}
 }
 	
