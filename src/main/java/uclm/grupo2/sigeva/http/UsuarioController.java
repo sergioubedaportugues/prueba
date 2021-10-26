@@ -48,20 +48,18 @@ public class UsuarioController {
 					throw new NoEsNumericoException();
 				if(usuarios.getDni().isEmpty())
 					throw new CamposVaciosException();
-				if((usuarios.getDni().length() !=9) || (Character.isLetter((usuarios.getDni().charAt(8)))==false))
-					throw new FormatoDniException();
+				/*if((usuarios.getDni().length()!=9) || (Character.isLetter(usuarios.getDni().charAt(8))==false))
+					throw new FormatoDniException();*/
 				if(usuarios.getRol().isEmpty())
 					throw new CamposVaciosException();
-				if((usuarios.getRol()!="Sanitario") || (usuarios.getRol()!="Admin") || (usuarios.getRol()!="Paciente"))
-					throw new RolInvalidoException();
+				/*if(!(usuarios.getRol().equals("Sanitario")) || !(usuarios.getRol().equals("Admin")) || !(usuarios.getRol().equals("Paciente")))
+					throw new RolInvalidoException();*/
 				
 				user.save(usuarios);
 			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
-		
-		user.save(usuarios);
 		return "Usuario con id: "+usuarios.getId();
 	}
 	@GetMapping("/findAllUsers")
