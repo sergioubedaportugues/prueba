@@ -7,6 +7,6 @@ import uclm.grupo2.sigeva.model.Usuario;
 
 
 @Repository
-public interface UsuarioDAO extends MongoRepository<Usuario,Integer>{
+public interface UsuarioDAO extends MongoRepository<Usuario,String>{
 
 }
