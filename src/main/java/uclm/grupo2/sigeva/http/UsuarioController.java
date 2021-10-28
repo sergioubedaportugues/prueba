@@ -56,7 +56,6 @@ public class UsuarioController {
 					throw new RolInvalidoException();
 				usuarios.setDni(DigestUtils.sha512Hex(usuarios.getDni()));
 				user.save(usuarios);
-
 				}
 			
 		} catch(Exception e) {
@@ -84,6 +83,7 @@ public class UsuarioController {
 		Integer.parseInt(telefono);
 		return true;
 	}
+
 	private static boolean validarDni(String dni) throws FormatoDniException{
 		if(dni.length()!=9)
 			return false;
