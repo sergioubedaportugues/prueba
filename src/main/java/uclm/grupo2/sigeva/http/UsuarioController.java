@@ -2,7 +2,9 @@ package uclm.grupo2.sigeva.http;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
-import uclm.grupo2.sigeva.exceptions.NoEsNumericoException;
+import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
 import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 
@@ -32,7 +34,7 @@ public class UsuarioController {
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
-			Optional<Usuario> optUser = user.findById(usuarios.getId());
+			Optional<Usuario> optUser = user.findByLogin(usuarios.getLogin());
 			if (optUser.isPresent())
 				throw new UsuarioDuplicadoException();
 			else {
@@ -44,19 +46,19 @@ public class UsuarioController {
 					throw new CamposVaciosException();
 				if(usuarios.getApellidos().isEmpty())
 					throw new CamposVaciosException();
-				if(Character.isDigit(usuarios.getTelefono()))
-					throw new NoEsNumericoException();
-				if(usuarios.getDni().isEmpty())
-					throw new CamposVaciosException();
-				/*if((usuarios.getDni().length()!=9) || (Character.isLetter(usuarios.getDni().charAt(8))==false))
-					throw new FormatoDniException();*/
+				if(validarMovil(usuarios.getTelefono())==false)
+					throw new NoEsTelefonoException();
+				if(validarDni(usuarios.getDni())==false) //ESTO EN CUANTO VUELVA DEl GYM LO ACABO
+					throw new FormatoDniException();
 				if(usuarios.getRol().isEmpty())
 					throw new CamposVaciosException();
-				/*if(!(usuarios.getRol().equals("Sanitario")) || !(usuarios.getRol().equals("Admin")) || !(usuarios.getRol().equals("Paciente")))
-					throw new RolInvalidoException();*/
-				
+				if(!((usuarios.getRol().equals("Sanitario")) || (usuarios.getRol().equals("Admin")) || (usuarios.getRol().equals("Paciente"))))
+					throw new RolInvalidoException();
+				usuarios.setDni(DigestUtils.sha512Hex(usuarios.getDni()));
 				user.save(usuarios);
-			}
+
+				}
+			
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
@@ -75,5 +77,23 @@ public class UsuarioController {
 		user.deleteById(id);
 		return "Usuario eliminado con id: "+id;
 	}*/
-	
+	private static boolean validarMovil(String telefono) throws NoEsTelefonoException {
+		if(telefono.length()!=9) {
+			return false;
+		}
+		Integer.parseInt(telefono);
+		return true;
+	}
+	private static boolean validarDni(String dni) throws FormatoDniException{
+		if(dni.length()!=9)
+			return false;
+        for (int i = 0; i < dni.length()-1; i++) {
+            if (!Character.isDigit(dni.charAt(i))) {
+    			return false;
+            }
+        }
+        if(!Character.isAlphabetic(dni.charAt(8)))
+        	return false;
+        return true;
+	}
 }
