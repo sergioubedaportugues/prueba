@@ -17,6 +17,8 @@ public class Citas{
     public Citas() {
     	this.id=UUID.randomUUID().toString();
     }
+    
+    
 
 	public String getId() {
 		return id;

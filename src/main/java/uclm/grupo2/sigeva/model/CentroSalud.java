@@ -18,6 +18,18 @@ public class CentroSalud{
     public CentroSalud() {
     	this.id=UUID.randomUUID().toString();
     }
+    
+    
+
+	public CentroSalud(String nombre, String direccion, String num_vacunas) {
+		super();
+		this.id = UUID.randomUUID().toString();;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.num_vacunas = num_vacunas;
+	}
+
+
 
 	public String getId() {
 		return id;

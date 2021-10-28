@@ -21,8 +21,10 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
+import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
 import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
+import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
 
@@ -33,23 +35,28 @@ public class CitasController {
 	@Autowired
 	private CitasDAO cita;
 	
+	
 	@PostMapping("/insertCita")
-	public String insertarUsuario(@RequestBody Citas citas) {
-		try {
-			Optional<Citas> optCita = cita.findById(citas.getId()); //SERÁ FINDBYMISHUEVOS
-			if (optCita.isPresent())
-				throw new UsuarioDuplicadoException();
-			else {
-				//ArrayList <Citas> citasSeleccionadas =  new ArrayList <Citas>();
-				Optional<Citas> optCentros = cita.findByCs(citas.getCs().getId()); //SERÁ FINDBYMISHUEVOS;
-				System.out.println(optCentros);
-				cita.save(citas);
-				}
+	public String insertarCita() {
+			Citas pruebaMaxima = new Citas();
+		
+			CentroSalud cs = new CentroSalud("Hola", "hola", "20");
+			pruebaMaxima.setCs(cs);
+			pruebaMaxima.setDia("28-05");
+			pruebaMaxima.setHoras("17:00");
 			
-		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-		}
-		return "Usuario con id: "+citas.getId();
+			cita.save(pruebaMaxima);
+
+			
+		return "Centro con id: "+pruebaMaxima.getId();
+	}
+	
+	@GetMapping("/findCita") // O ALGO ASI
+	public String findCita() {
+		
+		
+		return null;
+			
 	}
 	@GetMapping("/findAllCitas")
 	public List<Citas> getCitas(){
