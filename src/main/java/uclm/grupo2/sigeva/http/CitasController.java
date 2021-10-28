@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.CitasDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
@@ -35,6 +36,8 @@ public class CitasController {
 	@Autowired
 	private CitasDAO cita;
 	
+	@Autowired
+	private CentroSaludDAO centroDAO;	
 	
 	@PostMapping("/insertCita")
 	public String insertarCita() {
@@ -44,16 +47,19 @@ public class CitasController {
 			pruebaMaxima.setCs(cs);
 			pruebaMaxima.setDia("28-05");
 			pruebaMaxima.setHoras("17:00");
-			
 			cita.save(pruebaMaxima);
-
+			CentroSalud cen = pruebaMaxima.getCs();
+			cen.setNombre(cita.findByCentroSalud(pruebaMaxima.getCs()));
+			Optional<Citas> optCitas = cita.findByCentroSalud(cs);
+			System.out.print(optCitas);
 			
-		return "Centro con id: "+pruebaMaxima.getId();
+		return "Centro con id: "+optCitas;
 	}
 	
-	@GetMapping("/findCita") // O ALGO ASI
+	@GetMapping("/findCita")
 	public String findCita() {
-		
+			
+	
 		
 		return null;
 			
@@ -62,6 +68,8 @@ public class CitasController {
 	public List<Citas> getCitas(){
 		return cita.findAll();
 	}
+	
+	
 	@GetMapping("/findAllCitas/{id}")
 	public Optional<Citas> getCita(@PathVariable String id){
 		return cita.findById(id);
