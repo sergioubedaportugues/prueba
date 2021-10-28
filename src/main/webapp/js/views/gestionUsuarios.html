@@ -1,0 +1,162 @@
+<div class="oj-hybrid-applayout-page">
+  <div class="oj-applayout-fixed-top">
+    <header role="banner" class="oj-hybrid-applayout-header">
+      <oj-module config="[[headerConfig]]"></oj-module>
+    </header>
+  </div>
+  <!-- This is where your main page content will be loaded -->
+  <div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+      <div class="oj-hybrid-padding">
+        <h1 class="h1">Gesti&oacuten de Usuarios</h1>
+        <h3 class="nuevoUsuario" >Nuevo usuario</h3>
+        <div class="crearUsuario">
+            <input type="text" data-bind="value : login" placeholder="Login">
+            <input type="password" data-bind="value : password" placeholder="Password">
+            <input type="text" data-bind="value : nombre" placeholder="Nombre">
+            <input type="text" data-bind="value : apellidos" placeholder="Apellidos">
+            <input type="text" data-bind="value : telefono" placeholder="000 00 00 00">
+			<input type="text" data-bind="value : dni" placeholder="00000000A">
+			<input type="text" data-bind="value : rol" placeholder="Admin/Paciente/Sanitario">
+            <button class="btn_nuevo" data-bind="click : insertUsers">Nuevo usuario</button>
+            <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
+            <div id="mensajeError" data-bind="html : error" style="color : red"></div>
+            
+        </div>
+        <br>
+        <br>
+        <h3 class="listaUsuarios">Lista de usuarios</h3>
+        <table class="tablaUsuarios">
+        <caption></caption>
+            <tr>
+                <th id="coltablaUsuarios">Login</th>
+                <th id="coltablaUsuarios">Password</th>
+                <th id="coltablaUsuarios">Nombre</th>
+                <th id="coltablaUsuarios">Apellidos</th>
+                <th id="coltablaUsuarios">Tel&eacutefono</th>
+                <th id="coltablaUsuarios">Dni</th>
+                <th id="coltablaUsuarios">Rol</th>
+            </tr>
+            <!-- ko foreach : usuarios -->
+                <tr>
+                       <td><input type="text" data-bind="value : login" placeholder="Login"></td>                   
+                       <td><input type="text" data-bind="value : password" placeholder="Password"></td>
+                       <td><input type="text" data-bind="value : nombre" placeholder="Nombre"></td>
+                       <td><input type="text" data-bind="value : apellidos" placeholder="Apellidos"></td>
+                       <td><input type="text" data-bind="value : telefono" placeholder="Telefono"></td>
+                       <td><input type="text" data-bind="value : dni" placeholder="Dni"></td>
+                       <td><input type="text" data-bind="value : rol" placeholder="Rol"></td>
+                       <!--
+                       <td><button class = "btn_modif" data-bind="click : function() { $parent.modificarUsuario($data); }">Modificar</button></td>
+                       <td><button class = "btn_elim" data-bind="click : function() { $parent.eliminarUsuario($data); }">Eliminar</button></td>
+                       -->
+                </tr>
+            <!-- /ko -->
+        </table>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<head>
+<title></title>
+<style>
+.oj-hybrid-applayout-header{
+display:none;
+}
+
+.nuevoUsuario{
+padding-left:50px;
+color: #1883ba;
+}
+
+.crearUsuario{
+margin-left:50px;
+}
+
+.listaUsuarios{
+padding-left:50px;
+color: #1883ba;
+}
+.tablaUsuarios{
+column-gap:10px;
+margin-left: 50px;	
+}
+
+.h1{
+background-color: #ffff;
+	position: relative;
+	padding-bottom: 30px;
+	margin-top: 120px;
+	padding-top: 20px;
+	color: #3392FF;
+	font-size: 200%;
+	top: 30%;
+	left: 45%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+	/* IMPORTANTE */
+	text-align: center;
+	
+
+}
+
+.btn_nuevo{
+background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left:10px; 
+}
+.btn_nuevo:hover {
+background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+.btn_modif{
+background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left:10px; 
+}
+.btn_modif:hover {
+background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+.btn_elim{
+background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left:10px; 
+}
+.btn_elim:hover {
+background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+.oj-hybrid-applayout-page{
+background-color: #ffff;
+}
+</style>
+</head>
