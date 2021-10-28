@@ -22,18 +22,15 @@ Feature: Administrador cambia datos centro
   @tag1
   Scenario: Modificar nombre
     Given los datos de "nombreCentro", "direccionCentro" y "numeroVacunas"
-    When "nombreCentro", "nuevoNombreCentro" no coinciden
     Then se ha modificado la informacion del centro
 
   @tag2
   Scenario: Modificar direccion
     Given los datos de "nombreCentro", "direccionCentro" y "numeroVacunas"
-    When "direccionCentro", "nuevaDireccionCentro" no coinciden
     Then se ha modificado la informacion del centro
     
   @tag3
   Scenario: Modificar numero de vacunas
     Given los datos de "nombreCentro", "direccionCentro" y "numeroVacunas" 
-    When "numeroVacunas", "numeroVacunas" no coinciden
     Then se ha modificado la informacion del centro
 
