@@ -7454,11 +7454,13 @@ html[dir="rtl"] .oj-flex-bar-end {
 .oj-applayout-fixed-top, .oj-hybrid-applayout-navbar-fixed-top {
   top: 0; }
 
-
+/* 
 .oj-applayout-fixed-bottom,
 .oj-hybrid-applayout-navbar-fixed-bottom,
 .oj-hybrid-applayout-navbar {
   bottom: 0; }
+   */
+
 
 /* Class used to suppress copy/paste and context menus for hybrid mobile apps */
 .oj-hybrid {

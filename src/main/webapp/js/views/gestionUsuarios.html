@@ -1,4 +1,4 @@
-<div class="oj-hybrid-applayout-page">
+-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
     <header role="banner" class="oj-hybrid-applayout-header">
       <oj-module config="[[headerConfig]]"></oj-module>
@@ -7,25 +7,45 @@
   <!-- This is where your main page content will be loaded -->
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
-      <div class="oj-hybrid-padding">
-        <h1 class="h1">Gesti&oacuten de Usuarios</h1>
-        <h3 class="nuevoUsuario" >Nuevo usuario</h3>
-        <div class="crearUsuario">
-            <input type="text" data-bind="value : login" placeholder="Login">
-            <input type="password" data-bind="value : password" placeholder="Password">
-            <input type="text" data-bind="value : nombre" placeholder="Nombre">
-            <input type="text" data-bind="value : apellidos" placeholder="Apellidos">
-            <input type="text" data-bind="value : telefono" placeholder="000 00 00 00">
-			<input type="text" data-bind="value : dni" placeholder="00000000A">
-			<input type="text" data-bind="value : rol" placeholder="Admin/Paciente/Sanitario">
+    <h1 class="tituloGestionUsuarios">Gesti&oacuten de Usuarios</h1>
+      <div class="oj-hybrid-padding" id="gestionUser">
+        
+        
+        <div  class="crearUsuario" id ="crearUsuario">
+        <h3 class="nuevoProductos" >Crear usuario</h3>
+        <form action="#" target="" method="get" name="formDatosPersonales">
+        	<label for="Usuario">Usuario</label>
+            <input type="text" id="usuario" data-bind="value : login" placeholder="Escribe tu usuario">
+            
+            <label for="Contraseña">Pass</label>
+            <input type="password" id="contraseña" data-bind="value : password" placeholder="Password">
+            
+            <label for="Nombre">Nombre</label>
+            <input type="text" id="nombre" data-bind="value : nombre" placeholder="Escribe tu nombre">
+            
+            <label for="Apellidos">Apellidos</label>
+            <input type="text" id="apellidos" data-bind="value : apellidos" placeholder="Escribe tus apellidos">
+            
+            <label for="Telefono">Telefono</label>
+            <input type="text" id="telefono" data-bind="value : telefono" placeholder="000 00 00 00">
+            
+            <label for="DNI">DNI</label>
+			<input type="text" id="dni" data-bind="value : dni" placeholder="00000000A">
+			
+			<label for="Rol">Rol</label>
+			<input type="text" id="rol" data-bind="value : rol" placeholder="admin/paciente/sanitario">
+			
+			
             <button class="btn_nuevo" data-bind="click : insertUsers">Nuevo usuario</button>
+            </form>
             <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
             <div id="mensajeError" data-bind="html : error" style="color : red"></div>
             
         </div>
         <br>
+       	<div class="listarUsuario" id ="listarUsuario"> 
         <br>
-        <h3 class="listaUsuarios">Lista de usuarios</h3>
+        <h3 id="tituloLista" class="listaUsuarios">Lista de usuarios</h3>
         <table class="tablaUsuarios">
         <caption></caption>
             <tr>
@@ -53,110 +73,127 @@
                 </tr>
             <!-- /ko -->
         </table>
-       
+       </div>
       </div>
     </div>
-  </div>
+
 </div>
 <head>
 <title></title>
 <style>
-.oj-hybrid-applayout-header{
-display:none;
+#gestionUser {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.nuevoUsuario{
-padding-left:50px;
-color: #1883ba;
+#gestionUser > div {
+  width: 50%;
+}
+header.oj-hybrid-applayout-header {
+    display: none;
+}
+.oj-applayout-fixed-bottom {
+    top: 0;
+}
+.tituloGestionUsuarios{
+}
+.oj-hybrid-padding {
+    margin-top: 20px;
+}
+.oj-navigationlist-item.oj-selected {
+    border-color: none;
 }
 
-.crearUsuario{
-margin-left:50px;
+.oj-navigationlist-horizontal:not(.oj-navigationlist-icon-only) .oj-navigationlist-item {
+    border-width: 0 0 0.1875rem 0;
+     margin-right: 0; 
+     border-style: none; 
+}
+.oj-applayout-fixed-bottom, oj.-hybrid-applayout-navbar-fixed-bottom, .oj-hybrid-applayout-navbar{
+bottom:null;}
+form{
+	width:300px;
+	padding:16px;
+	border-radius:20px;
+	margin:10px;
+	background-color:#00a0d9;
 }
 
-.listaUsuarios{
-padding-left:50px;
-color: #1883ba;
-}
-.tablaUsuarios{
-column-gap:10px;
-margin-left: 50px;	
+form label{
+	width:72px;
+	font-weight:bold;
+	display:inline-block;
 }
 
-.h1{
-background-color: #ffff;
-	position: relative;
-	padding-bottom: 30px;
-	margin-top: 120px;
-	padding-top: 20px;
-	color: #3392FF;
-	font-size: 200%;
-	top: 30%;
-	left: 45%;
-	transform: translate(-50%, -50%);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 1rem;
-	/* IMPORTANTE */
-	text-align: center;
-	
+form input[type="text"]{
+	width:180px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+form input[type="submit"]{
+	width:100%;
+	padding:8px 16px;
+	margin-top:32px;
+	border:1px solid #000;
+	border-radius:5px;
+	display:block;
+	color:#fff;
+	background-color:#000;
+} 
 
+form input[type="submit"]:hover{
+	cursor:pointer;
 }
 
-.btn_nuevo{
-background-color: #ffff;
-	text-align: center;
-	text-decoration: none;
-	font-weight: 400;
-	font-size: 15px;
-	color: #ffffff;
-	background-color: #1883ba;
-	border-radius: 6px;
-	border: 2px solid #0016b0;
-	margin-left:10px; 
+div#listarUsuario {
+    margin-top: -20px;
 }
-.btn_nuevo:hover {
-background-color: #ffff;
-	color: #1883ba;
-	background-color: #ffffff;
+
+h3#tituloLista {
+    margin-top: 8px;
+    color: #00a0d9;
 }
-.btn_modif{
-background-color: #ffff;
-	text-align: center;
-	text-decoration: none;
-	font-weight: 400;
-	font-size: 15px;
-	color: #ffffff;
-	background-color: #1883ba;
-	border-radius: 6px;
-	border: 2px solid #0016b0;
-	margin-left:10px; 
+
+
+
+.oj-hybrid-applayout-content {
+ background-image: url("fondoGestion2.png");
 }
-.btn_modif:hover {
-background-color: #ffff;
-	color: #1883ba;
-	background-color: #ffffff;
+
+h3.nuevoProductos {
+    margin: 10px;
+    color: #00a0d9;
 }
-.btn_elim{
-background-color: #ffff;
-	text-align: center;
-	text-decoration: none;
-	font-weight: 400;
-	font-size: 15px;
-	color: #ffffff;
-	background-color: #1883ba;
-	border-radius: 6px;
-	border: 2px solid #0016b0;
-	margin-left:10px; 
+
+h1.tituloGestionUsuarios {
+    margin-top: 25px;
+    margin-left: 20px;
+    text-align: center;
+    color: #00a0d9;
+    box-shadow: 2px 4px 100px #00a0d9;
+    margin-left: -10px;
 }
-.btn_elim:hover {
-background-color: #ffff;
-	color: #1883ba;
-	background-color: #ffffff;
+ul#ui-id-1 {
+    background-color: #00a0d9;
 }
-.oj-hybrid-applayout-page{
-background-color: #ffff;
+.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+    color: #ffff;
 }
+.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+    color: #ffff;
+}
+
+button.btn_nuevo {
+    margin-left: 94px;
+    margin-top: 20px;
+}
+
+
+
 </style>
 </head>

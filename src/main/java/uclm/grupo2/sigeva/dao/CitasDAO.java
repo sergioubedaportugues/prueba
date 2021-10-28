@@ -11,7 +11,7 @@ import uclm.grupo2.sigeva.model.Citas;
 @Repository
 public interface CitasDAO extends MongoRepository<Citas,String>{
 
-	Optional<Citas> findByCentroSalud(CentroSalud cs);
+	//Optional<Citas> findByCentroSalud(CentroSalud cs);
 	Optional<Citas> findByDia(String dia);
 
 }
