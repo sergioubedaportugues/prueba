@@ -48,7 +48,7 @@ public class UsuarioController {
 					throw new CamposVaciosException();
 				if(validarMovil(usuarios.getTelefono())==false)
 					throw new NoEsTelefonoException();
-				if(validarDni(usuarios.getDni())==false) //ESTO EN CUANTO VUELVA DEl GYM LO ACABO
+				if(validarDni(usuarios.getDni())==false) 
 					throw new FormatoDniException();
 				if(usuarios.getRol().isEmpty())
 					throw new CamposVaciosException();
