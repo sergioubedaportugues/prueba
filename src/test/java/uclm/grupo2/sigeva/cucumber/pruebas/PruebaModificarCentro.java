@@ -6,7 +6,7 @@ import io.cucumber.java.en.Then;
 
 public class PruebaModificarCentro {
 
-	@Given("los datos de {string}, {string}, {string} y {string}")
+	@Given("los datos de {string}, {string} y {string}")
 	public void los_datos_de_y(String string, String string2, String string3, String string4) {
 	    // Write code here that turns the phrase above into concrete actions
 	}
