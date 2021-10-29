@@ -13,6 +13,7 @@ public class CentroSalud{
     private String nombre;
     private String direccion;
     private String num_vacunas;
+    private int cupo;
     //se debe meter horario
 
     public CentroSalud() {

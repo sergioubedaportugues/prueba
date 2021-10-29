@@ -13,9 +13,11 @@ public class Citas{
     private String dia;
     private Usuario paciente;
     private CentroSalud cs;
+    private String nombreCentro;
 
     public Citas() {
     	this.id=UUID.randomUUID().toString();
+    	// this.nombreCentro = cs.getNombre();
     }
     
     
@@ -59,6 +61,20 @@ public class Citas{
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
+	
+	
+
+	public String getNombreCentro() {
+		return nombreCentro;
+	}
+
+
+
+	public void setNombreCentro(String nombreCentro) {
+		this.nombreCentro = nombreCentro;
+	}
+
+
 
 	@Override
 	public String toString() {

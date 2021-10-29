@@ -40,18 +40,18 @@ public class CitasController {
 	private CentroSaludDAO centroDAO;	
 	
 	@PostMapping("/insertCita")
-	public String insertarCita(@RequestBody Citas appointment) {
+	public String insertarCita() {
 		try {
-
-			Optional<Citas> optCitas = cita.findByDia(appointment.getDia());
-			if(optCitas.isPresent()) {
-				optCitas = cita.findByCs(appointment.getCs());
-				if(optCitas.isPresent()) {
-					optCitas = cita.findByHoras(appointment.getHoras());
-				}
-
-				
-			}
+			CentroSalud centromaximo = new CentroSalud("holamaximo", "amapola", "1000");
+			Citas citamaxima = new Citas();
+			citamaxima.setCs(centromaximo);
+			citamaxima.setDia("27-05");
+			citamaxima.setHoras("17:00");
+			citamaxima.setNombreCentro(centromaximo.getNombre());
+			
+			
+			
+			cita.save(citamaxima);
 			
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
@@ -61,11 +61,10 @@ public class CitasController {
 	}
 	
 	@GetMapping("/findCita")
-	public String findCita() {
+	public int findCita() {
 			
-	
-		
-		return null;
+		List<Citas> optCitas2 = cita.getByDiaAndHorasAndNombreCentro("27-05", "17:00", "holamaximo");
+		return optCitas2.size();
 			
 	}
 	@GetMapping("/findAllCitas")
@@ -78,6 +77,7 @@ public class CitasController {
 	public Optional<Citas> getCita(@PathVariable String id){
 		return cita.findById(id);
 	}
+	
 	/*@DeleteMapping("/delete/{id}")
 	public String deleteUsuarios(@PathVariable String id) {
 		user.deleteById(id);

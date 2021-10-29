@@ -1,4 +1,5 @@
 package uclm.grupo2.sigeva.dao;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,8 +12,11 @@ import uclm.grupo2.sigeva.model.Citas;
 @Repository
 public interface CitasDAO extends MongoRepository<Citas,String>{
 
-	Optional<Citas> findByCs(CentroSalud cs);
-	Optional<Citas> findByDia(String dia);
-	Optional<Citas> findByHoras(String horas);
+	List<Citas> findByCs(CentroSalud cs);
+	List<Citas> getByDia(String dia);
+	List<Citas> findByHoras(String horas);
+	List<Citas> getByDiaAndHoras(String dia, String horas);
+	List<Citas> getByDiaAndHorasAndNombreCentro(String dia, String horas, String nombreCentro);
+	
 
 }
