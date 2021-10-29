@@ -8,6 +8,9 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.nombre = ko.observable("");
 			self.direccion = ko.observable("");
 			self.num_vacunas = ko.observable("");
+			self.fInicio = ko.observable("");
+			self.fFin = ko.observable("");
+			
 			
 			self.centros = ko.observableArray([]);
 			
@@ -34,7 +37,9 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			let info = {
 				nombre : this.nombre(),
 				direccion : this.direccion(),
-				num_vacunas : this.num_vacunas()
+				num_vacunas : this.num_vacunas(),
+				fInicio : this.fInicio(),
+				fFin : this.fFin()
 			};
 			let data = {
 				data : JSON.stringify(info),
