@@ -40,20 +40,24 @@ public class CitasController {
 	private CentroSaludDAO centroDAO;	
 	
 	@PostMapping("/insertCita")
-	public String insertarCita() {
-			Citas pruebaMaxima = new Citas();
-		
-			CentroSalud cs = new CentroSalud("Hola", "hola", "20");
-			pruebaMaxima.setCs(cs);
-			pruebaMaxima.setDia("28-05");
-			pruebaMaxima.setHoras("17:00");
-			cita.save(pruebaMaxima);
-			CentroSalud cen = pruebaMaxima.getCs();
-			cen.setNombre(cita.findByCentroSalud(pruebaMaxima.getCs()));
-			Optional<Citas> optCitas = cita.findByCentroSalud(cs);
-			System.out.print(optCitas);
+	public String insertarCita(@RequestBody Citas appointment) {
+		try {
+
+			Optional<Citas> optCitas = cita.findByDia(appointment.getDia());
+			if(optCitas.isPresent()) {
+				optCitas = cita.findByCs(appointment.getCs());
+				if(optCitas.isPresent()) {
+					optCitas = cita.findByHoras(appointment.getHoras());
+				}
+
+				
+			}
 			
-		return "Centro con id: "+optCitas;
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+		return "Centro con id:";
+			
 	}
 	
 	@GetMapping("/findCita")
