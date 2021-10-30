@@ -1,33 +1,24 @@
 package uclm.grupo2.sigeva.http;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
+import java.util.Random;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.CitasDAO;
-import uclm.grupo2.sigeva.dao.UsuarioDAO;
-import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
-import uclm.grupo2.sigeva.exceptions.FormatoDniException;
-import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
-import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
-import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
-import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
-import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
 @RequestMapping("gestionCitas")
@@ -37,22 +28,38 @@ public class CitasController {
 	private CitasDAO cita;
 	
 	@Autowired
-	private CentroSaludDAO centroDAO;	
+	private CentroSaludDAO center;	
 	
 	@PostMapping("/insertCita")
 	public String insertarCita() {
 		try {
-			CentroSalud centromaximo = new CentroSalud("holamaximo", "amapola", "1000");
-			Citas citamaxima = new Citas();
-			citamaxima.setCs(centromaximo);
-			citamaxima.setDia("27-05");
-			citamaxima.setHoras("17:00");
-			citamaxima.setNombreCentro(centromaximo.getNombre());
+			boolean insertada = false;
 			
+			List<CentroSalud> centros = center.findAll();
+			CentroSalud random = centros.get(new Random().nextInt(centros.size()));
 			
+			Citas citaNueva = new Citas();
+			citaNueva.setCs(random);
 			
-			cita.save(citamaxima);
+			SimpleDateFormat dateFormatDia = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat dateFormatHoras = new SimpleDateFormat("HH:mm");
+
+			Date date = new Date();
+
+			citaNueva.setDia(dateFormatDia.format(date));
+			citaNueva.setHoras(dateFormatHoras.format(date));
 			
+			citaNueva.setNombreCentro(random.getNombre());
+			
+			while (insertada==false) {
+				
+				if(findCita(citaNueva)<random.getCupo()) {
+					cita.save(citaNueva);
+					insertada = true;
+				} else {
+					System.out.println("FUISTE TROLLIADO");
+				}
+			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
@@ -60,13 +67,12 @@ public class CitasController {
 			
 	}
 	
-	@GetMapping("/findCita")
-	public int findCita() {
-			
-		List<Citas> optCitas2 = cita.getByDiaAndHorasAndNombreCentro("27-05", "17:00", "holamaximo");
+	public int findCita(Citas citanueva) {	
+		List<Citas> optCitas2 = cita.getByDiaAndHorasAndNombreCentro(citanueva.getDia(),citanueva.getHoras(),citanueva.getCs().getNombre());
 		return optCitas2.size();
 			
 	}
+	
 	@GetMapping("/findAllCitas")
 	public List<Citas> getCitas(){
 		return cita.findAll();

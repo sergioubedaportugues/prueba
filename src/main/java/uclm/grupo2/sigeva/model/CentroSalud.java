@@ -24,12 +24,15 @@ public class CentroSalud{
     	this.id=UUID.randomUUID().toString();
     }
     
-	public CentroSalud(String nombre, String direccion, String num_vacunas) {
+	public CentroSalud(String nombre, String direccion, String num_vacunas, String fInicio, String fFin) {
 		super();
 		this.id = UUID.randomUUID().toString();;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.num_vacunas = num_vacunas;
+		this.fInicio = fInicio;
+		this.fFin = fFin;
+		this.cupo = 3;
 	}
 
 	public String getId() {

@@ -74,6 +74,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		
+		
 		connected() {
 			accUtils.announce('Gestión de Citas page loaded.');
 			document.title = "Gestión de Citas";
