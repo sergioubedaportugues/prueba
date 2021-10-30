@@ -8,6 +8,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.nombre = ko.observable("");
 			self.direccion = ko.observable("");
 			self.num_vacunas = ko.observable("");
+			self.cupo = ko.observable("");
 			self.fInicio = ko.observable("");
 			self.fFin = ko.observable("");
 
@@ -38,6 +39,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				nombre : this.nombre(),
 				direccion : this.direccion(),
 				num_vacunas : this.num_vacunas(),
+				cupo : this.cupo(),
 				fInicio : this.fInicio(),
 				fFin : this.fFin()
 
