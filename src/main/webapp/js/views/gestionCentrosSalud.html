@@ -1,0 +1,197 @@
+<div class="oj-hybrid-applayout-page">
+  <div class="oj-applayout-fixed-top">
+    <header role="banner" class="oj-hybrid-applayout-header">
+      <oj-module config="[[headerConfig]]"></oj-module>
+    </header>
+  </div>
+  <!-- This is where your main page content will be loaded -->
+  <div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+        <h1 class="tituloGestionCentros">Gesti&oacuten de Centros de Salud</h1>
+		<div class="oj-hybrid-padding" id="gestionCentros">
+		
+		
+        <div class="crearCentro" id="crearCentro">
+        <h3 class="nuevoCentro" >Nuevo centro</h3>
+       	<form action="#" target="" method="get" name="formDatosPersonales">
+       	
+       		<label for="NombreCentro">Nombre del centro</label>
+       		<br>
+            <input type="text" id="nombreCentro" data-bind="value : nombre" placeholder="Nombre del centro">
+            <br>
+            <label for="Direccion">Direccion</label>
+            <br>
+            <input type="text" id="direccionCentro" data-bind="value : direccion" placeholder="Direccion">
+            <br>
+            <label for="NumeroVacunas">Numero de vacunas</label>
+            <br>
+            <input type="text" id="NumeroVacunas" data-bind="value : num_vacunas" placeholder="Numero de vacunas">
+            <br>
+            <label for="horaInicio">Hora de Apertura</label>
+       		<br>
+            <input type="text" id="horaInicio" data-bind="value : fInicio" placeholder="HH:MM">
+            <br>
+            <label for="horaFin">Hora de Cierre</label>
+       		<br>
+            <input type="text" id="horaFin" data-bind="value : fFin" placeholder="HH:MM">
+            
+            
+            <button class="btn_nuevo" data-bind="click : insertCenters">Nuevo centro</button>
+            </form>
+            
+            <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
+            <div id="mensajeError" data-bind="html : error" style="color : red"></div>
+            
+        
+        </div>
+        <br>
+        <div class="listarCentros" id="listarCentros">
+        <br>
+        <h3 id="tituloLista" class="listaCentros">Lista de Centros</h3>
+        <table class="tablaCentros">
+        <caption></caption>
+            <tr>
+                <th id="coltablaCentros">Nombre</th>
+                <th id="coltablaCentros">Direcci&oacuten</th>
+                <th id="coltablaCentros">N&uacutemero de vacunas</th>
+                <th id="coltablaCentros">Hora de Apertura</th>
+                <th id="coltablaCentros">Hora de Cierre</th>
+            </tr>
+            <!-- ko foreach : centros -->
+                <tr>
+                       <td><input type="text" data-bind="value : nombre" placeholder="Nombre"></td>                   
+                       <td><input type="text" data-bind="value : direccion" placeholder="Direcci&oacutenn"></td>
+                       <td><input type="text" data-bind="value : num_vacunas" placeholder="N&uacutenmero de vacunas"></td>
+                       <td><input type="text" data-bind="value : fInicio" placeholder="Hora de Apertura"></td>
+                       <td><input type="text" data-bind="value : fFin" placeholder="Hora de Cierre"></td>
+                       <!--
+                       <td><button class = "btn_modif" data-bind="click : function() { $parent.modificarUsuario($data); }">Modificar</button></td>
+                       <td><button class = "btn_elim" data-bind="click : function() { $parent.eliminarUsuario($data); }">Eliminar</button></td>
+                       -->
+                </tr>
+            <!-- /ko -->
+        </table>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<head>
+<title></title>
+<style>
+#gestionCentros {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#gestionCentros > div {
+  width: 50%;
+}
+header.oj-hybrid-applayout-header {
+    display: none;
+}
+.oj-applayout-fixed-bottom {
+    top: 0;
+}
+.tituloGestionCentros{
+}
+.oj-hybrid-padding {
+    margin-top: 20px;
+}
+.oj-navigationlist-item.oj-selected {
+    border-color: none;
+}
+
+.oj-navigationlist-horizontal:not(.oj-navigationlist-icon-only) .oj-navigationlist-item {
+    border-width: 0 0 0.1875rem 0;
+     margin-right: 0; 
+     border-style: none; 
+}
+.oj-applayout-fixed-bottom, oj.-hybrid-applayout-navbar-fixed-bottom, .oj-hybrid-applayout-navbar{
+bottom:null;}
+form{
+	width:300px;
+	padding:16px;
+	border-radius:20px;
+	margin:10px;
+	background-color:#00a0d9;
+}
+
+form label{
+	width:150px;
+	font-weight:bold;
+	display:inline-block;
+}
+
+form input[type="text"]{
+	width:180px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+form input[type="submit"]{
+	width:100%;
+	padding:8px 16px;
+	margin-top:32px;
+	border:1px solid #000;
+	border-radius:5px;
+	display:block;
+	color:#fff;
+	background-color:#000;
+} 
+
+form input[type="submit"]:hover{
+	cursor:pointer;
+}
+
+div#listarCentros {
+    margin-top: -20px;
+}
+
+h3#tituloLista {
+    margin-top: 8px;
+    color: #00a0d9;
+}
+
+
+
+.oj-hybrid-applayout-content {
+ background-image: url("fondoGestion2.png");
+}
+
+h3.nuevoCentro {
+    margin: 10px;
+    color: #00a0d9;
+}
+
+h1.tituloGestionCentros {
+    margin-top: 45px !important;
+    margin-left: 20px;
+    text-align: center;
+    color: #00a0d9;
+    box-shadow: 2px 4px 100px #00a0d9;
+    margin-left: -10px;
+}
+ul#ui-id-1 {
+    background-color: #00a0d9;
+}
+.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+    color: #ffff;
+}
+.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+    color: #ffff;
+}
+
+button.btn_nuevo {
+    margin-left: 94px;
+    margin-top: 20px;
+}
+
+
+
+</style>
+</head>
