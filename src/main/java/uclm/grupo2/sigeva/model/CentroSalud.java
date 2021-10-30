@@ -13,11 +13,24 @@ public class CentroSalud{
     private String nombre;
     private String direccion;
     private String num_vacunas;
+
+    private String fInicio;
+    private String fFin;
+    
+    private int cupo;
     //se debe meter horario
 
     public CentroSalud() {
     	this.id=UUID.randomUUID().toString();
     }
+    
+	public CentroSalud(String nombre, String direccion, String num_vacunas) {
+		super();
+		this.id = UUID.randomUUID().toString();;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.num_vacunas = num_vacunas;
+	}
 
 	public String getId() {
 		return id;
@@ -51,10 +64,47 @@ public class CentroSalud{
 		this.num_vacunas = num_vacunas;
 	}
 
+
+	public String getfInicio() {
+		return fInicio;
+	}
+
+
+
+	public void setfInicio(String fInicio) {
+		this.fInicio = fInicio;
+	}
+
+
+
+	public String getfFin() {
+		return fFin;
+	}
+
+
+
+	public void setfFin(String fFin) {
+		this.fFin = fFin;
+	}
+
+
+
+	public int getCupo() {
+		return cupo;
+	}
+
+
+
+	public void setCupo(int cupo) {
+		this.cupo = cupo;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "CentroSalud [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", num_vacunas="
-				+ num_vacunas + "]";
+				+ num_vacunas + ", fInicio=" + fInicio + ", fFin=" + fFin + ", cupo=" + cupo + "]";
 	}
     
 }

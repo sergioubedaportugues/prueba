@@ -79,46 +79,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		/*deleteUsuarios(usuario) {
-			let self = this;
-			
-			let data = {
-				data : JSON.stringify(usuario),
-				url : "gestionUsuarios/delete",
-				type : "delete",
-				contentType : 'application/json',
-				success : function(response) {
-					self.message("Usuario eliminado");
-					self.getUsuarios();
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
-		modificarProducto(usuario) {
-            var self = this;
-
-            let data = {
-                data : JSON.stringify(product),
-                url : "menu/modificarProducto/",
-                type : "post",
-                contentType : 'application/json',
-                success : function(response) {
-                    self.getProductos();
-                    self.limpiarMensajes();
-                    self.mostrarMensajes("Producto actualizado correctamente.");
-                },
-                error : function(response) {
-                    self.error(response.responseJSON.errorMessage);
-                    self.limpiarMensajes();
-                    self.mostrarMensajes(null, "Error, el producto no se ha actualizado correctamente.");
-                }
-            };
-           
-            $.ajax(data);
-        }*/
+		
 		
 		connected() {
 			accUtils.announce('Gestión de usuarios page loaded.');

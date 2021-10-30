@@ -12,5 +12,5 @@ import uclm.grupo2.sigeva.model.CentroSalud;
 public interface CentroSaludDAO extends MongoRepository<CentroSalud,String>{
 
 	Optional<CentroSalud> findByNombre(String nombre);
-
 }
+

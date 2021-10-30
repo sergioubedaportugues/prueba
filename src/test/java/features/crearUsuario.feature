@@ -22,6 +22,6 @@ Feature: Crear usuario
   @tag1
   Scenario: Crear usuario correctamente
     Given nuevo usuario con "login", "password", "nombre", "apellidos", "telefono", "dni" y "rol"
-    Then crea un usuario "login"
+    Then se ha creado un usuario
 
 

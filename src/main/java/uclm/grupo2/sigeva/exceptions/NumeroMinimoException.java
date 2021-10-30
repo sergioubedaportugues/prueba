@@ -12,5 +12,4 @@ public class NumeroMinimoException extends SigevaExceptions {
 		super(HttpStatus.CONFLICT, "No pueden existir valores negativos en los campos.");
 	
 	}
-
 }
