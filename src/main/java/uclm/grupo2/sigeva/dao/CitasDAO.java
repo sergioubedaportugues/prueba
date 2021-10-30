@@ -17,5 +17,5 @@ public interface CitasDAO extends MongoRepository<Citas,String>{
 	List<Citas> findByHoras(String horas);
 	List<Citas> getByDiaAndHoras(String dia, String horas);
 	List<Citas> getByDiaAndHorasAndNombreCentro(String dia, String horas, String nombreCentro);
-	
-}
+	List<Citas> getByDiaAndNombreCentroAndHorasStartingWith(String dia, String nombreCentro, String horas);
+	}

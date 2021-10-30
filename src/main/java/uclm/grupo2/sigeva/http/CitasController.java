@@ -1,7 +1,8 @@
 package uclm.grupo2.sigeva.http;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -41,35 +42,30 @@ public class CitasController {
 			Citas citaNueva = new Citas();
 			citaNueva.setCs(random);
 			
-			SimpleDateFormat dateFormatDia = new SimpleDateFormat("dd-MM-yyyy");
-			SimpleDateFormat dateFormatHoras = new SimpleDateFormat("HH:mm");
-
-			Date date = new Date();
-
-			citaNueva.setDia(dateFormatDia.format(date));
-			citaNueva.setHoras(dateFormatHoras.format(date));
+			LocalDate date = LocalDate.now();
+			LocalTime time = LocalTime.now();
+			
+			citaNueva.setDia(date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+			citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern("HH:mm")));
 			
 			citaNueva.setNombreCentro(random.getNombre());
 			
 			while (insertada==false) {
 				
-				if(findCita(citaNueva)<random.getCupo()) {
+				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < citaNueva.getCs().getCupo()) {
 					cita.save(citaNueva);
 					insertada = true;
 				} else {
-					System.out.println("FUISTE TROLLIADO");
+					//time = time.plusHours(1);
+					//HAY QUE HACERLO PARA QUE EN VEZ DE DÍAS TAMBIEN CONTROLE HORAS, AHORA MISMO SOLO PUEDES METER 3 CITAS EN CADA HORA POR CENTRO.
+					date = date.plusDays(1);
+					citaNueva.setDia(date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 				}
 			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 		return "Centro con id:";
-			
-	}
-	
-	public int findCita(Citas citanueva) {	
-		List<Citas> optCitas2 = cita.getByDiaAndHorasAndNombreCentro(citanueva.getDia(),citanueva.getHoras(),citanueva.getCs().getNombre());
-		return optCitas2.size();
 			
 	}
 	
