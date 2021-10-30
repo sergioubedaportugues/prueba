@@ -27,7 +27,8 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       var navDataRouter = [
         { path: '', redirect: 'gestionUsuarios' },
         { path: 'gestionUsuarios', detail: { label: 'Gestión Usuarios'} },
-		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} }
+		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} },
+		{ path: 'gestionCitas', detail: { label: 'Gestión de Citas'} }
 		];
 
       // Router setup
