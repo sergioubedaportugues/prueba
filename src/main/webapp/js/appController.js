@@ -28,7 +28,9 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
         { path: '', redirect: 'gestionUsuarios' },
         { path: 'gestionUsuarios', detail: { label: 'Gestión Usuarios'} },
 		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} },
-		{ path: 'gestionCitas', detail: { label: 'Gestión de Citas'} }
+		{ path: 'gestionCitas', detail: { label: 'Gestión de Citas'} },
+		{ path: 'solicitarCitas', detail: { label: 'Solicitar Citas'} }
+
 		];
 
       // Router setup

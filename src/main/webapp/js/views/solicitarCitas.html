@@ -7,28 +7,39 @@
   <!-- This is where your main page content will be loaded -->
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
-        <h1 class="tituloGestionCitas">Gesti&oacuten de Citas</h1>
-		<div class="oj-hybrid-padding" id="gestionCitas">
-
+        <h1 class="tituloSolicitarCitas">Solicitar Citas</h1>
+		<div class="oj-hybrid-padding" id="solicitarCitas">
+		
+		
+        <div class="pedirCita" id="pedirCita">
+        <h3 class="nuevaCita" >Nueva cita</h3>
+       	<form action="#" target="" method="get" name="formDatosPersonales">
+            
+            <button class="btnNuevaCita" data-bind="click : insertCita">Nueva cita</button>
+            </form>
+            
+            <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
+            <div id="mensajeError" data-bind="html : error" style="color : red"></div>
+            
+        </div>
         <br>
-        <div class="listarCitas" id="listarCitas">
+        <div class="listarMisCitas" id="listarMisCitas">
         <br>
-        <h3 id="tituloLista" class="listaCitas">Lista de Citas</h3>
-        <table class="tablaCitas">
+        <h3 id="tituloMiLista" class="listaMisCitas">Lista de mis Citas</h3>
+        <table class="tablaMisCitas">
         <caption></caption>
             <tr>
-                <th id="coltablaCitas">Hora</th>
-                <th id="coltablaCitas">D&iacutea</th>
-                <th id="coltablaCitas">Paciente</th>
-                <th id="coltablaCitas">Centro de Salud</th>
+                <th id="coltablaMisCitas">Hora</th>
+                <th id="coltablaMisCitas">D&iacutea</th>
+                <th id="coltablaMisCitas">Paciente</th>
+                <th id="coltablaMisCitas">Centro de Salud</th>
             </tr>
             <!-- ko foreach : citas -->
-                <tr>
-                       <td><input type="text" data-bind="value : horas" placeholder="Horas"></td>
-                       <td><input type="text" data-bind="value : dia" placeholder="Dia"></td>
-                       <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"></td>
-                       <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"></td>
-                       
+                <tr>              
+                       <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
+                       <td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>
+                       <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
+                       <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
                 </tr>
             <!-- /ko -->
         </table>
@@ -40,7 +51,7 @@
 <head>
 <title></title>
 <style>
-#gestionCitas {
+#solicitarCitas {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -79,11 +90,11 @@ font-family: Arial;
   background-colo: #ffff;
 }
 
-#gestionCitas > div {
+#solicitarCitas > div {
   width: 25%;
 }
 
-div#crearCita {
+div#pedirCita {
     margin-left: 100px;
 }
 header.oj-hybrid-applayout-header {
@@ -92,7 +103,7 @@ header.oj-hybrid-applayout-header {
 .oj-applayout-fixed-bottom {
     top: 0;
 }
-.tituloGestionCitas{
+.tituloSolicitarCitas{
 }
 .oj-hybrid-padding {
     margin-top: 20px;
@@ -147,11 +158,11 @@ form input[type="submit"]:hover{
     cursor:pointer;
 }
 
-div#listarCitas {
+div#listarMisCitas {
     margin-top: -20px;
 }
 
-h3#tituloLista {
+h3#tituloMiLista {
     margin-top: 8px;
     color: #00a0d9;
 }
@@ -167,7 +178,7 @@ h3.nuevaCita {
     color: #00a0d9;
 }
 
-h1.tituloGestionCitas {
+h1.tituloSolicitarCitas {
     margin-top: 45px !important;
     margin-left: 20px;
     text-align: center;

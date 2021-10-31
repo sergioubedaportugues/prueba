@@ -32,10 +32,36 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 		
+		insertCita() {
+			var self = this;
+			let info = {
+				horas : this.horas(),
+				dia : this.dia(),
+				nombreCentro : this.nombreCentro(),
+
+			};
+			let data = {
+				data : JSON.stringify(info),
+				url : "gestionCitas/insertCita",
+				type : "post",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Cita guardada en la base de datos");
+					self.getCitas();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+					
+
+				}
+			};
+			$.ajax(data);
+		}
+		
 		getCitas() {
 			let self = this;
 			let data = {
-				url : "gestionCitas/findAllCitas",
+				url : "gestionCitas/mostrarCitasPedidas",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
@@ -49,11 +75,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}
 		
 		connected() {
-			accUtils.announce('Gestión de Citas page loaded.');
-			document.title = "Gestión de Citas";
+			accUtils.announce('Solicitar Citas page loaded.');
+			document.title = "Solicitar Citas";
 			
 			this.getCitas();
-			
 		};
 		disconnected() {
 			// Implement if needed

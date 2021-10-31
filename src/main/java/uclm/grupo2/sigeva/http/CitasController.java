@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,16 +41,15 @@ public class CitasController {
 	private static final String hhmm = "HH:mm";
 	
 	@PostMapping("/insertCita")
-	public String insertarCita() {
+	public void insertarCita() {
 		try {
 			boolean insertada = false;
 			
 			List<CentroSalud> centros = center.findAll();
-			//CentroSalud random = centros.get(new Random().nextInt(centros.size()));
-			CentroSalud random = centros.get(0);
+			CentroSalud random = centros.get(new Random().nextInt(centros.size()));
+
 			List<Usuario> pacientes = user.getByRol("Paciente");
-			//Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
-			Usuario ramon = pacientes.get(0);
+			Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
 			
 			Citas citaNueva = new Citas();
 			Citas segundaCita = new Citas();
@@ -78,10 +78,14 @@ public class CitasController {
 					
 					int vacunasDisponibles = Integer.parseInt(citaNueva.getCs().getNum_vacunas());
 					vacunasDisponibles = vacunasDisponibles - 2;
-					citaNueva.getCs().setNum_vacunas(Integer.toString(vacunasDisponibles));
+					if(vacunasDisponibles<10) {
+						citaNueva.getCs().setNum_vacunas(Integer.toString(100));
+					} else {
+						citaNueva.getCs().setNum_vacunas(Integer.toString(vacunasDisponibles));
+					}
 					center.save(citaNueva.getCs());
 					cita.save(citaNueva);
-					date = date.plusDays(14);
+					date = date.plusDays(1);
 					segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(ddmmaa)));
 					segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(hhmm)));
 					cita.save(segundaCita);
@@ -100,12 +104,8 @@ public class CitasController {
 			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-		}
-		return "Centro con id:";
-			
+		}			
 	}
-	
-
 	
 	@GetMapping("/findAllCitas")
 	public List<Citas> getCitas(){
@@ -118,10 +118,15 @@ public class CitasController {
 		return cita.findById(id);
 	}
 	
-	/*@DeleteMapping("/delete/{id}")
-	public String deleteUsuarios(@PathVariable String id) {
-		user.deleteById(id);
-		return "Usuario eliminado con id: "+id;
-	}*/
+	@GetMapping("/mostrarCitasPedidas")
+	public List<Citas> mostrarCitasPedidas(){		
+		List<Citas> misCitas = cita.findAll();
+		if (misCitas.size()>2) {
+			for(int i=0; i<misCitas.size()-2;i++) {
+				misCitas.remove(i);
+			}
+		}
+		return misCitas;
+	}
 	
 }
