@@ -124,6 +124,7 @@ public class CitasController {
 		if (misCitas.size()>2) {
 			for(int i=0; i<misCitas.size()-2;i++) {
 				misCitas.remove(i);
+				i--;
 			}
 		}
 		return misCitas;
