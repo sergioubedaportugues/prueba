@@ -15,27 +15,33 @@
         <h3 class="nuevoProductos" >Crear usuario</h3>
         <form action="#" target="" method="get" name="formDatosPersonales">
         	<label for="Usuario">Usuario</label>
+        	<br>
             <input type="text" id="usuario" data-bind="value : login" placeholder="Escribe tu usuario">
-            
-            <label for="Contrase�a">Pass</label>
-            <input type="password" id="contrase�a" data-bind="value : password" placeholder=" Password">
-            
+            <br>
+            <label for="Contrase�a">Password</label>
+            <br>
+            <input type="password" id="contrase�a" data-bind="value : password" placeholder=" Escribe tu Password">
+            <br>
             <label for="Nombre">Nombre</label>
+            <br>
             <input type="text" id="nombre" data-bind="value : nombre" placeholder="Escribe tu nombre">
-            
+            <br>
             <label for="Apellidos">Apellidos</label>
+            <br>
             <input type="text" id="apellidos" data-bind="value : apellidos" placeholder="Escribe tus apellidos">
-            
+            <br>
             <label for="Telefono">Telefono</label>
+            <br>
             <input type="text" id="telefono" data-bind="value : telefono" placeholder="000 00 00 00">
-            
+            <br>
             <label for="DNI">DNI</label>
+            <br>
 			<input type="text" id="dni" data-bind="value : dni" placeholder="00000000A">
-			
+			<br>
 			<label for="Rol">Rol</label>
-			<input type="text" id="rol" data-bind="value : rol" placeholder="admin/paciente/sanitario">
-			
-			
+			<br>
+			<input type="text" id="rol" data-bind="value : rol" placeholder="Admin/Paciente/Sanitario">
+			<br>
             <button class="btn_nuevo" data-bind="click : insertUsers">Nuevo usuario</button>
             </form>
             <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
@@ -88,7 +94,7 @@
 }
 
 #gestionUser > div {
-  width: 20%;
+  width: 19%;
 }
 header.oj-hybrid-applayout-header {
     display: none;
@@ -113,7 +119,7 @@ header.oj-hybrid-applayout-header {
 .oj-applayout-fixed-bottom, oj.-hybrid-applayout-navbar-fixed-bottom, .oj-hybrid-applayout-navbar{
 bottom:null;}
 form{
-	width:300px;
+	width:210px;
 	padding:16px;
 	border-radius:20px;
 	margin:10px;
@@ -135,6 +141,17 @@ form input[type="text"]{
 	margin:8px 0;
 	display:inline-block;
 }
+
+form input[type="password"]{
+	width:180px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+
 form input[type="submit"]{
 	width:100%;
 	padding:8px 16px;
@@ -189,7 +206,7 @@ ul#ui-id-1 {
 }
 
 button.btn_nuevo {
-    margin-left: 94px;
+    margin-left: 55px;
     margin-top: 20px;
 }
 
