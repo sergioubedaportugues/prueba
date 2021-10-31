@@ -72,24 +72,20 @@ public class CentroSaludController {
 	public Optional<CentroSalud> getCentro(@PathVariable String id){
 		return center.findById(id);
 	}
-	/*@DeleteMapping("/delete/{id}")
-	public String deleteUsuarios(@PathVariable String id) {
-		user.deleteById(id);
-		return "Usuario eliminado con id: "+id;
-	}*/
-	
+
 	public static boolean esNumericoEntero(String cadena) throws ValorNumericoException{
            try{
-        	   Integer.parseInt(cadena);
-               return true;
-
+        	   boolean isNumeric =  cadena.matches("[+-]?\\d*(\\.\\d+)?");
+        	   if(!isNumeric)
+        		   return isNumeric;
+               return isNumeric;
            } catch (Exception e) {
         	   throw new ValorNumericoException();
            }
 	}
 
 			
-	private static boolean validarHoras(String hora) throws FormatoHoraException {
+	private static boolean validarHoras(String hora) {
 		if (hora.length() != 5)
 			return false;
 		for (int i = 0; i < hora.length() - 1; i++) {
@@ -105,28 +101,25 @@ public class CentroSaludController {
 		return true;
 	}
 
-	private static boolean controlHoras(String hInicio, String hFin) throws FormatoHinicioHfinException {
+	private static boolean controlHoras(String hInicio, String hFin) {
 		String[] horaI = hInicio.split(":");
 		String[] horaF = hFin.split(":");
 		if (Integer.parseInt(horaI[0]) < Integer.parseInt(horaF[0])) {
 			return true;
 		} else {
-			if (Integer.parseInt(horaI[0]) == Integer.parseInt(horaF[0])) {
-				if (Integer.parseInt(horaI[1]) < Integer.parseInt(horaF[1])) {
-					return true;
-				}
-
+			if (Integer.parseInt(horaI[0]) == Integer.parseInt(horaF[0]) && (Integer.parseInt(horaI[1]) < Integer.parseInt(horaF[1]))) {
+				return true;
 			}
-			return false;
 		}
+		return false;
 
 	}
-	private static boolean tiempoHoras(String horas) throws FormatoHoraException {
+	private static boolean tiempoHoras(String horas) {
+		boolean valido = false;
 		String[] h = horas.split(":");
 		if(Integer.parseInt(h[0])<24 && (Integer.parseInt(h[1])<60)) {
-			return true;
-		}else
-			return false;
+			valido = true;
+		}
+		return valido;
 	}
-
 }

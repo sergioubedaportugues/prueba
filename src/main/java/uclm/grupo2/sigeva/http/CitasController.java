@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -37,8 +36,8 @@ public class CitasController {
 	@Autowired
 	private UsuarioDAO user;
 	
-	private static final String ddmmaa = "dd-MM-yyyy";
-	private static final String hhmm = "HH:mm";
+	private static final String DDMMAA = "dd-MM-yyyy";
+	private static final String HHMM = "HH:mm";
 	
 	@PostMapping("/insertCita")
 	public void insertarCita() {
@@ -60,8 +59,8 @@ public class CitasController {
 			LocalTime time = LocalTime.now();
 			
 			
-			citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(ddmmaa)));
-			citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(hhmm)));
+			citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+			citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 			citaNueva.setNombreCentro(random.getNombre());
 			citaNueva.setPaciente(ramon);
 			segundaCita.setCs(citaNueva.getCs());
@@ -71,7 +70,7 @@ public class CitasController {
 
 			int vueltas = 0;
 			
-			while (insertada==false) {
+			while (!insertada) {
 				
 				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0 && Integer.parseInt(citaNueva.getCs().getNum_vacunas()) >= 2) {
 
@@ -86,19 +85,19 @@ public class CitasController {
 					center.save(citaNueva.getCs());
 					cita.save(citaNueva);
 					date = date.plusDays(1);
-					segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(ddmmaa)));
-					segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(hhmm)));
+					segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+					segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 					cita.save(segundaCita);
 					
 					insertada = true;
 				} else {
 					if(vueltas == 24) {
 						date = date.plusDays(1);
-						citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(ddmmaa)));
+						citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
 						vueltas = 0;
 					}
 					time = time.plusHours(1);
-					citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(hhmm)));
+					citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 					vueltas++;
 				}
 			}

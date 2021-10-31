@@ -44,9 +44,9 @@ public class UsuarioController {
 					throw new CamposVaciosException();
 				if(usuarios.getApellidos().isEmpty())
 					throw new CamposVaciosException();
-				if(validarMovil(usuarios.getTelefono())==false)
+				if(!validarMovil(usuarios.getTelefono()))
 					throw new NoEsTelefonoException();
-				if(validarDni(usuarios.getDni())==false) 
+				if(!validarDni(usuarios.getDni())) 
 					throw new FormatoDniException();
 				if(usuarios.getRol().isEmpty())
 					throw new CamposVaciosException();
@@ -69,29 +69,30 @@ public class UsuarioController {
 	public Optional<Usuario> getUsuario(@PathVariable String id){
 		return user.findById(id);
 	}
-	/*@DeleteMapping("/delete/{id}")
-	public String deleteUsuarios(@PathVariable String id) {
-		user.deleteById(id);
-		return "Usuario eliminado con id: "+id;
-	}*/
-	private static boolean validarMovil(String telefono) throws NoEsTelefonoException {
+	
+	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {
 			return false;
 		}
-		Integer.parseInt(telefono);
-		return true;
+		boolean isNumeric =  telefono.matches("[+-]?\\d*(\\.\\d+)?");
+		if(!isNumeric)
+			return isNumeric;
+		
+		return isNumeric;
 	}
 
-	private static boolean validarDni(String dni) throws FormatoDniException{
+	private static boolean validarDni(String dni) {
+		boolean valido = false;
 		if(dni.length()!=9)
-			return false;
+			return valido;
         for (int i = 0; i < dni.length()-1; i++) {
             if (!Character.isDigit(dni.charAt(i))) {
-    			return false;
+    			return valido;
             }
         }
         if(!Character.isAlphabetic(dni.charAt(8)))
-        	return false;
-        return true;
+        	return valido;
+        valido = true;
+        return valido;
 	}
 }
