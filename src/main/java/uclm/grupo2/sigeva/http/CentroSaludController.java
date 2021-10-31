@@ -43,13 +43,18 @@ public class CentroSaludController {
 					throw new CamposVaciosException();
 				if(cs.getDireccion().isEmpty())
 					throw new CamposVaciosException();
-				if(cs.getNum_vacunas().isEmpty())
+				if(cs.getNum_vacunas().isEmpty() || cs.getCupo().isEmpty())
 					throw new CamposVaciosException();
-				if(!esNumericoEntero(cs.getNum_vacunas()))
+				if(!esNumericoEntero(cs.getNum_vacunas()) || !esNumericoEntero(cs.getCupo()))
 					throw new ValorNumericoException(); 
-				if(Integer.parseInt(cs.getNum_vacunas())<0)
-					throw new NumeroMinimoException(); 
-					
+				if(Integer.parseInt(cs.getNum_vacunas())<0 || Integer.parseInt(cs.getCupo())<0)
+					throw new NumeroMinimoException();
+				if(cs.getfInicio().isEmpty() || cs.getfFin().isEmpty())
+					throw new CamposVaciosException();
+				if(!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin()))
+					throw new FormatoHoraException();
+				if(!controlHoras(cs.getfInicio(), cs.getfFin()))
+					throw new FormatoHinicioHfinException();
 				center.save(cs);
 
 				}
@@ -85,7 +90,7 @@ public class CentroSaludController {
 
 			
 	private static boolean validarHoras(String hora) throws FormatoHoraException {
-		if (hora.length() != 6)
+		if (hora.length() != 5)
 			return false;
 		for (int i = 0; i < hora.length() - 1; i++) {
 			if (i == 2) {

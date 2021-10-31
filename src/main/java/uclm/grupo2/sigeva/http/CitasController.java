@@ -1,6 +1,5 @@
 package uclm.grupo2.sigeva.http;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -46,10 +45,11 @@ public class CitasController {
 			boolean insertada = false;
 			
 			List<CentroSalud> centros = center.findAll();
-			CentroSalud random = centros.get(new Random().nextInt(centros.size()));
-			
+			//CentroSalud random = centros.get(new Random().nextInt(centros.size()));
+			CentroSalud random = centros.get(0);
 			List<Usuario> pacientes = user.getByRol("Paciente");
-			Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
+			//Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
+			Usuario ramon = pacientes.get(0);
 			
 			Citas citaNueva = new Citas();
 			Citas segundaCita = new Citas();
@@ -73,7 +73,7 @@ public class CitasController {
 			
 			while (insertada==false) {
 				
-				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < citaNueva.getCs().getCupo() && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0 && Integer.parseInt(citaNueva.getCs().getNum_vacunas()) > 2) {
+				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0 && Integer.parseInt(citaNueva.getCs().getNum_vacunas()) >= 2) {
 
 					
 					int vacunasDisponibles = Integer.parseInt(citaNueva.getCs().getNum_vacunas());

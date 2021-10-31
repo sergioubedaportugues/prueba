@@ -2,8 +2,6 @@ package uclm.grupo2.sigeva.http;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

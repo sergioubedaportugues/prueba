@@ -17,14 +17,13 @@ public class CentroSalud{
     private String fInicio;
     private String fFin;
     
-    private int cupo;
-    //se debe meter horario
+    private String cupo;
 
     public CentroSalud() {
     	this.id=UUID.randomUUID().toString();
     }
     
-	public CentroSalud(String nombre, String direccion, String num_vacunas, String fInicio, String fFin) {
+	public CentroSalud(String nombre, String direccion, String num_vacunas, String cupo, String fInicio, String fFin) {
 		super();
 		this.id = UUID.randomUUID().toString();
 		this.nombre = nombre;
@@ -32,7 +31,6 @@ public class CentroSalud{
 		this.num_vacunas = num_vacunas;
 		this.fInicio = fInicio;
 		this.fFin = fFin;
-		this.cupo = 3;
 	}
 
 	public String getId() {
@@ -92,13 +90,13 @@ public class CentroSalud{
 
 
 
-	public int getCupo() {
+	public String getCupo() {
 		return cupo;
 	}
 
 
 
-	public void setCupo(int cupo) {
+	public void setCupo(String cupo) {
 		this.cupo = cupo;
 	}
 
