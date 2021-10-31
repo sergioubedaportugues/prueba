@@ -17,7 +17,6 @@ public class Citas{
 
     public Citas() {
     	this.id=UUID.randomUUID().toString();
-    	// this.nombreCentro = cs.getNombre();
     }
     
     

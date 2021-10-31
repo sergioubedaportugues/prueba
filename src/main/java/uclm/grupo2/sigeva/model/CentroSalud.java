@@ -12,7 +12,7 @@ public class CentroSalud{
     private String id;
     private String nombre;
     private String direccion;
-    private String num_vacunas;
+    private String numVacunas;
 
     private String fInicio;
     private String fFin;
@@ -23,12 +23,12 @@ public class CentroSalud{
     	this.id=UUID.randomUUID().toString();
     }
     
-	public CentroSalud(String nombre, String direccion, String num_vacunas, String cupo, String fInicio, String fFin) {
+	public CentroSalud(String nombre, String direccion, String numVacunas,  String fInicio, String fFin) {
 		super();
 		this.id = UUID.randomUUID().toString();
 		this.nombre = nombre;
 		this.direccion = direccion;
-		this.num_vacunas = num_vacunas;
+		this.numVacunas = numVacunas;
 		this.fInicio = fInicio;
 		this.fFin = fFin;
 	}
@@ -57,12 +57,12 @@ public class CentroSalud{
 		this.direccion = direccion;
 	}
 
-	public String getNum_vacunas() {
-		return num_vacunas;
+	public String getNumVacunas() {
+		return numVacunas;
 	}
 
-	public void setNum_vacunas(String num_vacunas) {
-		this.num_vacunas = num_vacunas;
+	public void setNumVacunas(String numVacunas) {
+		this.numVacunas = numVacunas;
 	}
 
 
@@ -104,8 +104,8 @@ public class CentroSalud{
 
 	@Override
 	public String toString() {
-		return "CentroSalud [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", num_vacunas="
-				+ num_vacunas + ", fInicio=" + fInicio + ", fFin=" + fFin + ", cupo=" + cupo + "]";
+		return "CentroSalud [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", numVacunas="
+				+ numVacunas + ", fInicio=" + fInicio + ", fFin=" + fFin + ", cupo=" + cupo + "]";
 	}
     
 }

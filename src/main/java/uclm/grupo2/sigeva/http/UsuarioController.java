@@ -36,20 +36,12 @@ public class UsuarioController {
 			if (optUser.isPresent())
 				throw new UsuarioDuplicadoException();
 			else {
-				if(usuarios.getLogin().isEmpty())
-					throw new CamposVaciosException();
-				if(usuarios.getPassword().isEmpty())
-					throw new CamposVaciosException();
-				if(usuarios.getNombre().isEmpty())
-					throw new CamposVaciosException();
-				if(usuarios.getApellidos().isEmpty())
+				if(usuarios.getLogin().isEmpty() || usuarios.getPassword().isEmpty()||usuarios.getNombre().isEmpty()||usuarios.getApellidos().isEmpty() || usuarios.getRol().isEmpty() )
 					throw new CamposVaciosException();
 				if(!validarMovil(usuarios.getTelefono()))
 					throw new NoEsTelefonoException();
 				if(!validarDni(usuarios.getDni())) 
 					throw new FormatoDniException();
-				if(usuarios.getRol().isEmpty())
-					throw new CamposVaciosException();
 				if(!((usuarios.getRol().equals("Sanitario")) || (usuarios.getRol().equals("Admin")) || (usuarios.getRol().equals("Paciente"))))
 					throw new RolInvalidoException();
 				usuarios.setDni(DigestUtils.sha512Hex(usuarios.getDni()));

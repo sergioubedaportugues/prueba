@@ -72,15 +72,15 @@ public class CitasController {
 			
 			while (!insertada) {
 				
-				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0 && Integer.parseInt(citaNueva.getCs().getNum_vacunas()) >= 2) {
+				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0 && Integer.parseInt(citaNueva.getCs().getNumVacunas()) >= 2) {
 
 					
-					int vacunasDisponibles = Integer.parseInt(citaNueva.getCs().getNum_vacunas());
+					int vacunasDisponibles = Integer.parseInt(citaNueva.getCs().getNumVacunas());
 					vacunasDisponibles = vacunasDisponibles - 2;
 					if(vacunasDisponibles<10) {
-						citaNueva.getCs().setNum_vacunas(Integer.toString(100));
+						citaNueva.getCs().setNumVacunas(Integer.toString(100));
 					} else {
-						citaNueva.getCs().setNum_vacunas(Integer.toString(vacunasDisponibles));
+						citaNueva.getCs().setNumVacunas(Integer.toString(vacunasDisponibles));
 					}
 					center.save(citaNueva.getCs());
 					cita.save(citaNueva);

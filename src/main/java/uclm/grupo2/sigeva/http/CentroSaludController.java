@@ -20,7 +20,7 @@ import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
 import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
-import uclm.grupo2.sigeva.exceptions.FormatoHinicioHfinException;
+
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 
@@ -39,22 +39,14 @@ public class CentroSaludController {
 
 				throw new CentroDuplicadoException();
 			else {
-				if(cs.getNombre().isEmpty())
+				if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())
 					throw new CamposVaciosException();
-				if(cs.getDireccion().isEmpty())
-					throw new CamposVaciosException();
-				if(cs.getNum_vacunas().isEmpty() || cs.getCupo().isEmpty())
-					throw new CamposVaciosException();
-				if(!esNumericoEntero(cs.getNum_vacunas()) || !esNumericoEntero(cs.getCupo()))
+				if(!esNumericoEntero(cs.getNumVacunas()) || !esNumericoEntero(cs.getCupo()))
 					throw new ValorNumericoException(); 
-				if(Integer.parseInt(cs.getNum_vacunas())<0 || Integer.parseInt(cs.getCupo())<0)
+				if(Integer.parseInt(cs.getNumVacunas())<0 || Integer.parseInt(cs.getCupo())<0)
 					throw new NumeroMinimoException();
-				if(cs.getfInicio().isEmpty() || cs.getfFin().isEmpty())
-					throw new CamposVaciosException();
-				if(!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin()))
+				if((!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin())) || (!controlHoras(cs.getfInicio(), cs.getfFin()))  )
 					throw new FormatoHoraException();
-				if(!controlHoras(cs.getfInicio(), cs.getfFin()))
-					throw new FormatoHinicioHfinException();
 				center.save(cs);
 
 				}
