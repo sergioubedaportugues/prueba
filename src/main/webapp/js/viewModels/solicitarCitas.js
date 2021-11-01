@@ -46,7 +46,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Cita guardada en la base de datos");
+					self.message("Sus citas se han generado correctamente.");
 					self.getCitas();
 				},
 				error : function(response) {
@@ -77,8 +77,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		connected() {
 			accUtils.announce('Solicitar Citas page loaded.');
 			document.title = "Solicitar Citas";
-			
-			this.getCitas();
 		};
 		disconnected() {
 			// Implement if needed
