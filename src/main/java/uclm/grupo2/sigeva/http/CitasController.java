@@ -121,9 +121,8 @@ public class CitasController {
 	public List<Citas> mostrarCitasPedidas(){		
 		List<Citas> misCitas = cita.findAll();
 		if (misCitas.size()>2) {
-			for(int i=0; i<misCitas.size()-2;i++) {
+			for(int i= misCitas.size()-3; i>=0 ;i--) {
 				misCitas.remove(i);
-				i--;
 			}
 		}
 		return misCitas;
