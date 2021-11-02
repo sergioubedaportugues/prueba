@@ -98,7 +98,44 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		modifyUsers(usuario) {
+            var self = this;
+
+            let data = {
+                data : JSON.stringify(usuario),
+                url : "gestionUsuarios/modifyUser",
+                type : "post",
+                contentType : 'application/json',
+                success : function(response) {
+                    self.getUsuarios();
+                    self.limpiarMensajes();
+                    self.mostrarMensajes("Usuario actualizado correctamente.");
+                },
+                error : function(response) {
+                    self.error(response.responseJSON.errorMessage);
+                    self.limpiarMensajes();
+                    self.mostrarMensajes(null, "Error, el usuario no se ha actualizado correctamente.");
+                }
+            };
+           
+            $.ajax(data);
+        }
 		
+		limpiarMensajes() {
+			let self = this;
+			setTimeout(function() {
+          		self.message(null);
+          		self.error(null);
+        	}, 3000);
+		}
+		
+		mostrarMensajes(azul, rojo) {
+			let self = this;
+			setTimeout(function() {
+          		self.message(azul);
+          		self.error(rojo);
+        	}, 3000);
+		}	
 		
 		connected() {
 			accUtils.announce('Gestión de usuarios page loaded.');

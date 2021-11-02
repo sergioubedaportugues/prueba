@@ -134,7 +134,7 @@ public class CitasController {
 	}
 	
 	@GetMapping("/mostrarCitasPedidas")
-	public List<Citas> mostrarCitasPedidas(){		
+	public List<Citas> mostrarCitasPedidas(){
 		List<Citas> misCitas = cita.findAll();
 		if (misCitas.size()>2) {
 			for(int i= misCitas.size()-3; i>=0 ;i--) {

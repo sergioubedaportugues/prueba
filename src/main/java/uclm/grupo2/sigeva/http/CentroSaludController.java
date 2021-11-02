@@ -18,6 +18,7 @@ import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 
 import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
+import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
@@ -25,7 +26,6 @@ import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
-import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
 @RequestMapping("gestionCentroSalud")
@@ -81,6 +81,27 @@ public class CentroSaludController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
+	
+	@PostMapping("/modifyCenter")
+	public void modificarCentro(@RequestBody CentroSalud cs) {
+		try {
+			
+			Optional<CentroSalud> optCenter = center.findById(cs.getId());
+			
+			if (optCenter.isPresent()) {
+				 	CentroSalud preCentro = optCenter.get();
+				 	preCentro.setNombre(cs.getNombre());
+				 	preCentro.setDireccion(cs.getDireccion());
+				 	preCentro.setNumVacunas(cs.getNumVacunas());
+	                center.save(preCentro);			
+			}
+			else
+				throw new CentroInexistenteException();
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
+	
 	
 	public static boolean esNumericoEntero(String cadena) throws ValorNumericoException{
            try{

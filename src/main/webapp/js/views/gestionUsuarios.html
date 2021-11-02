@@ -72,7 +72,7 @@
                        <td><input type="text" data-bind="value : telefono" placeholder="Telefono"></td>
                        <td><input type="text" data-bind="value : dni" placeholder="Dni"></td>
                        <td><input type="text" data-bind="value : rol" placeholder="Rol"></td>
-						<!--<td><button class = "btn_modif" data-bind="click : function() { $parent.modificarUsuario($data); }">Modificar</button></td> -->
+						<td><button class = "btn_modif" data-bind="click : function() { $parent.modifyUsers($data); }">Modificar</button></td>
 						<td><button class = "btn_elim" data-bind="click : function() { $parent.deleteUsers($data); }">Eliminar</button></td>
                 </tr>
             <!-- /ko -->
@@ -204,11 +204,99 @@ ul#ui-id-1 {
 }
 
 button.btn_nuevo {
-    margin-left: 55px;
+
     margin-top: 20px;
+
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  -webkit-box-shadow: 6px 5px 24px #666666;
+  -moz-box-shadow: 6px 5px 24px #666666;
+  box-shadow: 6px 5px 24px #666666;
+font-family: Arial;
+  color: #fafafa;
+  font-size: 26px;
+  padding: 19px;
+  text-decoration: none;
+
+}
+button.btn_nuevo:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
 }
 
+button.btn_elim {
 
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  -webkit-box-shadow: 6px 5px 24px #666666;
+  -moz-box-shadow: 6px 5px 24px #666666;
+  box-shadow: 6px 5px 24px #666666;
+font-family: Arial;
+  color: #fafafa;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+
+}
+button.btn_elim:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
+}
+
+button.btn_modif {
+
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  -webkit-box-shadow: 6px 5px 24px #666666;
+  -moz-box-shadow: 6px 5px 24px #666666;
+  box-shadow: 6px 5px 24px #666666;
+font-family: Arial;
+  color: #fafafa;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+
+}
+button.btn_modif:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
+}
 
 </style>
 </head>

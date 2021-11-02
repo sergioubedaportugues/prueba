@@ -77,6 +77,32 @@ public class UsuarioController {
 		}
 	}
 	
+	@PostMapping("/modifyUser")
+	public void modificarUsuario(@RequestBody Usuario usuario) {
+		try {
+			
+			Optional<Usuario> optUser = user.findById(usuario.getId());
+			
+			if (optUser.isPresent()) {
+				 	Usuario preUsuario = optUser.get();
+				 	preUsuario.setLogin(usuario.getLogin());
+				 	if(usuario.getPassword().length()!=128)
+				 		preUsuario.setPassword(usuario.getPassword());
+				 	preUsuario.setNombre(usuario.getNombre());
+				 	preUsuario.setApellidos(usuario.getApellidos());
+				 	preUsuario.setTelefono(usuario.getTelefono());
+				 	preUsuario.setDni(usuario.getDni());
+				 	preUsuario.setRol(usuario.getRol());
+	                user.save(preUsuario);			
+			}
+			else
+				throw new UsuarioInexistenteException();
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
+	
+	
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {
 			return false;
