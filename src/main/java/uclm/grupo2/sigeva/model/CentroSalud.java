@@ -22,7 +22,7 @@ public class CentroSalud{
     public CentroSalud() {
     	this.id=UUID.randomUUID().toString();
     }
-    
+
 	public String getId() {
 		return id;
 	}
