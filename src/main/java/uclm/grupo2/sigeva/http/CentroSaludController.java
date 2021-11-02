@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,11 +19,13 @@ import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 
 import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
+import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
 @RequestMapping("gestionCentroSalud")
@@ -65,6 +68,21 @@ public class CentroSaludController {
 		return center.findById(id);
 	}
 
+	@DeleteMapping("/deleteCenter")
+	public String borrarCentro(@RequestBody CentroSalud cs) {
+		try {
+			Optional<CentroSalud> optCenter = center.findById(cs.getId());
+			if (optCenter.isPresent())
+				center.deleteById(cs.getId());
+
+			else
+				throw new UsuarioInexistenteException();
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+		return "Centro eliminado";
+	}
+	
 	public static boolean esNumericoEntero(String cadena) throws ValorNumericoException{
            try{
         	   boolean isNumeric =  cadena.matches("[+-]?\\d*(\\.\\d+)?");

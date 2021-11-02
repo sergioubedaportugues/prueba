@@ -79,6 +79,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		deleteUsers(user) {
+			let self = this;
+			
+			let data = {
+				data : JSON.stringify(user),
+				url : "gestionUsuarios/deleteUser",
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Usuario eliminado");
+					self.getUsuarios();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		
 		
 		connected() {

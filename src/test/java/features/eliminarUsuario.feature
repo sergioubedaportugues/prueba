@@ -17,11 +17,11 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Crear Cita
+Feature: Eliminar Usuario
 
   @tag1
-  Scenario: Crear Vacuna Correctamente
-    Then se crea una cita de vacunacion
-
+  Scenario: Eliminar usuario correctamente
+    Given un usuario con "login", "password", "nombre", "apellidos", "telefono", "dni" y "rol"
+    Then se ha eliminado el usuario
 
 

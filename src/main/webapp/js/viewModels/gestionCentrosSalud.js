@@ -78,6 +78,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		deleteCenters(center) {
+			let self = this;
+			
+			let data = {
+				data : JSON.stringify(center),
+				url : "gestionCentroSalud/deleteCenter",
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Centro de Salud eliminado");
+					self.getCentros();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		connected() {
 			accUtils.announce('Gestión de centros de salud page loaded.');
 			document.title = "Gestión de Centros de Salud";
