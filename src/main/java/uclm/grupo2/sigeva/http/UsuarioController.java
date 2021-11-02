@@ -64,7 +64,7 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping("/deleteUser")
-	public void borrarUsuario(@RequestBody Usuario usuario) {
+	public String borrarUsuario(@RequestBody Usuario usuario) {
 		try {
 			Optional<Usuario> optUser = user.findById(usuario.getId());
 			if (optUser.isPresent())
@@ -75,6 +75,7 @@ public class UsuarioController {
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
+		return "Usuario eliminado";
 	}
 	
 	private static boolean validarMovil(String telefono) {
