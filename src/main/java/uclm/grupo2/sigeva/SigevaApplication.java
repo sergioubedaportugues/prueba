@@ -8,7 +8,6 @@ public class SigevaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SigevaApplication.class, args);
-		// Prueba de conexion con Github
 	}
 
 }
