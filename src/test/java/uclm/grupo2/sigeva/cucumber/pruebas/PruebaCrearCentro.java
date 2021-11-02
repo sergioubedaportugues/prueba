@@ -21,7 +21,13 @@ public class PruebaCrearCentro{
 	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin, String cupo) {
 		
 		nombreCentro= "Miguelturra2222"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; cupo="4";
-		CentroSalud centro = new CentroSalud(nombreCentro,direccionCentro,numeroVacunas,fInicio,fFin,cupo);
+		CentroSalud centro = new CentroSalud();
+		centro.setNombre(nombreCentro);
+		centro.setDireccion(direccionCentro);
+		centro.setNumVacunas(numeroVacunas);
+		centro.setfInicio(fInicio);
+		centro.setfFin(fFin);
+		centro.setCupo(cupo);
 		assertEquals("Centro con id: "+centro.getId(),CentroCtrl.insertarCentro(centro));
 	}
 
