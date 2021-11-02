@@ -13,4 +13,3 @@ public interface CentroSaludDAO extends MongoRepository<CentroSalud,String>{
 
 	Optional<CentroSalud> findByNombre(String nombre);
 }
-

@@ -10,7 +10,7 @@ public class PruebaCrearUsuario {
 	@Given("nuevo usuario con {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void nuevo_usuario_con_y(String login, String password, String nombre, String apellidos, String telefono, String dni, String rol) {
 		Usuario user = new Usuario();
-		login= "Paquito8"; password="Patata8"; nombre="Paco"; apellidos="Fernandez"; telefono="888888888"; dni="88888888A"; rol="paciente"; 
+		login= "Paquito8"; password="Patata8"; nombre="Paco"; apellidos="Fernandez"; telefono="888888888"; dni="88888888A"; rol="Admin"; 
 		user.setLogin(login);
 		user.setNombre(nombre);
 		user.setPassword(password);

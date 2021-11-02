@@ -1,22 +1,34 @@
 package uclm.grupo2.sigeva.cucumber.pruebas;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-//import uclm.grupo2.sigeva.http.CentroSaludController;
-//import uclm.grupo2.sigeva.model.CentroSalud;
-import io.cucumber.java.en.Then;
+import static org.junit.Assert.assertEquals;
 
-public class PruebaCrearCentro {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import io.cucumber.java.en.Given;
+import uclm.grupo2.sigeva.http.CentroSaludController;
+import uclm.grupo2.sigeva.model.CentroSalud;
+import io.cucumber.java.en.Then;
+import io.cucumber.spring.CucumberContextConfiguration;
+
+@CucumberContextConfiguration
+@SpringBootTest
+public class PruebaCrearCentro{
 	
-	@Given("un {string}, {string} y {string}")
-	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas) {
-		/*CentroSalud centro = new CentroSalud();
-		nombreCentro= "Zendal"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; 
-		centro.setnombreCentro(nombreCentro);
-		centro.setdireccionCentro(direccionCentro);
-		centro.setnumeroVacunas(numeroVacunas);;
-		CentroSaludController CentroCtrl = new CentroSaludController();
-		CentroCtrl.insertarCentro(centro);*/
+	@Autowired
+	private CentroSaludController CentroCtrl;
+
+	@Given("un {string}, {string}, {string}, {string}, {string} y {string}")
+	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin, String cupo) {
+		
+		nombreCentro= "Miguelturra2222"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; cupo="4";
+		CentroSalud centro = new CentroSalud();
+		centro.setNombre(nombreCentro);
+		centro.setDireccion(direccionCentro);
+		centro.setNumVacunas(numeroVacunas);
+		centro.setfInicio(fInicio);
+		centro.setfFin(fFin);
+		centro.setCupo(cupo);
+		assertEquals("Centro con id: "+centro.getId(),CentroCtrl.insertarCentro(centro));
 	}
 
 	@Then("se crea un centro de salud")
