@@ -21,7 +21,6 @@ Feature: Crear Cita
 
   @tag1
   Scenario: Crear Vacuna Correctamente
-    Given hola
     Then se crea una cita de vacunacion
 
 
