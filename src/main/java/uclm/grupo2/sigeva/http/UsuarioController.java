@@ -79,7 +79,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/modifyUser")
-	public void modificarUsuario(@RequestBody Usuario usuario) {
+	public String modificarUsuario(@RequestBody Usuario usuario) {
 		try {
 			
 			Optional<Usuario> optUser = user.findById(usuario.getId());
@@ -101,6 +101,7 @@ public class UsuarioController {
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
+		return "Usuario modificado";
 	}
 	
 	

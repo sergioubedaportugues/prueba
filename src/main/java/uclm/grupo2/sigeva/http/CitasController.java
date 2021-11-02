@@ -58,7 +58,7 @@ public class CitasController {
 			citaNueva.setCs(random);
 			
 			LocalDate date = LocalDate.now();
-			date = date.plusDays(1); // Para que de la cita al día siguiente de pedirla
+			date = date.plusDays(1);
 			LocalTime time = LocalTime.now();
 			
 			
@@ -87,7 +87,7 @@ public class CitasController {
 					}
 					center.save(citaNueva.getCs());
 					cita.save(citaNueva);
-					date = date.plusDays(1);
+					date = date.plusDays(14);
 					segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
 					segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 					cita.save(segundaCita);

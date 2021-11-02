@@ -84,7 +84,7 @@ public class CentroSaludController {
 	}
 	
 	@PostMapping("/modifyCenter")
-	public void modificarCentro(@RequestBody CentroSalud cs) {
+	public String modificarCentro(@RequestBody CentroSalud cs) {
 		try {
 			
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
@@ -101,6 +101,7 @@ public class CentroSaludController {
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
+		return "Centro modificado";
 	}
 	
 	
