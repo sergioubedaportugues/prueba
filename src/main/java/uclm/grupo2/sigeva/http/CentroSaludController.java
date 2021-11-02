@@ -36,7 +36,6 @@ public class CentroSaludController {
 		try {
 			Optional<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
 			if (optCenter.isPresent())
-
 				throw new CentroDuplicadoException();
 			else {
 				if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())
@@ -56,6 +55,7 @@ public class CentroSaludController {
 		}
 		return "Centro con id: "+cs.getId();
 	}
+
 	@GetMapping("/findAllCenters")
 	public List<CentroSalud> getCentros(){
 		return center.findAll();
