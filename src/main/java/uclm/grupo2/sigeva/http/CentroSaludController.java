@@ -69,7 +69,7 @@ public class CentroSaludController {
 	}
 
 	@DeleteMapping("/deleteCenter")
-	public void borrarCentro(@RequestBody CentroSalud cs) {
+	public String borrarCentro(@RequestBody CentroSalud cs) {
 		try {
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
 			if (optCenter.isPresent())
@@ -80,6 +80,7 @@ public class CentroSaludController {
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
+		return "Centro eliminado";
 	}
 	
 	@PostMapping("/modifyCenter")

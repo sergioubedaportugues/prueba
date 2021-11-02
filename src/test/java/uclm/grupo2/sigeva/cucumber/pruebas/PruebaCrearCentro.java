@@ -20,7 +20,7 @@ public class PruebaCrearCentro{
 	@Given("un {string}, {string}, {string}, {string}, {string} y {string}")
 	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin, String cupo) {
 		
-		nombreCentro= "Miguelturra2222"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; cupo="4";
+		nombreCentro= "Miguelturra22"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; cupo="4";
 		CentroSalud centro = new CentroSalud();
 		centro.setNombre(nombreCentro);
 		centro.setDireccion(direccionCentro);
@@ -33,7 +33,7 @@ public class PruebaCrearCentro{
 
 	@Then("se crea un centro de salud")
 	public void se_crea_un_centro_de_salud() {
-
+		
 	}
 
 }

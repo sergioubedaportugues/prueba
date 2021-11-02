@@ -43,7 +43,7 @@ public class CitasController {
 	private static final String HHMM = "HH:mm";
 	
 	@PostMapping("/insertCita")
-	public void insertarCita() {
+	public String insertarCita() {
 		try {
 			boolean insertada = false;
 			
@@ -106,7 +106,8 @@ public class CitasController {
 			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-		}			
+		}	
+		return "Cita creada";
 	}
 	
 	@DeleteMapping("/deleteCita")

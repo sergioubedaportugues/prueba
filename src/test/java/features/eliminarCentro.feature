@@ -17,11 +17,12 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Crear Cita
+Feature: Eliminar centro
+
 
   @tag1
-  Scenario: Crear Vacuna Correctamente
-    Then se crea una cita de vacunacion
-
+  Scenario: Eliminar centro correctamente
+    Given los atributos "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin" y "cupo"
+    Then se elimina el centro de salud
 
 
