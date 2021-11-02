@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
 import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
-
+import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
@@ -60,6 +61,20 @@ public class UsuarioController {
 	@GetMapping("/findAllUsers/{id}")
 	public Optional<Usuario> getUsuario(@PathVariable String id){
 		return user.findById(id);
+	}
+	
+	@DeleteMapping("/deleteUser")
+	public void borrarUsuario(@RequestBody Usuario usuario) {
+		try {
+			Optional<Usuario> optUser = user.findById(usuario.getId());
+			if (optUser.isPresent())
+				user.deleteById(usuario.getId());
+
+			else
+				throw new UsuarioInexistenteException();
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 	
 	private static boolean validarMovil(String telefono) {

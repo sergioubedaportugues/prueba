@@ -48,6 +48,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		deleteCitas(c) {
+			let self = this;
+			
+			let data = {
+				data : JSON.stringify(c),
+				url : "gestionCitas/deleteCita",
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Cita eliminada");
+					self.getCitas();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		connected() {
 			accUtils.announce('Gestión de Citas page loaded.');
 			document.title = "Gestión de Citas";

@@ -14,6 +14,8 @@
         <div class="listarCitas" id="listarCitas">
         <br>
         <h3 id="tituloLista" class="listaCitas">Lista de Citas</h3>
+        <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
+        <div id="mensajeError" data-bind="html : error" style="color : red"></div>
         <table class="tablaCitas">
         <caption></caption>
             <tr>
@@ -28,7 +30,7 @@
                        <td><input type="text" data-bind="value : dia" placeholder="Dia"></td>
                        <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"></td>
                        <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"></td>
-                       
+                       <td><button class = "btn_elim" data-bind="click : function() { $parent.deleteCitas($data); }">Eliminar</button></td>
                 </tr>
             <!-- /ko -->
         </table>

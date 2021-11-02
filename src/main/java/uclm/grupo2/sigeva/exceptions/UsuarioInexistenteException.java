@@ -9,6 +9,6 @@ public class UsuarioInexistenteException extends SigevaExceptions{
 	private static final long serialVersionUID = -6216941878556677681L;
 
 	public UsuarioInexistenteException() {
-		super(HttpStatus.CONFLICT, "El usuario introducido no existe.");
+		super(HttpStatus.CONFLICT, "El usuario no se encuentra en la base de datos.");
 	}
 }
