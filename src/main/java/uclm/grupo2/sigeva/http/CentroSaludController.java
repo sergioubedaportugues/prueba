@@ -40,8 +40,8 @@ public class CentroSaludController {
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSalud cs) {
 		try {
-			Optional<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
-			if (optCenter.isPresent())
+			List<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
+			if (!optCenter.isEmpty())
 				throw new CentroDuplicadoException();
 			else {
 				if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())

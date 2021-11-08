@@ -38,6 +38,10 @@
             <br>
 			<input type="text" id="dni" data-bind="value : dni" placeholder="00000000A">
 			<br>
+			<label for="Centro">Centro de Salud</label>
+            <br>
+			<input type="text" id="cs" data-bind="value : nombreCentro" placeholder="Centro de Salud">
+			<br>
 			<label for="Rol">Rol</label>
 			<br>
 			<input type="text" id="rol" data-bind="value : rol" placeholder="Admin/Paciente/Sanitario">
@@ -61,6 +65,7 @@
                 <th id="coltablaUsuarios">Apellidos</th>
                 <th id="coltablaUsuarios">Tel&eacutefono</th>
                 <th id="coltablaUsuarios">Dni</th>
+                <th id="coltablaUsuarios">Centro de Salud</th>
                 <th id="coltablaUsuarios">Rol</th>
             </tr>
             <!-- ko foreach : usuarios -->
@@ -71,6 +76,7 @@
                        <td><input type="text" data-bind="value : apellidos" placeholder="Apellidos"></td>
                        <td><input type="text" data-bind="value : telefono" placeholder="Telefono"></td>
                        <td><input type="text" data-bind="value : dni" placeholder="Dni"></td>
+                       <td><input type="text" data-bind="value : nombreCentro" placeholder="Centro de Salud"></td>
                        <td><input type="text" data-bind="value : rol" placeholder="Rol"></td>
 						<td><button class = "btn_modif" data-bind="click : function() { $parent.modifyUsers($data); }">Modificar</button></td>
 						<td><button class = "btn_elim" data-bind="click : function() { $parent.deleteUsers($data); }">Eliminar</button></td>

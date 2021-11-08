@@ -12,7 +12,9 @@ import uclm.grupo2.sigeva.model.Usuario;
 @Repository
 public interface CitasDAO extends MongoRepository<Citas,String>{
 
+	List<Citas> findAllOrderByDia();
 	List<Citas> findByCs(CentroSalud cs);
+	List<Citas> getById(String id);
 	List<Citas> getByDia(String dia);
 	List<Citas> findByHoras(String horas);
 	List<Citas> getByDiaAndHoras(String dia, String horas);
