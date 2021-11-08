@@ -12,6 +12,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.apellidos = ko.observable("");
 			self.telefono = ko.observable("");
 			self.dni= ko.observable("");
+			self.nombreCentro = ko.observable("");
 			self.rol = ko.observable("");
 
 			self.usuarios = ko.observableArray([]);
@@ -43,6 +44,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				apellidos : this.apellidos(),
 				telefono : this.telefono(),
 				dni : this.dni(),
+				nombreCentro : this.nombreCentro(),
 				rol : this.rol()
 			};
 			let data = {
