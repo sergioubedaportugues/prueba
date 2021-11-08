@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.CentroSaludDAO;
+import uclm.grupo2.sigeva.dao.CitasDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
-
+import uclm.grupo2.sigeva.exceptions.CentroConCitasException;
 import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
+import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
-import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
-import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
 @RequestMapping("gestionCentroSalud")
@@ -33,6 +33,9 @@ public class CentroSaludController {
 
 	@Autowired
 	private CentroSaludDAO center;
+	
+	@Autowired
+	private CitasDAO cita;
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSalud cs) {
@@ -72,16 +75,40 @@ public class CentroSaludController {
 	public String borrarCentro(@RequestBody CentroSalud cs) {
 		try {
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
-			if (optCenter.isPresent())
-				center.deleteById(cs.getId());
-
-			else
-				throw new UsuarioInexistenteException();
+			if (optCenter.isPresent()) {
+				if(cita.findByCs(cs).isEmpty()) {
+					center.deleteById(cs.getId());
+				} else
+					throw new CentroConCitasException();
+			} else
+				throw new CentroInexistenteException();
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 		return "Centro eliminado";
 	}
+	
+	@PostMapping("/modifyCenter")
+	public String modificarCentro(@RequestBody CentroSalud cs) {
+		try {
+			
+			Optional<CentroSalud> optCenter = center.findById(cs.getId());
+			
+			if (optCenter.isPresent()) {
+				 	CentroSalud preCentro = optCenter.get();
+				 	preCentro.setNombre(cs.getNombre());
+				 	preCentro.setDireccion(cs.getDireccion());
+				 	preCentro.setNumVacunas(cs.getNumVacunas());
+	                center.save(preCentro);			
+			}
+			else
+				throw new CentroInexistenteException();
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+		return "Centro modificado";
+	}
+	
 	
 	public static boolean esNumericoEntero(String cadena) throws ValorNumericoException{
            try{

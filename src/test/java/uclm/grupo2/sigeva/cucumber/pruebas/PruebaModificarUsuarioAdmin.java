@@ -1,25 +1,50 @@
 package uclm.grupo2.sigeva.cucumber.pruebas;
 
+import static org.junit.Assert.assertEquals;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
+import uclm.grupo2.sigeva.http.UsuarioController;
+import uclm.grupo2.sigeva.model.Usuario;
 import io.cucumber.java.en.Then;
 
 public class PruebaModificarUsuarioAdmin {
-
+	
+	@Autowired
+	private UsuarioController UserCtrl;
+	
 	@Given("en la vista administrador {string},{string}, {string}, {string}, {string}, {string} y {string}")
-	public void en_la_vista_administrador_y(String string, String string2, String string3, String string4, String string5, String string6, String string7) {
-	    // Write code here that turns the phrase above into concrete actions
-	}
-	
-	@When("{string}, {string} son distintos")
-	public void son_distintos(String dato, String nuevoDato) {
-	    // Write code here that turns the phrase above into concrete actions
+	public void en_la_vista_administrador_y(String login, String password, String nombre, String apellidos, String telefono, String dni, String rol) {
+		Usuario user = new Usuario();
+		login= "Antonio68"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
+		String loginN= "Ramon68";String passwordN="Patatita";String nombreN="Ramon"; 
+		String apellidosN="Galera"; String telefonoN="888888778"; String dniN="98878888A";String rolN="Admin"; 
+		
+		
+		user.setLogin(login);
+		user.setNombre(nombre);
+		user.setPassword(password);
+		user.setApellidos(apellidos);
+		user.setDni(dni);
+		user.setTelefono(telefono);
+		user.setRol(rol);
+		UserCtrl.insertarUsuario(user);
+		
+		user.setLogin(loginN);
+		user.setNombre(nombreN);
+		user.setPassword(passwordN);
+		user.setApellidos(apellidosN);
+		user.setDni(dniN);
+		user.setTelefono(telefonoN);
+		user.setRol(rolN);
+		
+
+		assertEquals("Usuario modificado",UserCtrl.modificarUsuario(user));
 	}
 
-	@Then("se ha modificado el dato")
-	public void se_ha_modificado_el_dato() {
-	    // Write code here that turns the phrase above into concrete actions
-	}	
-	
-	
+	@Then("se han modificado los datos")
+	public void se_han_modificado_los_datos() {
+
+	}
+
 }

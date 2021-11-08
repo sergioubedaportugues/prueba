@@ -20,17 +20,8 @@
 Feature: Administrador cambia datos centro
 
   @tag1
-  Scenario: Modificar nombre
-    Given los datos de "nombreCentro", "direccionCentro" y "numeroVacunas"
+  Scenario: Modificar datos
+    Given los datos de "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin" y "cupo"
     Then se ha modificado la informacion del centro
 
-  @tag2
-  Scenario: Modificar direccion
-    Given los datos de "nombreCentro", "direccionCentro" y "numeroVacunas"
-    Then se ha modificado la informacion del centro
-    
-  @tag3
-  Scenario: Modificar numero de vacunas
-    Given los datos de "nombreCentro", "direccionCentro" y "numeroVacunas" 
-    Then se ha modificado la informacion del centro
 

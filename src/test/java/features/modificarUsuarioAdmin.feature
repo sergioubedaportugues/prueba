@@ -20,25 +20,8 @@
 Feature: Admin modifica datos usuario
 
   @tag1
-  Scenario: Modificar nombre
+  Scenario: Modificar datos usuario
     Given en la vista administrador "login","password", "nombre", "apellidos", "telefono", "dni" y "rol"
-    When "nombre", "nuevoNombre" son distintos
-    Then se ha modificado el dato
+    Then se han modificado los datos
 
-  @tag2
-  Scenario: Modificar apellidos
-    Given en la vista administrador "login","password", "nombre", "apellidos", "telefono", "dni" y "rol"
-    When "apellidos", "nuevoApellidos" son distintos
-    Then se ha modificado el dato
-    
-  @tag3
-  Scenario: Modificar dni
-    Given en la vista administrador "login","password", "nombre", "apellidos", "telefono", "dni" y "rol"
-    When "dni", "nuevoDni" son distintos
-    Then se ha modificado el dato
-    
-  @tag4
-  Scenario: Modificar telefono
-    Given en la vista administrador "login","password", "nombre", "apellidos", "telefono", "dni" y "rol"
-    When "telefono", "nuevoTelefono" son distintos
-    Then se ha modificado el dato
+
