@@ -41,9 +41,8 @@
 			<label for="centro">Centro de Salud</label>
 			<select data-bind="options:cs, optionsText:'nombre'" id="centro"></select>
 			<br>
-			<label for="Rol">Rol</label>
-			<br>
-			<input type="text" id="rol" data-bind="value : rol" placeholder="Admin/Paciente/Sanitario">
+			<label for="roles">Rol</label>
+			<select data-bind="options:rol" id="roles"></select>
 			<br>
             <button class="btn_nuevo" data-bind="click : insertUsers">Nuevo usuario</button>
             </form>
@@ -75,8 +74,12 @@
                        <td><input type="text" data-bind="value : apellidos" placeholder="Apellidos"></td>
                        <td><input type="text" data-bind="value : telefono" placeholder="Telefono"></td>
                        <td><input type="text" data-bind="value : dni" placeholder="Dni"></td>
-                       <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de salud"></td>
-                       <td><input type="text" data-bind="value : rol" placeholder="Rol"></td>
+                       <td>
+                       <label for="centro"></label>
+					   <select data-bind="options:cs, optionsText:'nombre'" id="centro"></select>
+                       </td>
+                       <!--<td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de salud"></td>-->
+                       <td><input type="text" data-bind="value : rol" placeholder="Rol"readonly></td>
 						<td><button class = "btn_modif" data-bind="click : function() { $parent.modifyUsers($data); }">Modificar</button></td>
 						<td><button class = "btn_elim" data-bind="click : function() { $parent.deleteUsers($data); }">Eliminar</button></td>
                 </tr>

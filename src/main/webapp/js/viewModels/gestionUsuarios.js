@@ -13,7 +13,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.telefono = ko.observable("");
 			self.dni= ko.observable("");
 			self.cs = ko.observableArray([]);
-			self.rol = ko.observable("");
+			self.rol = ko.observableArray(["Administrador","Sanitario","Paciente"]);
 
 			self.usuarios = ko.observableArray([]);
 			
@@ -38,6 +38,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		insertUsers() {
 			var self = this;
 			var centro = document.getElementById("centro")
+			var roles = document.getElementById("roles")
 			let info = {
 				login : this.login(),
 				password : this.password(),
@@ -46,7 +47,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				telefono : this.telefono(),
 				dni : this.dni(),
 				cs : this.cs()[centro.selectedIndex],
-				rol : this.rol()
+				rol : this.rol()[roles.selectedIndex]
 			};
 			let data = {
 				data : JSON.stringify(info),

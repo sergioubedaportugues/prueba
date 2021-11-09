@@ -43,14 +43,12 @@ public class UsuarioController {
 			if (optUser.isPresent())
 				throw new UsuarioDuplicadoException();
 			else {
-				if(usuarios.getLogin().isEmpty() || usuarios.getPassword().isEmpty()||usuarios.getNombre().isEmpty()||usuarios.getApellidos().isEmpty() || usuarios.getRol().isEmpty())
+				if(usuarios.getLogin().isEmpty() || usuarios.getPassword().isEmpty()||usuarios.getNombre().isEmpty()||usuarios.getApellidos().isEmpty())
 					throw new CamposVaciosException();
 				if(!validarMovil(usuarios.getTelefono()))
 					throw new NoEsTelefonoException();
 				if(!validarDni(usuarios.getDni())) 
 					throw new FormatoDniException();
-				if(!((usuarios.getRol().equals("Sanitario")) || (usuarios.getRol().equals("Admin")) || (usuarios.getRol().equals("Paciente"))))
-					throw new RolInvalidoException();
 				user.save(usuarios);
 				
 				}
@@ -135,14 +133,5 @@ public class UsuarioController {
         	return valido;
         valido = true;
         return valido;
-	}
-	
-	private boolean validarCentro(String nombreCentro) {
-		List<CentroSalud> optCenter = center.findByNombre(nombreCentro);
-		if(optCenter.isEmpty())
-			return false;
-		else
-			return true;
-		
 	}
 }
