@@ -88,7 +88,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					self.centros(response);
+					self.cs(response);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
