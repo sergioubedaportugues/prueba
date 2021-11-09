@@ -3,6 +3,7 @@ package uclm.grupo2.sigeva.http;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -47,15 +48,15 @@ public class CitasController {
 		try {
 			boolean insertada = false;
 			
-			List<CentroSalud> centros = center.findAll();
-			CentroSalud random = centros.get(new Random().nextInt(centros.size()));
-
 			List<Usuario> pacientes = user.getByRol("Paciente");
 			Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
 			
+			List<CentroSalud> centros = center.findByNombre(ramon.getNombreCentro());
+			CentroSalud cs = centros.get(0);
+			
 			Citas citaNueva = new Citas();
 			Citas segundaCita = new Citas();
-			citaNueva.setCs(random);
+			citaNueva.setCs(cs);
 			
 			LocalDate date = LocalDate.now();
 			date = date.plusDays(1);
@@ -64,7 +65,7 @@ public class CitasController {
 			
 			citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
 			citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
-			citaNueva.setNombreCentro(random.getNombre());
+			citaNueva.setNombreCentro(cs.getNombre());
 			citaNueva.setPaciente(ramon);
 			segundaCita.setCs(citaNueva.getCs());
 			segundaCita.setNombreCentro(citaNueva.getNombreCentro());
@@ -125,13 +126,14 @@ public class CitasController {
 	
 	@GetMapping("/findAllCitas")
 	public List<Citas> getCitas(){
-		return cita.findAll();
+		return cita.findAllOrderByDia();
 	}
 	
 	
 	@GetMapping("/findAllCitas/{id}")
-	public Optional<Citas> getCita(@PathVariable String id){
-		return cita.findById(id);
+	public List<Citas> getCita(@PathVariable String id){
+		return cita.getById(id);
+		
 	}
 	
 	@GetMapping("/mostrarCitasPedidas")

@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
+import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
 import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
+import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
@@ -30,6 +33,9 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioDAO user;
 	
+	@Autowired
+	private CentroSaludDAO center;
+	
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
@@ -37,16 +43,14 @@ public class UsuarioController {
 			if (optUser.isPresent())
 				throw new UsuarioDuplicadoException();
 			else {
-				if(usuarios.getLogin().isEmpty() || usuarios.getPassword().isEmpty()||usuarios.getNombre().isEmpty()||usuarios.getApellidos().isEmpty() || usuarios.getRol().isEmpty() )
+				if(usuarios.getLogin().isEmpty() || usuarios.getPassword().isEmpty()||usuarios.getNombre().isEmpty()||usuarios.getApellidos().isEmpty())
 					throw new CamposVaciosException();
 				if(!validarMovil(usuarios.getTelefono()))
 					throw new NoEsTelefonoException();
 				if(!validarDni(usuarios.getDni())) 
 					throw new FormatoDniException();
-				if(!((usuarios.getRol().equals("Sanitario")) || (usuarios.getRol().equals("Admin")) || (usuarios.getRol().equals("Paciente"))))
-					throw new RolInvalidoException();
-				usuarios.setDni(DigestUtils.sha512Hex(usuarios.getDni()));
 				user.save(usuarios);
+				
 				}
 			
 		} catch(Exception e) {

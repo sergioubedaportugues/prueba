@@ -12,7 +12,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.apellidos = ko.observable("");
 			self.telefono = ko.observable("");
 			self.dni= ko.observable("");
-			self.rol = ko.observable("");
+			self.cs = ko.observableArray([]);
+			self.rol = ko.observableArray(["Administrador","Sanitario","Paciente"]);
 
 			self.usuarios = ko.observableArray([]);
 			
@@ -36,6 +37,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		insertUsers() {
 			var self = this;
+			var centro = document.getElementById("centro")
+			var roles = document.getElementById("roles")
 			let info = {
 				login : this.login(),
 				password : this.password(),
@@ -43,7 +46,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				apellidos : this.apellidos(),
 				telefono : this.telefono(),
 				dni : this.dni(),
-				rol : this.rol()
+				cs : this.cs()[centro.selectedIndex],
+				rol : this.rol()[roles.selectedIndex]
 			};
 			let data = {
 				data : JSON.stringify(info),
@@ -71,6 +75,21 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.usuarios(response);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		getCentros() {
+			let self = this;
+			let data = {
+				url : "gestionCentroSalud/findAllCenters",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					self.cs(response);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -142,6 +161,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			document.title = "Gestión Usuarios";
 			
 			this.getUsuarios();
+			this.getCentros();
 			
 		};
 		disconnected() {
