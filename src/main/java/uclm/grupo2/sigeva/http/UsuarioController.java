@@ -55,6 +55,7 @@ public class UsuarioController {
 					throw new RolInvalidoException();
 				usuarios.setDni(DigestUtils.sha512Hex(usuarios.getDni()));
 				user.save(usuarios);
+				
 				}
 			
 		} catch(Exception e) {
