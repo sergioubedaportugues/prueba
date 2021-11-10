@@ -17,11 +17,10 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Administrador cambia datos centro
+Feature: Modificar Datos Centro
 
   @tag1
-  Scenario: Modificar datos
-    Given los datos de "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin" y "cupo"
-    Then se ha modificado la informacion del centro
-
+  Scenario: Modificar Datos Centro correctamente
+    Given los datos asociados "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin", "franja" y "cupo"
+    Then se ha modificado la informacion del centro correctamente
 

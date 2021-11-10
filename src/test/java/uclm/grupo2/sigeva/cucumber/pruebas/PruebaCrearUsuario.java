@@ -17,7 +17,7 @@ public class PruebaCrearUsuario {
 	@Given("nuevo usuario con {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void nuevo_usuario_con_y(String login, String password, String nombre, String apellidos, String telefono, String dni, String rol) {
 		Usuario user = new Usuario();
-		login= "Antonio33"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
+		login= "Antonio32"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
 		user.setLogin(login);
 		user.setNombre(nombre);
 		user.setPassword(password);
@@ -26,6 +26,7 @@ public class PruebaCrearUsuario {
 		user.setTelefono(telefono);
 		user.setRol(rol);
 		assertEquals("Usuario con id: "+user.getId(),UserCtrl.insertarUsuario(user));
+		UserCtrl.borrarUsuario(user);
 
 	}
 

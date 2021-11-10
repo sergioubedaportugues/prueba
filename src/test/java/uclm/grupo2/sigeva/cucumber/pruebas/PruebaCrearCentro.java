@@ -17,18 +17,20 @@ public class PruebaCrearCentro{
 	@Autowired
 	private CentroSaludController CentroCtrl;
 
-	@Given("un {string}, {string}, {string}, {string}, {string} y {string}")
-	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin, String cupo) {
+	@Given("un {string}, {string}, {string}, {string}, {string}, {string} y {string}")
+	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin,String franja, String cupo) {
 		
-		nombreCentro= "Miguelturra22"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; cupo="4";
+		nombreCentro= "MiguelturraTest23"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00";franja="6"; cupo="5";
 		CentroSalud centro = new CentroSalud();
 		centro.setNombre(nombreCentro);
 		centro.setDireccion(direccionCentro);
 		centro.setNumVacunas(numeroVacunas);
 		centro.setfInicio(fInicio);
 		centro.setfFin(fFin);
+		centro.setFranja(franja);
 		centro.setCupo(cupo);
 		assertEquals("Centro con id: "+centro.getId(),CentroCtrl.insertarCentro(centro));
+		CentroCtrl.borrarCentro(centro);
 	}
 
 	@Then("se crea un centro de salud")
