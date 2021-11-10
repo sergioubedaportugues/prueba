@@ -51,7 +51,7 @@ public class CitasController {
 			List<Usuario> pacientes = user.getByRol("Paciente");
 			Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
 			
-			List<CentroSalud> centros = center.findByNombre(ramon.getNombreCentro());
+			List<CentroSalud> centros = center.findByNombre(ramon.getCs().getNombre());
 			CentroSalud cs = centros.get(0);
 			
 			Citas citaNueva = new Citas();
@@ -126,7 +126,7 @@ public class CitasController {
 	
 	@GetMapping("/findAllCitas")
 	public List<Citas> getCitas(){
-		return cita.findAllOrderByDia();
+		return cita.findAll();
 	}
 	
 	
