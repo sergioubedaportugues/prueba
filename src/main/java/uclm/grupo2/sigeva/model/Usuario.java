@@ -68,7 +68,7 @@ public class Usuario{
     }
 
     public void setPassword(String password) {
-        this.password = DigestUtils.sha512Hex(password);
+        this.password = password;
     }
 	public String getTelefono() {
 		return telefono;
