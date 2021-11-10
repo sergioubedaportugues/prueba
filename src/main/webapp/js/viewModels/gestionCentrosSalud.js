@@ -8,9 +8,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.nombre = ko.observable("");
 			self.direccion = ko.observable("");
 			self.numVacunas = ko.observable("");
-			self.cupo = ko.observable("");
-			self.fInicio = ko.observable("");
-			self.fFin = ko.observable("");
+			self.fInicio = ko.observable("08:00");
+			self.fFin = ko.observable("14:00");
+			self.franja = ko.observable("6");
+			self.cupo = ko.observable("5");
 
 			
 			self.centros = ko.observableArray([]);
@@ -39,9 +40,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				nombre : this.nombre(),
 				direccion : this.direccion(),
 				numVacunas : this.numVacunas(),
-				cupo : this.cupo(),
 				fInicio : this.fInicio(),
-				fFin : this.fFin()
+				fFin : this.fFin(),
+				franja : this.franja(),
+				cupo : this.cupo()
 
 			};
 			let data = {

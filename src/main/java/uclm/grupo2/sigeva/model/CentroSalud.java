@@ -16,12 +16,12 @@ public class CentroSalud{
 
     private String fInicio;
     private String fFin;
-    
+    private String franja;
     private String cupo;
+    
 
     public CentroSalud() {
     	this.id=UUID.randomUUID().toString();
-    	
     }
 
 	public String getId() {
@@ -91,12 +91,19 @@ public class CentroSalud{
 		this.cupo = cupo;
 	}
 
+	public String getFranja() {
+		return franja;
+	}
 
+	public void setFranja(String franja) {
+		this.franja = franja;
+	}
 
 	@Override
 	public String toString() {
 		return "CentroSalud [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", numVacunas="
-				+ numVacunas + ", fInicio=" + fInicio + ", fFin=" + fFin + ", cupo=" + cupo + "]";
+				+ numVacunas + ", fInicio=" + fInicio + ", fFin=" + fFin + ", franja=" + franja + ", cupo=" + cupo + "]";
 	}
+
     
 }

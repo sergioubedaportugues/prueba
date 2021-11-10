@@ -46,7 +46,7 @@ public class CentroSaludController {
 			else {
 				if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())
 					throw new CamposVaciosException();
-				if(!esNumericoEntero(cs.getNumVacunas()) || !esNumericoEntero(cs.getCupo()))
+				if(!esNumericoEntero(cs.getNumVacunas()) || !esNumericoEntero(cs.getCupo()) || !esNumericoEntero(cs.getFranja()))
 					throw new ValorNumericoException(); 
 				if(Integer.parseInt(cs.getNumVacunas())<0 || Integer.parseInt(cs.getCupo())<0)
 					throw new NumeroMinimoException();
