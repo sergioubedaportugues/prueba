@@ -98,7 +98,12 @@ public class UsuarioController {
 				 	preUsuario.setTelefono(usuario.getTelefono());
 				 	preUsuario.setDni(usuario.getDni());
 				 	preUsuario.setRol(usuario.getRol());
-	                user.save(preUsuario);			
+				 	if(usuario.getCs()==null) {
+				 		preUsuario.setCs(preUsuario.getCs());
+					}else {
+				 	preUsuario.setCs(usuario.getCs());
+					}
+				 	user.save(preUsuario);			
 			}
 			else
 				throw new UsuarioInexistenteException();
