@@ -21,7 +21,6 @@ public class Usuario{
     private String dni;
     private String rol;
     private CentroSalud cs;
-    private String nombreCentro;
 
     public Usuario() {
     	this.id=UUID.randomUUID().toString();
@@ -78,25 +77,11 @@ public class Usuario{
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
-	public String getNombreCentro() {
-		return nombreCentro;
-	}
-	public void setNombreCentro(String nombreCentro) {
-		this.nombreCentro = nombreCentro;
-	}
-	
+
 	public CentroSalud getCs() {
 		return cs;
 	}
 	public void setCs(CentroSalud cs) {
 		this.cs = cs;
 	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", login=" + login + ", password=" + password + ", nombre=" + nombre
-				+ ", apellidos=" + apellidos + ", telefono=" + telefono + ", dni=" + dni + ", rol=" + rol + "]";
-	}
-
 }
