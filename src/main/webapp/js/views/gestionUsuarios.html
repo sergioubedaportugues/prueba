@@ -42,6 +42,7 @@
 			<select data-bind="options:cs, optionsText:'nombre'" id="centro"></select>
 			<br>
 			<label for="roles">Rol</label>
+			<br>
 			<select data-bind="options:rol" id="roles"></select>
 			<br>
             <button class="btn_nuevo" data-bind="click : insertUsers">Nuevo usuario</button>
@@ -79,7 +80,7 @@
 					   <select data-bind="options:cs, optionsText:'nombre'" id="centro"></select>
                        </td>
                        <!--<td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de salud"></td>-->
-                       <td><input type="text" data-bind="value : rol" placeholder="Rol"readonly></td>
+                       <td><input type="text" data-bind="value : rol" placeholder="Rol"disabled></td>
 						<td><button class = "btn_modif" data-bind="click : function() { $parent.modifyUsers($data); }">Modificar</button></td>
 						<td><button class = "btn_elim" data-bind="click : function() { $parent.deleteUsers($data); }">Eliminar</button></td>
                 </tr>
@@ -133,7 +134,7 @@ form{
 }
 
 form label{
-	width:72px;
+	width:150px;
 	font-weight:bold;
 	display:inline-block;
 }
