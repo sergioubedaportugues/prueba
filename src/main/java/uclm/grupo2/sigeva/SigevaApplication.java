@@ -8,7 +8,6 @@ public class SigevaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SigevaApplication.class, args);
-		// Hola2
 	}
 	//hola
 
