@@ -19,6 +19,7 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
+import uclm.grupo2.sigeva.exceptions.FormatoPasswordException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
 import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
@@ -47,8 +48,11 @@ public class UsuarioController {
 					throw new CamposVaciosException();
 				if(!validarMovil(usuarios.getTelefono()))
 					throw new NoEsTelefonoException();
+				if(!validarPassword(usuarios.getPassword()))
+					throw new FormatoPasswordException();
 				if(!validarDni(usuarios.getDni())) 
 					throw new FormatoDniException();
+				usuarios.setPassword(DigestUtils.sha512Hex(usuarios.getPassword()));
 				user.save(usuarios);
 				
 				}
@@ -103,6 +107,18 @@ public class UsuarioController {
 					}else {
 				 	preUsuario.setCs(usuario.getCs());
 					}
+					if(!validarMovil(preUsuario.getTelefono()))
+						throw new NoEsTelefonoException();
+					
+					if(preUsuario.getPassword().length()!=128) {
+						if(!validarPassword(preUsuario.getPassword())) {
+							throw new FormatoPasswordException();
+						}
+						preUsuario.setPassword(DigestUtils.sha512Hex(preUsuario.getPassword()));
+					}
+					if(!validarDni(preUsuario.getDni())) 
+						throw new FormatoDniException();
+					
 				 	user.save(preUsuario);			
 			}
 			else
@@ -112,6 +128,9 @@ public class UsuarioController {
 		}
 		return "Usuario modificado";
 	}
+	
+	
+	
 	
 	
 	private static boolean validarMovil(String telefono) {
@@ -138,5 +157,32 @@ public class UsuarioController {
         	return valido;
         valido = true;
         return valido;
+	}
+	
+	private static boolean validarPassword(String pwd) {
+		boolean mayus = false;
+		boolean minus = false;
+		boolean numero = false;
+		if(pwd.length()<8)
+			return false;
+		
+		for (int i = 0; i < pwd.length(); i++) {
+            if (Character.isDigit(pwd.charAt(i))) {
+    			numero=true;
+            }
+            if (Character.isLowerCase(pwd.charAt(i))) {
+    			minus=true;
+            }
+            if (Character.isUpperCase(pwd.charAt(i))) {
+    			mayus=true;
+            }
+        }
+		if (numero && minus && mayus) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
 	}
 }
