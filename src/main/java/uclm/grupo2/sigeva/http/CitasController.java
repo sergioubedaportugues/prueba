@@ -3,7 +3,6 @@ package uclm.grupo2.sigeva.http;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
