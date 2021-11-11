@@ -18,7 +18,7 @@ public class PruebaEliminarUsuario {
 	@Given("un usuario con {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void un_usuario_con_y(String login, String password, String nombre, String apellidos, String telefono, String dni, String rol) {
 		Usuario user = new Usuario();
-		login= "Antonio68"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
+		login= "Antonio65"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
 		user.setLogin(login);
 		user.setNombre(nombre);
 		user.setPassword(password);
