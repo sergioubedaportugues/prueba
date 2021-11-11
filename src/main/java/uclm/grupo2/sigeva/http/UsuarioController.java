@@ -88,7 +88,6 @@ public class UsuarioController {
 			
 			if (optUser.isPresent()) {
 				 	Usuario preUsuario = optUser.get();
-				 	preUsuario.setLogin(usuario.getLogin());
 				 	preUsuario.setPassword(usuario.getPassword());
 				 	preUsuario.setNombre(usuario.getNombre());
 				 	preUsuario.setApellidos(usuario.getApellidos());
