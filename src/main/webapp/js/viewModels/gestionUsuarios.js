@@ -12,10 +12,11 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.apellidos = ko.observable("");
 			self.telefono = ko.observable("");
 			self.dni= ko.observable("");
-			self.cs = ko.observableArray([]);
-			self.rol = ko.observable("");
+			self.cs = ko.observable("");
+			self.rol = ko.observableArray(["Administrador","Sanitario","Paciente"]);
 
 			self.usuarios = ko.observableArray([]);
+			self.allcentros=ko.observableArray([]);
 			
 			self.message = ko.observable(null);
 			self.error = ko.observable(null);
@@ -38,6 +39,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		insertUsers() {
 			var self = this;
 			var centro = document.getElementById("centro")
+			var roles = document.getElementById("roles")
 			let info = {
 				login : this.login(),
 				password : this.password(),
@@ -45,8 +47,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				apellidos : this.apellidos(),
 				telefono : this.telefono(),
 				dni : this.dni(),
-				cs : this.cs()[centro.selectedIndex],
-				rol : this.rol()
+				cs : this.allcentros()[centro.selectedIndex],
+				rol : this.rol()[roles.selectedIndex]
 			};
 			let data = {
 				data : JSON.stringify(info),
@@ -88,7 +90,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					self.cs(response);
+					self.allcentros(response);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
