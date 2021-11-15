@@ -17,7 +17,7 @@ public class PruebaModificarUsuarioAdmin {
 	public void en_la_vista_administrador_y(String login, String password, String nombre, String apellidos, String telefono, String dni, String rol) {
 		Usuario user = new Usuario();
 		login= "Antonio68"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
-		String loginN= "Ramon68";String passwordN="Patatita";String nombreN="Ramon"; 
+		String loginN= "Ramon68";String passwordN="Patatita6";String nombreN="Ramon"; 
 		String apellidosN="Galera"; String telefonoN="888888778"; String dniN="98878888A"; 
 		
 		
