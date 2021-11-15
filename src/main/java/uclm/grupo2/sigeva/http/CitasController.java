@@ -254,4 +254,27 @@ public class CitasController {
 		}
 		return valido;
 	}
+	private static boolean validarDias(String dia) {
+		if (dia.length() != 5)
+			return false;
+		for (int i = 0; i < dia.length() - 1; i++) {
+			if (i == 2 ||i==5) {
+				if (dia.charAt(i) != '-')
+					return false;
+			} else {
+				if (!Character.isDigit(dia.charAt(i))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	private static boolean controlDias(String dia) {
+		boolean valido = false;
+		String[] h = dia.split("-");
+		if(Integer.parseInt(h[0])<32 && (Integer.parseInt(h[1])<13) && Integer.parseInt(h[2])<2023) {
+			valido = true;
+		}
+		return valido;
+	}
 }
