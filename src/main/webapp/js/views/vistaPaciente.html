@@ -37,11 +37,12 @@
             </tr>
             <!-- ko foreach : citas -->
                 <tr>   
-                	<td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>           
-                    <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
-                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"readonly></td>
-                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
-                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
+                	<td><input type="text" data-bind="value : dia" placeholder="Dia"></td>           
+                    <td><input type="text" data-bind="value : horas" placeholder="Horas"></td>
+                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"disabled></td>
+                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"disabled></td>
+                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"disabled></td>
+                    <td><button class = "btn_modif" data-bind="click : function() { $parent.modifyCita($data); }">Modificar</button></td>
                     <td><button class = "btn_elim" data-bind="click : function() { $parent.deleteCita($data); }">Cancelar</button></td>
                 </tr>
             <!-- /ko -->
@@ -230,6 +231,34 @@ button.btn_elim:hover {
   background-color: #ffff;
 }
 
+button.btn_modif {
+
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+
+font-family: Arial;
+  color: #fafafa;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+
+}
+button.btn_modif:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
+}
 
 
 
