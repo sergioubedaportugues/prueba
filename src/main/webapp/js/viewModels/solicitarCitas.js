@@ -8,8 +8,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.id = ko.observable("");
 			self.horas = ko.observable("");
 			self.dia = ko.observable("");
-			self.nombreCentro = ko.observable("");
-			
+			self.numCita = ko.observable("");
+
 			self.centros = ko.observableArray([]);
 			self.paciente = ko.observableArray([]);
 			self.citas = ko.observableArray([]);
@@ -37,8 +37,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			let info = {
 				horas : this.horas(),
 				dia : this.dia(),
-				nombreCentro : this.nombreCentro(),
-
+				num_cita : this.numCita()
 			};
 			let data = {
 				data : JSON.stringify(info),
@@ -74,9 +73,30 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		deleteCita(cita){
+			let self = this;
+			
+			let data = {
+				data : JSON.stringify(cita),
+				url : "gestionCitas/deleteCita",
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Cita cancelada");
+					self.getCitas();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		connected() {
 			accUtils.announce('Solicitar Citas page loaded.');
 			document.title = "Solicitar Citas";
+			
+			this.getCitas();
 		};
 		disconnected() {
 			// Implement if needed
