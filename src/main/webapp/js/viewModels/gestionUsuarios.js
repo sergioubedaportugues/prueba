@@ -5,16 +5,19 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
+			self.id = ko.observable("");
+			self.login = ko.observable("");
+			self.password = ko.observable();
 			self.nombre = ko.observable("");
-			self.direccion = ko.observable("");
-			self.numVacunas = ko.observable("");
-			self.fInicio = ko.observable("08:00");
-			self.fFin = ko.observable("14:00");
-			self.franja = ko.observable("6");
-			self.cupo = ko.observable("5");
+			self.apellidos = ko.observable("");
+			self.telefono = ko.observable("");
+			self.dni= ko.observable("");
+			self.dosis= ko.observable();
+			self.cs = ko.observable("");
+			self.rol = ko.observableArray(["Administrador","Sanitario","Paciente"]);
 
-			
-			self.centros = ko.observableArray([]);
+			self.usuarios = ko.observableArray([]);
+			self.allcentros=ko.observableArray([]);
 			
 			self.message = ko.observable(null);
 			self.error = ko.observable(null);
@@ -34,26 +37,29 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 		
-		insertCenters() {
+		insertUsers() {
 			var self = this;
+			var centro = document.getElementById("centro")
+			var roles = document.getElementById("roles")
 			let info = {
+				login : this.login(),
+				password : this.password(),
 				nombre : this.nombre(),
-				direccion : this.direccion(),
-				numVacunas : this.numVacunas(),
-				fInicio : this.fInicio(),
-				fFin : this.fFin(),
-				franja : this.franja(),
-				cupo : this.cupo()
-
+				apellidos : this.apellidos(),
+				telefono : this.telefono(),
+				dni : this.dni(),
+				dosis : this.dosis(),
+				cs : this.allcentros()[centro.selectedIndex],
+				rol : this.rol()[roles.selectedIndex]
 			};
 			let data = {
 				data : JSON.stringify(info),
-				url : "gestionCentroSalud/insertCenter",
+				url : "gestionUsuarios/insertUsers",
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Centro guardado en la base de datos");
-					self.getCentros();
+					self.message("Usuario guardado en la base de datos");
+					self.getUsuarios();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -64,6 +70,21 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		getUsuarios() {
+			let self = this;
+			let data = {
+				url : "gestionUsuarios/findAllUsers",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					self.usuarios(response);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
 		getCentros() {
 			let self = this;
 			let data = {
@@ -71,7 +92,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					self.centros(response);
+					self.allcentros(response);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -80,17 +101,17 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		deleteCenters(center) {
+		deleteUsers(user) {
 			let self = this;
 			
 			let data = {
-				data : JSON.stringify(center),
-				url : "gestionCentroSalud/deleteCenter",
+				data : JSON.stringify(user),
+				url : "gestionUsuarios/deleteUser",
 				type : "delete",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Centro de Salud eliminado");
-					self.getCentros();
+					self.message("Usuario eliminado");
+					self.getUsuarios();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -99,23 +120,23 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		modifyCenters(cs) {
+		modifyUsers(usuario) {
             var self = this;
 
             let data = {
-                data : JSON.stringify(cs),
-                url : "gestionCentroSalud/modifyCenter",
+                data : JSON.stringify(usuario),
+                url : "gestionUsuarios/modifyUser",
                 type : "post",
                 contentType : 'application/json',
                 success : function(response) {
-                    self.getCentros();
+                    self.getUsuarios();
                     self.limpiarMensajes();
-                    self.mostrarMensajes("Centro actualizado correctamente.");
+                    self.mostrarMensajes("Usuario actualizado correctamente.");
                 },
                 error : function(response) {
                     self.error(response.responseJSON.errorMessage);
                     self.limpiarMensajes();
-                    self.mostrarMensajes(null, "Error, el centro no se ha actualizado correctamente.");
+                    self.mostrarMensajes(null, "Error, el usuario no se ha actualizado correctamente.");
                 }
             };
            
@@ -139,9 +160,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}	
 		
 		connected() {
-			accUtils.announce('Gestión de centros de salud page loaded.');
-			document.title = "Gestión de Centros de Salud";
+			accUtils.announce('Gestión de usuarios page loaded.');
+			document.title = "Gestión Usuarios";
 			
+			this.getUsuarios();
 			this.getCentros();
 			
 		};

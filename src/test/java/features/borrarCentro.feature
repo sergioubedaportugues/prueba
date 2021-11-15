@@ -17,12 +17,13 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Eliminar centro
+Feature: Borrar Centro
 
 
   @tag1
-  Scenario: Eliminar centro correctamente
-    Given los atributos "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin" y "cupo"
-    Then se elimina el centro de salud
+  Scenario: Borrar Centro correctamente
+    Given los atributos "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin", "franja" y "cupo"
+    Then se elimina el centro
+
 
 

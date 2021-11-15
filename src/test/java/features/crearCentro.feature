@@ -21,5 +21,5 @@ Feature: Crear centro
 
   @tag1
   Scenario: Crear centro correctamente
-    Given un "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin" y "cupo" 
+    Given un "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin", "franja" y "cupo" 
     Then se crea un centro de salud
