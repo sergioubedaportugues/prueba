@@ -48,52 +48,109 @@ public class CitasController {
 			boolean insertada = false;
 			
 			List<Usuario> pacientes = user.getByRol("Paciente");
-			Usuario ramon = pacientes.get(new Random().nextInt(pacientes.size()));
+			Usuario paciente = pacientes.get(new Random().nextInt(pacientes.size()));
 			
-			List<CentroSalud> centros = center.findByNombre(ramon.getCs().getNombre());
+			List<CentroSalud> centros = center.findByNombre(paciente.getCs().getNombre());
 			CentroSalud cs = centros.get(0);
 			
-			Citas citaNueva = new Citas();
-			Citas segundaCita = new Citas();
-			citaNueva.setCs(cs);
-			
 			LocalDate date = LocalDate.now();
-			date = date.plusDays(1);
 			LocalTime time = LocalTime.now();
 			
+			int vueltasCita = 0;
+			int vueltasCitaSeg = 0;
 			
-			citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-			citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
-			citaNueva.setPaciente(ramon);
-			citaNueva.setNumCita(1);
-			segundaCita.setCs(citaNueva.getCs());
-			segundaCita.setPaciente(citaNueva.getPaciente());
-			segundaCita.setNumCita(2);
-			
-			int vueltas = 0;
-			
-			while (!insertada) {
+			if(paciente.getDosis()==0 || cita.getByPaciente(paciente).isEmpty()) {
+				Citas citaNueva = new Citas();
+				Citas segundaCita = new Citas();
+				citaNueva.setCs(cs);
+
+				date = date.plusDays(1);
+
+				citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+				citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+				citaNueva.setPaciente(paciente);
+				citaNueva.setNumCita(1);
+				segundaCita.setCs(citaNueva.getCs());
+				segundaCita.setPaciente(citaNueva.getPaciente());
+				segundaCita.setNumCita(2);
+
 				
-				if(cita.getByDiaAndCsAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0) {
-					
-					center.save(citaNueva.getCs());
-					cita.save(citaNueva);
-					date = date.plusDays(21);
-					segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-					segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
-					cita.save(segundaCita);
-					
-					insertada = true;
-				} else {
-					if(vueltas == 24) {
-						date = date.plusDays(1);
-						citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-						vueltas = 0;
+
+				while (!insertada) {
+
+					if (cita.getByDiaAndCsAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs(),
+							citaNueva.getHoras().substring(0, 2)).size() < Integer.parseInt(citaNueva.getCs().getCupo())
+							&& LocalTime.parse(citaNueva.getHoras())
+									.compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0
+							&& LocalTime.parse(citaNueva.getHoras())
+									.compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0) {
+
+						cita.save(citaNueva);
+						date = date.plusDays(21);
+						segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+						segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+						
+						if (cita.getByDiaAndCsAndHorasStartingWith(segundaCita.getDia(), segundaCita.getCs(),
+								segundaCita.getHoras().substring(0, 2)).size() < Integer.parseInt(segundaCita.getCs().getCupo())
+								&& LocalTime.parse(segundaCita.getHoras())
+										.compareTo(LocalTime.parse(segundaCita.getCs().getfFin())) < 0
+								&& LocalTime.parse(segundaCita.getHoras())
+										.compareTo(LocalTime.parse(segundaCita.getCs().getfInicio())) > 0) {
+							cita.save(segundaCita);
+							insertada = true;
+						} else {
+							if (vueltasCitaSeg == 24) {
+								date = date.plusDays(1);
+								segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+								vueltasCitaSeg = 0;
+							}
+							time = time.plusHours(1);
+							segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+							vueltasCitaSeg++;
+						}
+
+					} else {
+						if (vueltasCita == 24) {
+							date = date.plusDays(1);
+							citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+							vueltasCita = 0;
+						}
+						time = time.plusHours(1);
+						citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+						vueltasCita++;
 					}
-					time = time.plusHours(1);
-					citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
-					vueltas++;
 				}
+
+			} else if (paciente.getDosis()==1 || cita.getByPaciente(paciente).size()==1) {
+				Citas citaNueva = new Citas();
+				citaNueva.setCs(cs);
+				
+				citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+				citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+				citaNueva.setPaciente(paciente);
+				citaNueva.setNumCita(2);
+				
+				while (!insertada) {
+					if (cita.getByDiaAndCsAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs(),
+							citaNueva.getHoras().substring(0, 2)).size() < Integer.parseInt(citaNueva.getCs().getCupo())
+							&& LocalTime.parse(citaNueva.getHoras())
+									.compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0
+							&& LocalTime.parse(citaNueva.getHoras())
+									.compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0) {
+
+						cita.save(citaNueva);
+					} else {
+						if (vueltasCita == 24) {
+							date = date.plusDays(1);
+							citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
+							vueltasCita = 0;
+						}
+						time = time.plusHours(1);
+						citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+						vueltasCita++;
+					}
+				}
+				
 			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
@@ -137,5 +194,4 @@ public class CitasController {
 		}
 		return misCitas;
 	}
-	
 }
