@@ -126,12 +126,13 @@ public class CitasController {
 		boolean insertada = false;
 		Citas citaNueva = new Citas();
 		citaNueva.setCs(cs);
+		
 
 
 		if (num==2)
 			date = date.plusDays(21);
 		citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-		if (date.isAfter(LocalDate.parse("10-01-2022")) && num==1)
+		if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==1)
 			throw new FechaMaximaException();
 		citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 		citaNueva.setPaciente(paciente);
