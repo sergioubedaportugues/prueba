@@ -19,19 +19,17 @@
         <table class="tablaCitas">
         <caption></caption>
             <tr>
-            	<th id="coltablaCitas">D&iacutea</th>
                 <th id="coltablaCitas">Hora</th>
-                <th id="coltablaCitas">N&uacutemero de vacuna</th>
+                <th id="coltablaCitas">D&iacutea</th>
                 <th id="coltablaCitas">Paciente</th>
                 <th id="coltablaCitas">Centro de Salud</th>
             </tr>
             <!-- ko foreach : citas -->
                 <tr>
-                	<td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>
-                    <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
-                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"readonly></td>
-                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
-                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
+                       <td><input type="text" data-bind="value : horas" placeholder="Horas"></td>
+                       <td><input type="text" data-bind="value : dia" placeholder="Dia"></td>
+                       <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"></td>
+                       <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"></td>
                 </tr>
             <!-- /ko -->
         </table>
@@ -49,14 +47,6 @@
   flex-wrap: wrap;
   margin-top: 40px;
   justify-content: center;
-}
-
-.oj-hybrid-applayout-page{
-background-image: url(https://lh3.googleusercontent.com/9IXor6r-6J2Juz-0fgfPcLWc3gQ8rLe8yhWtqDqh2Sfz8IubFNcO5lVyWgvdxs2N7_E_RdnRvvwT885sBWjUnBj0wWykvPa350l_vXUf_QeYiZ2fP56zrnDX6zLt-nwnerXGkoSPBdGKThg7YtXDtcyDJVuToeO3zC5CoofFpnsPB-qa5i6STJGKZbtMhITMvlAxhVrRI-a4NO47zMKTnKHg_0_tk1Wc_gVTG3qND7y2yt5ciQuS5BGZHPE3Ze1_u62iCeN7op3yWbtbdDP40C-6bawFMJxdRT4EK51kacOg6i36i6DXL0mRO2_1X3B-J5TXnM-d9q5QgmKRm_EECGy90ELX8jE0r3Q1BIYMqKL4lCMKTuuKw3i3acnkbz5iZ5gK_OWFeiaqK1J4zG67Ajyynq_CXQZZXzophvjmqY23Nhg1KKBCD4zMpTsUWgWxmzgRCU2ZnwuPPpmKvt3axqB_NJAM_-xfKm-3bbHRPMr0O5Pfwmw1ac4jLv_S14vWpNHHPrlmE9EAneKtZkkJMiRIhaF5_6FBO5TUYIkexp8DdPL1bLk3maCK-XyFpFS2RIypZCNUqBudDWgtTL9zcKjh77zZR0asI5fFTnnKHWfqIj8uWKLhWoyUkIRa1YyqETb--0GngA5p0Nj2AkAU0Y_JkrvGphNoqttLKe4l-do-tPAEo35LkwRI8OHFtrk2YmavkWhK1uId3dXxENP30A=w700-h619-no?authuser=0);
-    background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
- backgroudn-colo:#ffff;
 }
 
 .btnNuevaCita{

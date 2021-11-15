@@ -3,6 +3,7 @@ package uclm.grupo2.sigeva.http;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -64,21 +65,30 @@ public class CitasController {
 			
 			citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
 			citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
+			citaNueva.setNombreCentro(cs.getNombre());
 			citaNueva.setPaciente(ramon);
-			citaNueva.setNumCita(1);
 			segundaCita.setCs(citaNueva.getCs());
+			segundaCita.setNombreCentro(citaNueva.getNombreCentro());
 			segundaCita.setPaciente(citaNueva.getPaciente());
-			segundaCita.setNumCita(2);
 			
+
 			int vueltas = 0;
 			
 			while (!insertada) {
 				
-				if(cita.getByDiaAndCsAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0) {
+				if(cita.getByDiaAndNombreCentroAndHorasStartingWith(citaNueva.getDia(), citaNueva.getCs().getNombre(), citaNueva.getHoras().substring(0,2)).size() < Integer.parseInt(citaNueva.getCs().getCupo()) && LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfFin())) < 0 &&  LocalTime.parse(citaNueva.getHoras()).compareTo(LocalTime.parse(citaNueva.getCs().getfInicio())) > 0 && Integer.parseInt(citaNueva.getCs().getNumVacunas()) >= 2) {
+
 					
+					int vacunasDisponibles = Integer.parseInt(citaNueva.getCs().getNumVacunas());
+					vacunasDisponibles = vacunasDisponibles - 2;
+					if(vacunasDisponibles<10) {
+						citaNueva.getCs().setNumVacunas(Integer.toString(100));
+					} else {
+						citaNueva.getCs().setNumVacunas(Integer.toString(vacunasDisponibles));
+					}
 					center.save(citaNueva.getCs());
 					cita.save(citaNueva);
-					date = date.plusDays(21);
+					date = date.plusDays(14);
 					segundaCita.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
 					segundaCita.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 					cita.save(segundaCita);
@@ -105,10 +115,9 @@ public class CitasController {
 	public void borrarCita(@RequestBody Citas c) {
 		try {
 			Optional<Citas> optCita = cita.findById(c.getId());
-			if (optCita.isPresent()) {
-				
+			if (optCita.isPresent())
 				cita.deleteById(c.getId());
-			} else
+			else
 				throw new UsuarioInexistenteException();
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

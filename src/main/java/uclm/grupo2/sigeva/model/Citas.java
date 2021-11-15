@@ -13,12 +13,13 @@ public class Citas{
     private String dia;
     private Usuario paciente;
     private CentroSalud cs;
-    private int numCita;
+    private String nombreCentro;
 
     public Citas() {
     	this.id=UUID.randomUUID().toString();
-    	this.setNumCita(0);
     }
+    
+    
 
 	public String getId() {
 		return id;
@@ -59,13 +60,24 @@ public class Citas{
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
+	
+	
 
-	public int getNumCita() {
-		return numCita;
+	public String getNombreCentro() {
+		return nombreCentro;
 	}
 
-	public void setNumCita(int numCita) {
-		this.numCita = numCita;
+
+
+	public void setNombreCentro(String nombreCentro) {
+		this.nombreCentro = nombreCentro;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Citas [id=" + id + ", horas=" + horas + ", dia=" + dia + ", paciente=" + paciente + ", cs=" + cs + "]";
 	}
 
 }

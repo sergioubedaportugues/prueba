@@ -2,7 +2,6 @@ package uclm.grupo2.sigeva.http;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
+import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.FormatoPasswordException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
+import uclm.grupo2.sigeva.exceptions.RolInvalidoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
+import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
@@ -30,6 +33,9 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDAO user;
+	
+	@Autowired
+	private CentroSaludDAO center;
 	
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
@@ -88,7 +94,9 @@ public class UsuarioController {
 			
 			if (optUser.isPresent()) {
 				 	Usuario preUsuario = optUser.get();
-				 	preUsuario.setPassword(usuario.getPassword());
+				 	preUsuario.setLogin(usuario.getLogin());
+				 	if(usuario.getPassword().length()!=128)
+				 		preUsuario.setPassword(usuario.getPassword());
 				 	preUsuario.setNombre(usuario.getNombre());
 				 	preUsuario.setApellidos(usuario.getApellidos());
 				 	preUsuario.setTelefono(usuario.getTelefono());
@@ -155,8 +163,7 @@ public class UsuarioController {
 		boolean mayus = false;
 		boolean minus = false;
 		boolean numero = false;
-		boolean correcto = false;
-		if(pwd.length()<8 || pwd.length()>=32)
+		if(pwd.length()<8)
 			return false;
 		
 		for (int i = 0; i < pwd.length(); i++) {
@@ -171,8 +178,11 @@ public class UsuarioController {
             }
         }
 		if (numero && minus && mayus) {
-			correcto=true;
+			return true;
 		}
-		return correcto;
+		else {
+			return false;
+		}
+
 	}
 }
