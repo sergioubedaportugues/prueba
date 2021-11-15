@@ -29,17 +29,20 @@
         <table class="tablaMisCitas">
         <caption></caption>
             <tr>
+            	<th id="coltablaMisCitas">D&iacutea</th>
                 <th id="coltablaMisCitas">Hora</th>
-                <th id="coltablaMisCitas">D&iacutea</th>
+                <th id="coltablaMisCitas">N&uacutemero de vacuna</th>
                 <th id="coltablaMisCitas">Paciente</th>
                 <th id="coltablaMisCitas">Centro de Salud</th>
             </tr>
             <!-- ko foreach : citas -->
-                <tr>              
-                       <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
-                       <td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>
-                       <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
-                       <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
+                <tr>   
+                	<td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>           
+                    <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
+                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"readonly></td>
+                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
+                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
+                    <td><button class = "btn_elim" data-bind="click : function() { $parent.deleteCita($data); }">Cancelar</button></td>
                 </tr>
             <!-- /ko -->
         </table>
@@ -197,6 +200,36 @@ button.btn_nuevo {
     margin-left: 94px;
     margin-top: 20px;
 }
+
+button.btn_elim {
+
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+
+font-family: Arial;
+  color: #fafafa;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+
+}
+button.btn_elim:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
+}
+
 
 
 
