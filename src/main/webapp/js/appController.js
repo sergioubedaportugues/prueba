@@ -25,7 +25,8 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       var platform = ThemeUtils.getThemeTargetPlatform();
 
       var navDataRouter = [
-        { path: '', redirect: 'gestionUsuarios' },
+        { path: '', redirect: 'loginogin' },
+		{ path: 'login', detail: { label: 'Login'} },
         { path: 'gestionUsuarios', detail: { label: 'Gestión Usuarios'} },
 		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} },
 		{ path: 'gestionCitas', detail: { label: 'Gestión de Citas'} },

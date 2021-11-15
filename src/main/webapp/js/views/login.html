@@ -1,0 +1,207 @@
+<div class="oj-hybrid-applayout-page_">
+	<div class="oj-applayout-fixed-top">
+		<header role="banner" class="oj-hybrid-applayout-header">
+			<oj-module config="[[headerConfig]]"></oj-module>
+		</header>
+	</div>
+	<!-- This is where your main page content will be loaded -->
+	<div class="oj-applayout-content">
+		<div role="main" class="oj-hybrid-applayout-content">
+			<div class="oj-hybrid-padding">
+				<h1 id="login" class="login"></h1>
+				<h2 id="credenciales" class="credenciales">Introduzca sus credenciales</h2>
+				<div>
+					<div class="cajaLogin">
+						<div class="oj-sm-12">
+							<input type="login" placeholder="login" data-bind="value : login">
+						</div>
+						<div class="oj-sm-12">
+							<input type="password" placeholder="Contraseña"
+								data-bind="value : pwd">
+						</div>
+						<div class="boton-login">
+							<button class="btn-login" data-bind="click : login">Entrar</button>
+						</div>
+						<div class="msg-correto" data-bind="html : message"
+							style="color: blue"></div>
+						<div class="msg-error" data-bind="html : error" style="color: red">
+						</div>
+					</div>
+
+					<div class="oj-flex">
+						<div class="oj-sm-14">
+							<a data-bind="click : recoverPwd">Recuperar contraseña</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<head>
+<title></title>
+<style>
+.oj-hybrid-applayout-page{
+background-color: #ffff;	
+}
+.gestionU
+.oj-applayout-content{
+background-color: #ffff;	
+}
+
+
+
+.oj-applayout-content.oj-complete{
+background-color: #ffff;
+}
+
+.oj-applayout-content {
+background-color: #ffff;
+	position: relative;
+	position: absolute;
+	top: 30%;
+	left: 45%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 1rem;
+	/* IMPORTANTE */
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.oj-sm-12 {
+	padding-top: 10px;
+	background-color: #ffff;
+}
+
+.login {
+background-color: #ffff;
+	padding-bottom: 30px;
+	margin-top: 160px;
+	color: #00a0d9;
+	font-size: 500%;
+}
+
+.credenciales {
+	padding-bottom: 230px;
+	margin-top: 10px;
+	font-size: 250%;
+	 
+    color: #00a0d9;
+    margin-left: -10px;
+}
+
+.btn-login {
+ margin-top: 50px;
+
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 20px;
+
+font-family: Arial;
+  color: #fafafa;
+  font-size: 16px;
+  padding: 10px;
+  text-decoration: none;;
+}
+
+.btn-login:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
+}
+.oj-sm-14 {
+background-color: #ffffff !important;
+}
+
+.oj-applayout-content.oj-complete {
+    background-image: url("fondoGestion2.jpg");
+}
+.oj-hybrid-applayout-page {
+  background-image: url(https://lh3.googleusercontent.com/9IXor6r-6J2Juz-0fgfPcLWc3gQ8rLe8yhWtqDqh2Sfz8IubFNcO5lVyWgvdxs2N7_E_RdnRvvwT885sBWjUnBj0wWykvPa350l_vXUf_QeYiZ2fP56zrnDX6zLt-nwnerXGkoSPBdGKThg7YtXDtcyDJVuToeO3zC5CoofFpnsPB-qa5i6STJGKZbtMhITMvlAxhVrRI-a4NO47zMKTnKHg_0_tk1Wc_gVTG3qND7y2yt5ciQuS5BGZHPE3Ze1_u62iCeN7op3yWbtbdDP40C-6bawFMJxdRT4EK51kacOg6i36i6DXL0mRO2_1X3B-J5TXnM-d9q5QgmKRm_EECGy90ELX8jE0r3Q1BIYMqKL4lCMKTuuKw3i3acnkbz5iZ5gK_OWFeiaqK1J4zG67Ajyynq_CXQZZXzophvjmqY23Nhg1KKBCD4zMpTsUWgWxmzgRCU2ZnwuPPpmKvt3axqB_NJAM_-xfKm-3bbHRPMr0O5Pfwmw1ac4jLv_S14vWpNHHPrlmE9EAneKtZkkJMiRIhaF5_6FBO5TUYIkexp8DdPL1bLk3maCK-XyFpFS2RIypZCNUqBudDWgtTL9zcKjh77zZR0asI5fFTnnKHWfqIj8uWKLhWoyUkIRa1YyqETb--0GngA5p0Nj2AkAU0Y_JkrvGphNoqttLKe4l-do-tPAEo35LkwRI8OHFtrk2YmavkWhK1uId3dXxENP30A=w700-h619-no?authuser=0);
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+ backgroudn-colo:#ffff;
+}
+.oj-sm-14 {
+	background-color: #ffffff;
+	position: absolute;
+	top: 95%;
+	left: 42%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 70px 40px 20px 40px;
+	/* IMPORTANTE */
+	text-align: center;
+}
+.oj-hybrid-padding {
+    background-color: transparent !important;
+}
+.oj-sm-15 {
+background-color: #ffffff !important;
+}
+.oj-applayout-content.oj-complete {
+    background-color: transparent;
+}
+.oj-sm-12 {
+    padding-top: 10px;
+    background-color: transparent;
+}
+
+.oj-sm-15 {
+background-color: #ffffff;
+	position: absolute;
+	top: 110%;
+	left: 42%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 70px 40px 20px 40px;
+	/* IMPORTANTE */
+	text-align: center;
+}
+
+.a{
+background-color: #ffff;
+}
+
+.msg-error {
+background-color: #ffff;
+	position: absolute;
+	top: 140%;
+	left: 40%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 10px 40px 20px 40px;
+	/* IMPORTANTE */
+	text-align: center;
+}
+.oj-hybrid-applayout-header{
+display:none;
+}
+</style>
+</head>
