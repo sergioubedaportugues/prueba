@@ -19,17 +19,19 @@
         <table class="tablaCitas">
         <caption></caption>
             <tr>
+            	<th id="coltablaCitas">D&iacutea</th>
                 <th id="coltablaCitas">Hora</th>
-                <th id="coltablaCitas">D&iacutea</th>
+                <th id="coltablaCitas">N&uacutemero de vacuna</th>
                 <th id="coltablaCitas">Paciente</th>
                 <th id="coltablaCitas">Centro de Salud</th>
             </tr>
             <!-- ko foreach : citas -->
                 <tr>
-                       <td><input type="text" data-bind="value : horas" placeholder="Horas"></td>
-                       <td><input type="text" data-bind="value : dia" placeholder="Dia"></td>
-                       <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"></td>
-                       <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"></td>
+                	<td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>
+                    <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
+                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"readonly></td>
+                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
+                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
                 </tr>
             <!-- /ko -->
         </table>
