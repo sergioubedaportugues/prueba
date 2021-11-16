@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
+import uclm.grupo2.sigeva.exceptions.CredencialesInvalidasException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.FormatoPasswordException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
@@ -119,6 +120,28 @@ public class UsuarioController {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 		return "Usuario modificado";
+	}
+	
+	
+	@PostMapping("/iniciarSesion")
+	public Usuario iniciarSesion(@RequestBody String login, String password){
+		try {
+			Optional<Usuario> optUser = user.findByLogin(login);
+			if(optUser.isPresent()) {
+				Usuario usua = optUser.get();
+				if(DigestUtils.sha512Hex(password).equals(usua.getPassword())) {
+					System.out.print("holaa");
+					return usua;
+				} else {
+					System.out.print("holaa");
+					throw new CredencialesInvalidasException();
+				}
+			
+			}
+			return null;	
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
 	}
 	
 	
