@@ -93,8 +93,12 @@ public class CitasController {
 				List <Citas> listadoCitas = cita.getByPaciente(c.getPaciente());
 				if (listadoCitas.size()==2 && c.getNumCita()==1) {
 					cita.deleteById(c.getId());
-					listadoCitas.get(1).setNumCita(1);
-					cita.save(listadoCitas.get(1));
+					for(int i=listadoCitas.size()-2; i>=0;i--) {
+						if(listadoCitas.get(i).getNumCita()==1)
+							listadoCitas.remove(i);
+					}
+					listadoCitas.get(0).setNumCita(1);
+					cita.save(listadoCitas.get(0));
 				} else {
 					cita.deleteById(c.getId());
 				}
@@ -134,7 +138,7 @@ public class CitasController {
 			} catch(Exception e) {
 				throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 			}
-			return "Usuario modificado";
+			return "Cita modificada";
 		}
 	
 	@GetMapping("/findAllCitas")
@@ -168,7 +172,7 @@ public class CitasController {
 		if (num==2)
 			date = date.plusDays(21);
 		citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-		if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==1)
+		if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==2)
 			throw new FechaMaximaException();
 		citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 		citaNueva.setPaciente(paciente);

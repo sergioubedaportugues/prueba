@@ -5,11 +5,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
-			self.id = ko.observable("");
-			self.horas = ko.observable("");
-			self.dia = ko.observable("");
-			self.numCita = ko.observable("");
-			
 			self.centros = ko.observableArray([]);
 			self.paciente = ko.observableArray([]);
 			self.citas = ko.observableArray([]);
