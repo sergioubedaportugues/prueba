@@ -15,4 +15,5 @@ public class SanitarioController {
 	// ConsultarCitas
 	// AplicarVacuna
 
+
 }
