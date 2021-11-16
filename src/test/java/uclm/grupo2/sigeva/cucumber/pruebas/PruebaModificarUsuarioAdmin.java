@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.cucumber.java.en.Given;
 import uclm.grupo2.sigeva.http.UsuarioController;
+import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Usuario;
 import io.cucumber.java.en.Then;
 
@@ -20,6 +21,14 @@ public class PruebaModificarUsuarioAdmin {
 		String loginN= "Ramon68";String passwordN="Patatita";String nombreN="Ramon"; 
 		String apellidosN="Galera"; String telefonoN="888888778"; String dniN="98878888A"; 
 		
+		CentroSalud centro = new CentroSalud();
+		centro.setNombre("MiguelturraTest23");
+		centro.setDireccion("Avenida Parque 8");
+		centro.setNumVacunas("7780");
+		centro.setfInicio("09:30");
+		centro.setfFin("14:00");
+		centro.setFranja("6");
+		centro.setCupo("5");
 		
 		user.setLogin(login);
 		user.setNombre(nombre);
@@ -28,6 +37,7 @@ public class PruebaModificarUsuarioAdmin {
 		user.setDni(dni);
 		user.setTelefono(telefono);
 		user.setRol(rol);
+		user.setCs(centro);
 		UserCtrl.insertarUsuario(user);
 		
 		user.setLogin(loginN);
@@ -36,6 +46,8 @@ public class PruebaModificarUsuarioAdmin {
 		user.setApellidos(apellidosN);
 		user.setDni(dniN);
 		user.setTelefono(telefonoN);
+		centro.setNombre("Miguelturra23M");
+		user.setCs(centro);
 		assertEquals("Usuario modificado",UserCtrl.modificarUsuario(user));
 		UserCtrl.borrarUsuario(user);
 	}

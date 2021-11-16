@@ -11,9 +11,16 @@ public class Citas{
     private Usuario paciente;
     private CentroSalud cs;
     private int numCita;
+<<<<<<< HEAD
     public Citas() {
         this.id=UUID.randomUUID().toString();
         this.setNumCita(0);
+=======
+
+	public Citas() {
+    	this.id=UUID.randomUUID().toString();
+    	this.setNumCita(0);
+>>>>>>> refs/remotes/origin/Actualización
     }
     public String getId() {
         return id;
