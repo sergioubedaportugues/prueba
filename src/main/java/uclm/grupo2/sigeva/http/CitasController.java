@@ -111,11 +111,8 @@ public class CitasController {
 			Optional<Citas> optCita = cita.findById(c.getId());
 			
 			if (optCita.isPresent()) {
-				if(!validarHoras(c.getHoras()) || !tiempoHoras(c.getHoras()))
-					throw new FormatoHoraException();
-				
-				//DÍAS
-				
+				if(!validarHoras(c.getHoras()) || !tiempoHoras(c.getHoras()) || !validarDias(c.getDia()) || !controlDias(c.getDia()))
+					throw new FormatoHoraException();				
 				
 				List <Citas> listadoCitas = cita.getByPaciente(c.getPaciente());
 				if(c.getNumCita()==listadoCitas.get(0).getNumCita()) {
