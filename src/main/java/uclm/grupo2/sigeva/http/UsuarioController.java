@@ -31,6 +31,8 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioDAO user;
 	
+	public static final Usuario usuarioActual = null;
+	
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
@@ -121,10 +123,6 @@ public class UsuarioController {
 		return "Usuario modificado";
 	}
 	
-	
-	
-	
-	
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {
 			return false;
@@ -175,4 +173,10 @@ public class UsuarioController {
 		}
 		return correcto;
 	}
+	
+/*	@GetMapping("/comprobarCredenciales")
+	public Optional<Usuario> comprobarCredenciales(@PathVariable Usuario usuario){
+		
+		return user.findById(id);
+	}*/
 }
