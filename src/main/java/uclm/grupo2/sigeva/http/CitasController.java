@@ -28,6 +28,7 @@ import uclm.grupo2.sigeva.exceptions.CitasMaximasException;
 import uclm.grupo2.sigeva.exceptions.FechaMaximaException;
 import uclm.grupo2.sigeva.exceptions.FechasIncorrectasException;
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
+import uclm.grupo2.sigeva.exceptions.NoModificableException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
@@ -114,6 +115,9 @@ public class CitasController {
 				if(!validarHoras(c.getHoras()) || !tiempoHoras(c.getHoras()) || !validarDias(c.getDia()) || !controlDias(c.getDia()))
 					throw new FormatoHoraException();				
 				
+				if(c.getPaciente().getDosis()>=c.getNumCita())
+					throw new NoModificableException();
+				
 				List <Citas> listadoCitas = cita.getByPaciente(c.getPaciente());
 				if(c.getNumCita()==listadoCitas.get(0).getNumCita()) {
 					listadoCitas.get(0).setDia(c.getDia());
@@ -124,14 +128,7 @@ public class CitasController {
 				}
 				Duration diferencia = Duration.between(LocalDate.parse(listadoCitas.get(0).getDia(),formatterDia).atStartOfDay(), LocalDate.parse(listadoCitas.get(1).getDia(),formatterDia).atStartOfDay());
 				long diferenciaDias = diferencia.toDays();
-				if(listadoCitas.size()==2 && c.getNumCita()==1 && LocalDate.parse(listadoCitas.get(1).getDia(),formatterDia).isAfter(LocalDate.parse(listadoCitas.get(0).getDia(),formatterDia))) {
-					controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(0).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(0).getHoras(), formatterHora));
-					cita.deleteById(c.getId());
-				} else if(listadoCitas.size()==2 && c.getNumCita()==2 && diferenciaDias>=21) {
-					controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(1).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(1).getHoras(), formatterHora));
-					cita.deleteById(c.getId());
-				} else
-					throw new FechasIncorrectasException();
+				administrarFechas(diferenciaDias, listadoCitas, c);
 				} else 
 					throw new CitaInexistenteException();
 			} catch(Exception e) {
@@ -227,6 +224,18 @@ public class CitasController {
 			throw new CitaNoDisponibleException();
 	}
 	
+	public void administrarFechas(long diferenciaDias, List<Citas> listadoCitas, Citas c) throws FechaMaximaException, CitaNoDisponibleException, FechasIncorrectasException {
+		if(listadoCitas.size()==2 && c.getNumCita()==1 && LocalDate.parse(listadoCitas.get(1).getDia(),formatterDia).isAfter(LocalDate.parse(listadoCitas.get(0).getDia(),formatterDia))) {
+			controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(0).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(0).getHoras(), formatterHora));
+			cita.deleteById(c.getId());
+		} else if(listadoCitas.size()==2 && c.getNumCita()==2 && diferenciaDias>=21) {
+			controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(1).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(1).getHoras(), formatterHora));
+			cita.deleteById(c.getId());
+		} else
+			throw new FechasIncorrectasException();
+	}
+	
+	
 	private static boolean validarHoras(String hora) {
 		if (hora.length() != 5)
 			return false;
@@ -252,7 +261,7 @@ public class CitasController {
 		return valido;
 	}
 	private static boolean validarDias(String dia) {
-		if (dia.length() != 5)
+		if (dia.length() != 10)
 			return false;
 		for (int i = 0; i < dia.length() - 1; i++) {
 			if (i == 2 ||i==5) {
