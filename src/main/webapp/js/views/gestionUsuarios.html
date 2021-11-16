@@ -64,9 +64,8 @@
                 <th id="coltablaUsuarios">Apellidos</th>
                 <th id="coltablaUsuarios">Tel&eacutefono</th>
                 <th id="coltablaUsuarios">Dni</th>
-                <th id="coltablaUsuarios">Dosis</th>                
                 <th id="coltablaUsuarios">Centro de Salud</th>
-                <th id="coltablaUsuarios"></th>
+                <th></th>
                 <th id="coltablaUsuarios">Rol</th>
             </tr>
             <!-- ko foreach : usuarios -->
@@ -77,12 +76,12 @@
                        <td><input type="text" data-bind="value : apellidos" placeholder="Apellidos"></td>
                        <td><input type="text" data-bind="value : telefono" placeholder="Telefono"></td>
                        <td><input type="text" data-bind="value : dni" placeholder="Dni"></td>
-                       <td><input type="text" data-bind="value : dosis"disabled></td>                       
                        <td><input type="text" data-bind="value : cs.nombre" placeholder="Nombre Centro"disabled></td>
                        <td>
                        <label for="centro"></label>
 					   <select data-bind="options:$parent.allcentros(), value : cs, optionsText:'nombre', optionsCaption: 'Modificar centro'" id="centro"></select>
                        </td>
+                       <!--<td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de salud"></td>-->
                        <td><input type="text" data-bind="value : rol" placeholder="Rol"disabled></td>
 						<td><button class = "btn_modif" data-bind="click : function() { $parent.modifyUsers($data); }">Modificar</button></td>
 						<td><button class = "btn_elim" data-bind="click : function() { $parent.deleteUsers($data); }">Eliminar</button></td>
@@ -237,11 +236,11 @@ font-family: Arial;
 }
 button.btn_nuevo:hover {
 
-  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
-  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  background-image: -webkit-linear-gradient(top, #00a0d9,#ffff );
+  background-image: -moz-linear-gradient(top, #00a0d9,#ffff );
+  background-image: -ms-linear-gradient(top, #00a0d9,#ffff );
+  background-image: -o-linear-gradient(top, #00a0d9,#ffff );
+  background-image: linear-gradient(to bottom, #00a0d9,#ffff );
   text-decoration: none;
   background-color: #ffff;
 }

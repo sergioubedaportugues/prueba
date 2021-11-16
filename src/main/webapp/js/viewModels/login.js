@@ -38,7 +38,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					//$("#navList").hide();
-					app.router.go( { path : "gestionCentrosSalud"} );
+					self.mostrarMensajes("Hola :P");
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -66,6 +66,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		transitionCompleted() {
 			// Implement if needed
 		};
+		
+		mostrarMensajes(azul, rojo) {
+			let self = this;
+			setTimeout(function() {
+          		self.message(azul);
+          		self.error(rojo);
+        	}, 3000);
+		}	
 	}
 
 	return LoginViewModel;
