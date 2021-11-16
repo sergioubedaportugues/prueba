@@ -28,12 +28,12 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		login() {
 			var self = this;
 			var info = {
-				login : this.email(),
-				pwd : this.password()
+				login : this.login(),
+				password : this.password()
 			};
 			var data = {
 				data : JSON.stringify(info),
-				url : "user/login",
+				url : "gestionUsuarios/iniciarSesion",
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
