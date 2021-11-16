@@ -2,9 +2,6 @@ package uclm.grupo2.sigeva.model;
 
 import java.util.UUID;
 
-
-
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,10 +18,12 @@ public class Usuario{
     private String dni;
     private String rol;
     private CentroSalud cs;
+    private int dosis;
 
     public Usuario() {
     	this.id=UUID.randomUUID().toString();
-    }
+    	this.dosis=0;
+    	}
     public String getApellidos() {
         return apellidos;
     }
@@ -83,5 +82,11 @@ public class Usuario{
 	}
 	public void setCs(CentroSalud cs) {
 		this.cs = cs;
+	}
+	public int getDosis() {
+		return dosis;
+	}
+	public void setDosis(int dosis) {
+		this.dosis = dosis;
 	}
 }
