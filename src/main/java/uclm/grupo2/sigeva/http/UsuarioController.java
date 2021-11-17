@@ -121,6 +121,25 @@ public class UsuarioController {
 		}
 		return "Usuario modificado";
 	}
+
+	@PostMapping("/iniciarSesion")
+	public Usuario iniciarSesion(@PathVariable String login, @PathVariable String password){
+		try {
+			Optional<Usuario> optUser = user.findByLogin(login);
+			if(optUser.isPresent()) {
+				Usuario usua = optUser.get();
+				if(DigestUtils.sha512Hex(password).equals(usua.getPassword())) {
+					return usua;
+				} else {
+					throw new CredencialesInvalidasException();
+				}
+			
+			}
+			return null;	
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
 	
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {

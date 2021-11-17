@@ -1,11 +1,9 @@
-<body background="fondoGestion2.jpg">
-<div class="oj-hybrid-applayout-page">
+-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
     <header role="banner" class="oj-hybrid-applayout-header">
       <oj-module config="[[headerConfig]]"></oj-module>
     </header>
   </div>
-  
   <!-- This is where your main page content will be loaded -->
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
@@ -96,22 +94,9 @@
     </div>
 
 </div>
-</body>
-
 <head>
 <title></title>
 <style>
-.oj-hybrid-applayout-page {
-    background-image: url("css/banner3.jpg");
-   
-     background-repeat: no-repeat;
-    background-position: bottom;
-    background-color: #ffff;
-    background-size: 100%;
-    min-height: 96vh;
-   
-}
-
 #gestionUser {
   display: flex;
   flex-direction: row;
@@ -332,13 +317,17 @@ h3#tituloLista {
 
 
 
+.oj-hybrid-applayout-content {
+ background-image: url("fondoGestion2.png");
+}
+
 h3.nuevoProductos {
     margin: 10px;
     color: #00a0d9;
 }
 
 h1.tituloGestionUsuarios {
-    margin-top: 45px;
+    margin-top: 25px;
     margin-left: 20px;
     text-align: center;
     color: #00a0d9;

@@ -12,7 +12,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.apellidos = ko.observable("");
 			self.telefono = ko.observable("");
 			self.dni= ko.observable("");
-			self.dosis= ko.observable();
 			self.cs = ko.observable("");
 			self.rol = ko.observableArray(["Administrador","Sanitario","Paciente"]);
 
@@ -48,7 +47,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				apellidos : this.apellidos(),
 				telefono : this.telefono(),
 				dni : this.dni(),
-				dosis : this.dosis(),
 				cs : this.allcentros()[centro.selectedIndex],
 				rol : this.rol()[roles.selectedIndex]
 			};
