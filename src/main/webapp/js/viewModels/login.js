@@ -28,8 +28,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		login() {
 			var self = this;
 			var info = {
-				email : this.email(),
-				pwd : this.pwd()
+				1234 : this.login(),
+				1234 : this.pwd()
 			};
 			var data = {
 				data : JSON.stringify(info),
@@ -47,21 +47,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		recoverPwd() {
-			var self = this;
-			var data = {
-				url : "user/recoverPwd?login="+ self.login(),
-				type : "get",
-				contentType : 'application/json',
-				success : function(response) {
-					self.message("Si está dado de alta le aparece un correo electronico");
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
+	
 		/*
 		register() {
 			app.router.go( { path : "register" } );

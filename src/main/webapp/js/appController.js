@@ -25,12 +25,12 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       var platform = ThemeUtils.getThemeTargetPlatform();
 
       var navDataRouter = [
-        { path: '', redirect: 'loginogin' },
-		{ path: 'login', detail: { label: 'Login'} },
+        { path: '', redirect: 'gestionUsuarios' },
         { path: 'gestionUsuarios', detail: { label: 'Gestión Usuarios'} },
 		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} },
 		{ path: 'gestionCitas', detail: { label: 'Gestión de Citas'} },
-		{ path: 'solicitarCitas', detail: { label: 'Solicitar Citas'} }
+		{ path: 'solicitarCitas', detail: { label: 'Solicitar Citas'} },
+		{ path: 'login', detail: { label: 'Logout'} }
 
 		];
 
