@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
+import uclm.grupo2.sigeva.exceptions.CredencialesInvalidasException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.FormatoPasswordException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
@@ -30,6 +31,8 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDAO user;
+	
+	private Usuario usuarioActual = null;
 	
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
@@ -121,10 +124,6 @@ public class UsuarioController {
 		return "Usuario modificado";
 	}
 	
-	
-	
-	
-	
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {
 			return false;
@@ -175,4 +174,22 @@ public class UsuarioController {
 		}
 		return correcto;
 	}
+
+	@PostMapping("/iniciarSesion")
+    public Usuario iniciarSesion(@RequestBody Usuario usuarios){
+        try {
+            List <Usuario> optUser = user.getByLogin(usuarios.getLogin());
+            if(!optUser.isEmpty()) {
+            	Usuario usua = optUser.get(0);
+                if(DigestUtils.sha512Hex(usuarios.getPassword()).equals(usua.getPassword())) {
+                	usuarioActual=usua;
+                	return usuarioActual;
+                } else 
+                	throw new CredencialesInvalidasException();
+            } else
+            	throw new CredencialesInvalidasException();
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+    }
 }
