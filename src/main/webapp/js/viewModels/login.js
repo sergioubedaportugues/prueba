@@ -9,6 +9,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.password = ko.observable("");
 			self.message = ko.observable();
 			self.error = ko.observable();
+			self.usuarios = ko.observableArray([]);
 			
 			// Header Config
 			self.headerConfig = ko.observable({
@@ -38,7 +39,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					//$("#navList").hide();
+					app.router.go( { path : "gestionUsuarios"} );
 					self.mostrarMensajes("Hola :P");
+					self.getUsuarios();
+					
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		getUsuarios() {
+			let self = this;
+			let data = {
+				url : "gestionUsuarios/findAllUsers",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					self.usuarios(response);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -56,6 +75,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		connected() {
 			accUtils.announce('Login page loaded.');
 			document.title = "Login";
+		
 
 		};
 
@@ -67,13 +87,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			// Implement if needed
 		};
 		
-		mostrarMensajes(azul, rojo) {
-			let self = this;
-			setTimeout(function() {
-          		self.message(azul);
-          		self.error(rojo);
-        	}, 3000);
-		}	
+		
 	}
 
 	return LoginViewModel;

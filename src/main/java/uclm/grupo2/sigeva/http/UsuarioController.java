@@ -121,19 +121,16 @@ public class UsuarioController {
 		}
 		return "Usuario modificado";
 	}
-	
-	
+
 	@PostMapping("/iniciarSesion")
-	public Usuario iniciarSesion(@RequestBody String login, String password){
+	public Usuario iniciarSesion(@PathVariable String login, @PathVariable String password){
 		try {
 			Optional<Usuario> optUser = user.findByLogin(login);
 			if(optUser.isPresent()) {
 				Usuario usua = optUser.get();
 				if(DigestUtils.sha512Hex(password).equals(usua.getPassword())) {
-					System.out.print("holaa");
 					return usua;
 				} else {
-					System.out.print("holaa");
 					throw new CredencialesInvalidasException();
 				}
 			
