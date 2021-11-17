@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import uclm.grupo2.sigeva.dao.TokenDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CredencialesInvalidasException;
+import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.model.Usuario;
 import uclm.grupo2.sigeva.model.Token;
 
@@ -47,6 +49,18 @@ public class LoginController {
                 	throw new CredencialesInvalidasException();
             } else
             	throw new CredencialesInvalidasException();
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+    }
+	@DeleteMapping("/cerrarSesion")
+    public void cerrarSesion(){
+        try {
+        	List <Token> optToken = token.findAll();
+        	if(!optToken.isEmpty())
+        		token.delete(optToken.get(0));
+        	else
+            	throw new TokenBorradoException();
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
