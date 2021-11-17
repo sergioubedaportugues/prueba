@@ -18,14 +18,11 @@ public class SanitarioController {
 
 	// ConsultarCitas
 	// AplicarVacuna
-<<<<<<< HEAD
 
-
-=======
 	
 	/*@GetMapping("/getCitasPorCentro/{login}")
 	public List<Citas> getCitasPorCentro(){
 		return cita.getByDiaAndCs(fecha, );
 	}*/
->>>>>>> refs/remotes/origin/Christopher
+
 }
