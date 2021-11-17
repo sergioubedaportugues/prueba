@@ -25,20 +25,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 
-		login() {
+		iniciarSesion() {
 			var self = this;
 			var info = {
-				login : this.email(),
-				pwd : this.password()
+				login : this.login(),
+				password : this.password()
 			};
 			var data = {
 				data : JSON.stringify(info),
-				url : "user/login",
+				url : "gestionUsuarios/iniciarSesion",
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					//$("#navList").hide();
-					app.router.go( { path : "gestionCentrosSalud"} );
+					if(response.rol=="Administrador") {
+						app.router.go( { path : "gestionCentrosSalud"} );
+					} else if (response.rol=="Sanitario"){
+						app.router.go( { path : "vistaSanitario"} );
+					} else {
+						app.router.go( { path : "vistaPaciente"} );
+					}
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -46,17 +51,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
-		
-		
-		/*
-		register() {
-			app.router.go( { path : "register" } );
-		}*/
 
 		connected() {
 			accUtils.announce('Login page loaded.');
 			document.title = "Login";
-
 		};
 
 		disconnected() {
