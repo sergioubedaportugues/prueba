@@ -24,6 +24,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       // Save the theme so we can perform platform specific navigational animations
       var platform = ThemeUtils.getThemeTargetPlatform();
 
+
       var navDataRouter = [
         { path: '', redirect: 'login' },
 		{ path: 'login', detail: { label: 'Login'} },
@@ -31,7 +32,6 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
 		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} },
 		{ path: 'vistaSanitario', detail: { label: 'Calendario'} },
 		{ path: 'vistaPaciente', detail: { label: 'Mis Citas'} }
-
 		];
 
       // Router setup

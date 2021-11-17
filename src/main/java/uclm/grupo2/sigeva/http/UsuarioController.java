@@ -31,9 +31,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDAO user;
-	
-	private Usuario usuarioActual = null;
-	
+		
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
@@ -174,22 +172,4 @@ public class UsuarioController {
 		}
 		return correcto;
 	}
-
-	@PostMapping("/iniciarSesion")
-    public Usuario iniciarSesion(@RequestBody Usuario usuarios){
-        try {
-            List <Usuario> optUser = user.getByLogin(usuarios.getLogin());
-            if(!optUser.isEmpty()) {
-            	Usuario usua = optUser.get(0);
-                if(DigestUtils.sha512Hex(usuarios.getPassword()).equals(usua.getPassword())) {
-                	usuarioActual=usua;
-                	return usuarioActual;
-                } else 
-                	throw new CredencialesInvalidasException();
-            } else
-            	throw new CredencialesInvalidasException();
-        } catch(Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-    }
 }
