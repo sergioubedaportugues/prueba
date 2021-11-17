@@ -50,5 +50,7 @@ public class LoginController {
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
-    }	
+    }
+	
+	
 }
