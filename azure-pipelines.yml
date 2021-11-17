@@ -1,6 +1,5 @@
 # Maven
 
-
 trigger:
 - main
 
@@ -25,7 +24,6 @@ steps:
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 - task: Maven@3
-- task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
   inputs:
