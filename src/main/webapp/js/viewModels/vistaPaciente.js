@@ -41,7 +41,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			let data = {
 				data : JSON.stringify(info),
-				url : "gestionCitas/insertCita",
+				url : "vistaPaciente/insertCita",
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
@@ -60,7 +60,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		getCitas() {
 			let self = this;
 			let data = {
-				url : "gestionCitas/mostrarCitasPedidas",
+				url : "vistaPaciente/mostrarCitasPedidas",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
@@ -78,7 +78,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			let data = {
 				data : JSON.stringify(cita),
-				url : "gestionCitas/deleteCita",
+				url : "vistaPaciente/deleteCita",
 				type : "delete",
 				contentType : 'application/json',
 				success : function(response) {
@@ -92,9 +92,48 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		modifyCita(cita) {
+            var self = this;
+
+            let data = {
+                data : JSON.stringify(cita),
+                url : "vistaPaciente/modifyCita",
+                type : "post",
+                contentType : 'application/json',
+                success : function(response) {
+                    self.getCitas();
+                    self.limpiarMensajes();
+                    self.mostrarMensajes("Cita actualizada correctamente.");
+                },
+                error : function(response) {
+                    self.error(response.responseJSON.errorMessage);
+                    self.mostrarMensajes(null, "Error, la cita no se ha actualizado correctamente.");
+					self.getCitas();
+                }
+            };
+           
+            $.ajax(data);
+        }
+		
+		limpiarMensajes() {
+			let self = this;
+			setTimeout(function() {
+          		self.message(null);
+          		self.error(null);
+        	}, 3000);
+		}
+		
+		mostrarMensajes(azul, rojo) {
+			let self = this;
+			setTimeout(function() {
+          		self.message(azul);
+          		self.error(rojo);
+        	}, 3000);
+		}	
+		
 		connected() {
-			accUtils.announce('Solicitar Citas page loaded.');
-			document.title = "Solicitar Citas";
+			accUtils.announce('Calendario page loaded.');
+			document.title = "Calendario";
 			
 			this.getCitas();
 		};

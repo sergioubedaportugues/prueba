@@ -5,11 +5,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
-			self.id = ko.observable("");
-			self.horas = ko.observable("");
-			self.dia = ko.observable("");
-			self.numCita = ko.observable("");
-			
 			self.centros = ko.observableArray([]);
 			self.paciente = ko.observableArray([]);
 			self.citas = ko.observableArray([]);
@@ -35,7 +30,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		getCitas() {
 			let self = this;
 			let data = {
-				url : "gestionCitas/findAllCitas",
+				url : "vistaPaciente/findAllCitas",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
@@ -49,8 +44,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}
 		
 		connected() {
-			accUtils.announce('Gestión de Citas page loaded.');
-			document.title = "Gestión de Citas";
+			accUtils.announce('Mis Citas page loaded.');
+			document.title = "Mis Citas";
 			
 			this.getCitas();
 			

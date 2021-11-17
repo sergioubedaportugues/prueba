@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
+import uclm.grupo2.sigeva.exceptions.CredencialesInvalidasException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.FormatoPasswordException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
@@ -30,7 +31,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDAO user;
-	
+		
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
@@ -120,10 +121,6 @@ public class UsuarioController {
 		}
 		return "Usuario modificado";
 	}
-	
-	
-	
-	
 	
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {

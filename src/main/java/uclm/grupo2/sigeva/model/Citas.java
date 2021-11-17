@@ -15,7 +15,7 @@ public class Citas{
     private CentroSalud cs;
     private int numCita;
 
-    public Citas() {
+	public Citas() {
     	this.id=UUID.randomUUID().toString();
     	this.setNumCita(0);
     }
