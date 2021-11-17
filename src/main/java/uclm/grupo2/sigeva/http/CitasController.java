@@ -146,13 +146,6 @@ public class CitasController {
 		return cita.findAll();
 	}
 	
-	
-	@GetMapping("/findAllCitas/{id}")
-	public List<Citas> getCita(@PathVariable String id){
-		return cita.getById(id);
-		
-	}
-	
 	@GetMapping("/mostrarCitasPedidas")
 	public List<Citas> mostrarCitasPedidas(){
 		List<Citas> misCitas = cita.findAllByOrderByNumCitaAsc();

@@ -31,7 +31,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDAO user;
-	
+		
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
 		try {
@@ -140,10 +140,6 @@ public class UsuarioController {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 	}
-	
-	
-	
-	
 	
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {

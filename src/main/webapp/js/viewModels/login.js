@@ -9,7 +9,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.password = ko.observable("");
 			self.message = ko.observable();
 			self.error = ko.observable();
-			self.usuarios = ko.observableArray([]);
 			
 			// Header Config
 			self.headerConfig = ko.observable({
@@ -26,7 +25,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 
-		login() {
+		iniciarSesion() {
 			var self = this;
 			var info = {
 				login : this.login(),
@@ -34,15 +33,18 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			var data = {
 				data : JSON.stringify(info),
-				url : "gestionUsuarios/iniciarSesion",
+				url : "login/iniciarSesion",
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					//$("#navList").hide();
-					app.router.go( { path : "gestionUsuarios"} );
-					self.mostrarMensajes("Hola :P");
-					self.getUsuarios();
-					
+					if(response.rol=="Administrador") {
+						//app.router.go( { path : "gestionCentrosSalud"} );
+						window.location.href="gestionCentrosSalud.html";
+					} else if (response.rol=="Sanitario"){
+						app.router.go( { path : "vistaSanitario"} );
+					} else {
+						app.router.go( { path : "vistaPaciente"} );
+					}
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -50,33 +52,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
-		getUsuarios() {
-			let self = this;
-			let data = {
-				url : "gestionUsuarios/findAllUsers",
-				type : "get",
-				contentType : 'application/json',
-				success : function(response) {
-					self.usuarios(response);
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
-		
-		
-		/*
-		register() {
-			app.router.go( { path : "register" } );
-		}*/
 
 		connected() {
 			accUtils.announce('Login page loaded.');
 			document.title = "Login";
-		
-
 		};
 
 		disconnected() {
@@ -86,8 +65,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		transitionCompleted() {
 			// Implement if needed
 		};
-		
-		
 	}
 
 	return LoginViewModel;
