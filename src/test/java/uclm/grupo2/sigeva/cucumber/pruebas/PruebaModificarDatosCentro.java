@@ -2,10 +2,15 @@ package uclm.grupo2.sigeva.cucumber.pruebas;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import io.cucumber.java.en.Given;
+import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.CentroSaludController;
+import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.Usuario;
 import io.cucumber.java.en.Then;
 public class PruebaModificarDatosCentro {
 	
@@ -13,8 +18,18 @@ public class PruebaModificarDatosCentro {
 	@Autowired
 	private CentroSaludController CentroCtrl;
 	
+	@Autowired
+	private UsuarioDAO user;
+	
+	@Autowired
+	private LoginController LoginCtrl;
+	
 	@Given("los datos asociados {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void los_datos_asociados_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin, String franja, String cupo) {
+		
+		Optional<Usuario> optUser = user.findByLogin("administrador");
+		LoginCtrl.iniciarSesion(optUser.get());
+		
 		nombreCentro= "Miguelturra33"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; franja= "6"; cupo="5";
 		String nombreCentroN= "Miguelturra34"; String direccionCentroN="Avenida Parque 6"; String numeroVacunasN="8780";
 		
