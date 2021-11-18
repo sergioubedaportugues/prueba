@@ -1,4 +1,4 @@
--hybrid-applayout-page">
+<div class="oj-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
     <header role="banner" class="oj-hybrid-applayout-header">
       <oj-module config="[[headerConfig]]"></oj-module>
@@ -92,6 +92,9 @@
        </div>
       </div>
     </div>
+    <div class="boton-logout">
+							<button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
+	</div>
 
 </div>
 <head>
@@ -362,6 +365,16 @@ font-family: Arial;
   font-size: 26px;
   padding: 19px;
   text-decoration: none;
+
+}
+
+.oj-hybrid-applayout-page {
+      background-image: url("css/banner2.jpg");
+
+     background-repeat: no-repeat;
+    background-position: bottom;
+    background-color: #ffff;
+    background-size: 100%;
 
 }
 button.btn_nuevo:hover {

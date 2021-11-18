@@ -16,11 +16,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.CitasDAO;
+import uclm.grupo2.sigeva.dao.TokenDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.CentroConCitasException;
 import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
+import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 
@@ -36,10 +38,13 @@ public class CentroSaludController {
 	
 	@Autowired
 	private CitasDAO cita;
+	
+	@Autowired TokenDAO tokenLogin;
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSalud cs) {
 		try {
+			validarLogin();
 			List<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
 			if (!optCenter.isEmpty())
 				throw new CentroDuplicadoException();
@@ -63,17 +68,15 @@ public class CentroSaludController {
 	}
 
 	@GetMapping("/findAllCenters")
-	public List<CentroSalud> getCentros(){
+	public List<CentroSalud> getCentros() throws TokenBorradoException{
+		validarLogin();
 		return center.findAll();
-	}
-	@GetMapping("/findAllCenters/{id}")
-	public Optional<CentroSalud> getCentro(@PathVariable String id){
-		return center.findById(id);
 	}
 
 	@DeleteMapping("/deleteCenter")
 	public String borrarCentro(@RequestBody CentroSalud cs) {
 		try {
+			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
 			if (optCenter.isPresent()) {
 				if(cita.findByCs(cs).isEmpty()) {
@@ -91,11 +94,15 @@ public class CentroSaludController {
 	@PostMapping("/modifyCenter")
 	public String modificarCentro(@RequestBody CentroSalud cs) {
 		try {
-			
+			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
 			
 			if (optCenter.isPresent()) {
 				 	CentroSalud preCentro = optCenter.get();
+				 	if(cs.getNombre().isEmpty() || cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty())
+				 		throw new CamposVaciosException();
+				 	if(!esNumericoEntero(cs.getNumVacunas()) || Integer.parseInt(cs.getNumVacunas())<0)
+				 		throw new ValorNumericoException();
 				 	preCentro.setNombre(cs.getNombre());
 				 	preCentro.setDireccion(cs.getDireccion());
 				 	preCentro.setNumVacunas(cs.getNumVacunas());
@@ -160,4 +167,9 @@ public class CentroSaludController {
 		}
 		return valido;
 	}
+	
+	private void validarLogin() throws TokenBorradoException {
+		if(tokenLogin.findAll().isEmpty())
+			throw new TokenBorradoException();
+		}
 }
