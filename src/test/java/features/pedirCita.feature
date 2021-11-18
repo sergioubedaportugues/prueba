@@ -16,17 +16,10 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@tag
-Feature: Iniciar sesion
+
+Feature: Pedir Cita
 
   @tag1
-  Scenario: Iniciar sesion satisfactoriamente Usuario
-    Given acceso con "login" y "password" correctos 
-    When los datos son correctos
-    Then accedo a la pantalla principal
-
-  @tag2
-  Scenario: Acceder con contrasena erronea
-    Given acceso con "login" y "password"
-    When los datos son incorrectos
-    Then se lanza una excepcion
+  Scenario: Pedir Vacuna Correctamente
+  	Given un usuario loggeado
+    Then se genera las citas

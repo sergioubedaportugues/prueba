@@ -99,11 +99,5 @@ public class CentroSalud{
 		this.franja = franja;
 	}
 
-	@Override
-	public String toString() {
-		return "CentroSalud [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", numVacunas="
-				+ numVacunas + ", fInicio=" + fInicio + ", fFin=" + fFin + ", franja=" + franja + ", cupo=" + cupo + "]";
-	}
-
     
 }

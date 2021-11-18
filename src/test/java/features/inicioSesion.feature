@@ -17,11 +17,9 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Crear Cita
+Feature: Inicio sesion
 
   @tag1
-  Scenario: Crear Vacuna Correctamente
-    Then se crea una cita de vacunacion
-
-
-
+  Scenario: Inicio de sesion satisfactoria
+    Given dados unos "login" y "password" correctos 
+    Then acceso a la funcionalidad

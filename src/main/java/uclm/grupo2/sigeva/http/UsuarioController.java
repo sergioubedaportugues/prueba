@@ -126,11 +126,7 @@ public class UsuarioController {
 		}
 		return "Usuario modificado";
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> refs/remotes/origin/Actualización
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {
 			return false;
