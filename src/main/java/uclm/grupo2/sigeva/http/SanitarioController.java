@@ -46,7 +46,9 @@ public class SanitarioController {
 	}
 
 	private void validarLogin() throws TokenBorradoException {
-		if(tokenLogin.findAll().isEmpty())
-			throw new TokenBorradoException();
-		}
+    	List<Usuario> usuarios = user.getByLogin(tokenLogin.findAll().get(0).getLogin());
+    	Usuario usu = usuarios.get(0);
+        if(tokenLogin.findAll().isEmpty() || !usu.getRol().equals("Sanitario"))
+            throw new TokenBorradoException();
+        }
 }

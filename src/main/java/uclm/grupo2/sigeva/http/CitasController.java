@@ -284,10 +284,9 @@ public class CitasController {
 	}
 	
 	private void validarLogin() throws TokenBorradoException {
-		String login = tokenLogin.findAll().get(0).getLogin();
-		Usuario userLog = user.getByLogin(login).get(0);
-		
-		if(tokenLogin.findAll().isEmpty() && userLog.getRol()!="Paciente")
-			throw new TokenBorradoException();
-		}
+    	List<Usuario> usuarios = user.getByLogin(tokenLogin.findAll().get(0).getLogin());
+    	Usuario usu = usuarios.get(0);
+        if(tokenLogin.findAll().isEmpty() || !usu.getRol().equals("Paciente"))
+            throw new TokenBorradoException();
+        }
 }
