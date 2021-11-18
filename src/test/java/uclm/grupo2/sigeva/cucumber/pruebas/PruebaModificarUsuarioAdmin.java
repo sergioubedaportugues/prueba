@@ -32,11 +32,8 @@ public class PruebaModificarUsuarioAdmin {
 		
 		Usuario user = new Usuario();
 		login= "Antonio68"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
-<<<<<<< HEAD
-		String loginN= "Ramon68";String passwordN="Patatita6";String nombreN="Ramon"; 
-=======
+
 		String loginN= "Ramon68";String passwordN="Patatita1";String nombreN="Ramon"; 
->>>>>>> refs/remotes/origin/SergioG
 		String apellidosN="Galera"; String telefonoN="888888778"; String dniN="98878888A"; 
 		
 		CentroSalud centro = new CentroSalud();
