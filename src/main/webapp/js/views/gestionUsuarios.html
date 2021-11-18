@@ -71,19 +71,29 @@
             </tr>
             <!-- ko foreach : usuarios -->
                 <tr>
-                       <td><input  type="text" data-bind="value : login" placeholder="Login"></td>                   
-                       <td><input type="password" data-bind="value : password" placeholder="Password"></td>
+                       <td><input type="text" data-bind="value : login" placeholder="Login"></td>                   
+                       <td><input type="text" data-bind="value : password" placeholder="Password"></td>
                        <td><input type="text" data-bind="value : nombre" placeholder="Nombre"></td>
                        <td><input type="text" data-bind="value : apellidos" placeholder="Apellidos"></td>
+<<<<<<< HEAD
+                       <td><input type="text" data-bind="value : telefono" placeholder="Telefono"></td>
+                       <td><input type="text" data-bind="value : dni" placeholder="Dni"></td>
+                       <td><input type="text" data-bind="value : dosis"disabled></td>                       
+=======
                        <td><input id="campoTelefono" type="text" data-bind="value : telefono" placeholder="Telefono"></td>
                        <td><input id="campoDni" type="text" data-bind="value : dni" placeholder="Dni"></td>
                        <td><input id="campoDosis" type="text" data-bind="value : dosis"disabled></td>                       
+>>>>>>> refs/remotes/origin/Actualización
                        <td><input type="text" data-bind="value : cs.nombre" placeholder="Nombre Centro"disabled></td>
                        <td>
                        <label for="centro"></label>
 					   <select data-bind="options:$parent.allcentros(), value : cs, optionsText:'nombre', optionsCaption: 'Modificar centro'" id="centro"></select>
                        </td>
+<<<<<<< HEAD
+                       <td><input type="text" data-bind="value : rol" placeholder="Rol"disabled></td>
+=======
                        <td><input id="campoRol" type="text" data-bind="value : rol" placeholder="Rol"disabled></td>
+>>>>>>> refs/remotes/origin/Actualización
 						<td><button class = "btn_modif" data-bind="click : function() { $parent.modifyUsers($data); }">Modificar</button></td>
 						<td><button class = "btn_elim" data-bind="click : function() { $parent.deleteUsers($data); }">Eliminar</button></td>
                 </tr>
@@ -115,137 +125,8 @@ header.oj-hybrid-applayout-header {
 .oj-applayout-fixed-bottom {
     top: 0;
 }
-
-select#centro {
-    width: 200px;
-    padding: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+.tituloGestionUsuarios{
 }
-
-select#roles {
-    width: 200px;
-    padding: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-input#campoDni {
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: auto;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    margin: 0em;
-    padding: 1px 2px;
-    border-width: 0.1px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-color: #757575;
-    border-image: initial;
-    border-radius: 1.7px;
-    width: 75px;
-    height: 16px;
-    border-top-color: #D6D6D6;
-    border-left-color: #D6D6D6;
-}
-
-input#campoTelefono {
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: auto;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    margin: 0em;
-    padding: 1px 2px;
-    border-width: 0.1px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-color: #757575;
-    border-image: initial;
-    border-radius: 1.7px;
-    width: 72px;
-    height: 16px;
-    border-top-color: #D6D6D6;
-    border-left-color: #D6D6D6;
-}
-
-input#campoDosis {
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    appearance: auto;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    margin: 0em;
-    padding: 1px 2px;
-    border-width: 0.1px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-color: #757575;
-    border-image: initial;
-    border-radius: 1.7px;
-    width: 35px;
-    height: 16px;
-    border-top-color: #D6D6D6;
-    border-left-color: #D6D6D6;
-}
-
-input#campoRol {
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: auto;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    margin: 0em;
-    padding: 1px 2px;
-    border-width: 0.1px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-color: #757575;
-    border-image: initial;
-    border-radius: 1.7px;
-    width: 85px;
-    height: 16px;
-    border-top-color: #D6D6D6;
-    border-left-color: #D6D6D6;
-}
-
 .oj-hybrid-padding {
     margin-top: 20px;
 }
@@ -398,7 +279,6 @@ background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 28px;
-
 font-family: Arial;
   color: #fafafa;
   font-size: 14px;
@@ -427,7 +307,6 @@ background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 28px;
-
 font-family: Arial;
   color: #fafafa;
   font-size: 14px;
@@ -446,16 +325,5 @@ button.btn_modif:hover {
   background-color: #ffff;
 }
 
-li#ui-id-3{
-display : none;
-}
-
-li#ui-id-9{
-display : none;
-}
-
-li#ui-id-11{
-display : none;
-}
 </style>
 </head>

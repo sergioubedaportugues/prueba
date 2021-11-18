@@ -17,16 +17,9 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Iniciar sesion
+Feature: Inicio sesion
 
   @tag1
-  Scenario: Iniciar sesion satisfactoriamente Usuario
-    Given acceso con "login" y "password" correctos 
-    When los datos son correctos
-    Then accedo a la pantalla principal
-
-  @tag2
-  Scenario: Acceder con contrasena erronea
-    Given acceso con "login" y "password"
-    When los datos son incorrectos
-    Then se lanza una excepcion
+  Scenario: Inicio de sesion satisfactoria
+    Given dados unos "login" y "password" correctos 
+    Then acceso a la funcionalidad
