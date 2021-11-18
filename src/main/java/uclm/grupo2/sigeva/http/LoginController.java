@@ -35,12 +35,12 @@ public class LoginController {
 	@PostMapping("/iniciarSesion")
     public Usuario iniciarSesion(@RequestBody Usuario usuarios){
         try {
-        	Usuario usuarioActual = new Usuario();
+        	token.deleteAll();
             List <Usuario> optUser = user.getByLogin(usuarios.getLogin());
             if(!optUser.isEmpty()) {
             	Usuario usua = optUser.get(0);
                 if(DigestUtils.sha512Hex(usuarios.getPassword()).equals(usua.getPassword())) {
-                	usuarioActual=usua;
+                	Usuario usuarioActual = usua;
                 	Token tok = new Token();
                 	tok.setLogin(usua.getLogin());
                 	token.save(tok);
