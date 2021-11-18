@@ -42,6 +42,24 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
+		cerrarSesion(){
+			let self = this;
+			
+			let data = {
+				data : JSON.stringify(),
+				url : "login/cerrarSesion",
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Sesión cerrada correctamente.");
+					app.router.go( { path : "login"} );
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
 		
 		connected() {
 			accUtils.announce('Mis Citas page loaded.');

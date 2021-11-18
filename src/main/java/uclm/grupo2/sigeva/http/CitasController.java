@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.CitasDAO;
+import uclm.grupo2.sigeva.dao.TokenDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CitaInexistenteException;
 import uclm.grupo2.sigeva.exceptions.CitaNoDisponibleException;
@@ -29,10 +29,13 @@ import uclm.grupo2.sigeva.exceptions.FechaMaximaException;
 import uclm.grupo2.sigeva.exceptions.FechasIncorrectasException;
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.exceptions.NoModificableException;
+import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.Token;
+
 
 @RestController
 @RequestMapping("vistaPaciente")
@@ -47,6 +50,9 @@ public class CitasController {
 	@Autowired
 	private UsuarioDAO user;
 	
+	@Autowired
+	private TokenDAO tokenLogin;
+	
 	private static final String DDMMAA = "dd-MM-yyyy";
 	private static final String HHMM = "HH:mm";
 	private static DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern(DDMMAA);
@@ -54,9 +60,11 @@ public class CitasController {
 	
 	@PostMapping("/insertCita")
 	public String insertarCita() {
-		try {			
-			List<Usuario> pacientes = user.getByRol("Paciente");
-			Usuario paciente = pacientes.get(new Random().nextInt(pacientes.size()));
+		try {
+			validarLogin();
+			Token tokpaciente = tokenLogin.findAll().get(0);
+			
+			Usuario paciente = user.getByLogin(tokpaciente.getLogin()).get(0);
 			
 			List<CentroSalud> centros = center.findByNombre(paciente.getCs().getNombre());
 			CentroSalud cs = centros.get(0);
@@ -65,13 +73,13 @@ public class CitasController {
 			date = date.plusDays(1);
 			LocalTime time = LocalTime.now();
 			
-			if(cita.getByPaciente(paciente).isEmpty()) {
+			if(cita.getByPacienteOrderByNumCitaAsc(paciente).isEmpty()) {
 				Citas citaUno = controlCitas(paciente,cs,1,date,time);
 				LocalDate dateDos = LocalDate.parse(citaUno.getDia() , formatterDia);
 				LocalTime timeDos = LocalTime.parse(citaUno.getHoras() , formatterHora);
 				controlCitas(paciente,cs,2,dateDos,timeDos);		
-			} else if (cita.getByPaciente(paciente).size()==1) {
-				List<Citas> listaCitPac = cita.getByPaciente(paciente);
+			} else if (cita.getByPacienteOrderByNumCitaAsc(paciente).size()==1) {
+				List<Citas> listaCitPac = cita.getByPacienteOrderByNumCitaAsc(paciente);
 				Citas citaUno = listaCitPac.get(0);
 				LocalDate dateUno = LocalDate.parse(citaUno.getDia() , formatterDia);
 				LocalTime timeUno = LocalTime.parse(citaUno.getHoras() , formatterHora);
@@ -88,9 +96,10 @@ public class CitasController {
 	@DeleteMapping("/deleteCita")
 	public void borrarCita(@RequestBody Citas c) {
 		try {
+			validarLogin();
 			Optional<Citas> optCita = cita.findById(c.getId());
 			if (optCita.isPresent()) {
-				List <Citas> listadoCitas = cita.getByPaciente(c.getPaciente());
+				List <Citas> listadoCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
 				if (listadoCitas.size()==2 && c.getNumCita()==1) {
 					cita.deleteById(c.getId());
 					for(int i=listadoCitas.size()-2; i>=0;i--) {
@@ -112,7 +121,8 @@ public class CitasController {
 	@PostMapping("/modifyCita")
 	public String modificarCita(@RequestBody Citas c) {
 		try {
-			
+			validarLogin();
+
 			Optional<Citas> optCita = cita.findById(c.getId());
 			
 			if (optCita.isPresent()) {
@@ -122,7 +132,7 @@ public class CitasController {
 				if(c.getPaciente().getDosis()>=c.getNumCita())
 					throw new NoModificableException();
 				
-				List <Citas> listadoCitas = cita.getByPaciente(c.getPaciente());
+				List <Citas> listadoCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
 				if(c.getNumCita()==listadoCitas.get(0).getNumCita()) {
 					listadoCitas.get(0).setDia(c.getDia());
 					listadoCitas.get(0).setHoras(c.getHoras());
@@ -141,20 +151,12 @@ public class CitasController {
 			return "Cita modificada";
 		}
 	
-	@GetMapping("/findAllCitas")
-	public List<Citas> getCitas(){
-		return cita.findAll();
-	}
-	
 	@GetMapping("/mostrarCitasPedidas")
-	public List<Citas> mostrarCitasPedidas(){
-		List<Citas> misCitas = cita.findAllByOrderByNumCitaAsc();
-		if (misCitas.size()>2) {
-			for(int i= misCitas.size()-3; i>=0 ;i--) {
-				misCitas.remove(i);
-			}
-		}
-		return misCitas;
+	public List<Citas> mostrarCitasPedidas() throws TokenBorradoException{
+		validarLogin();
+		Token tokpaciente = tokenLogin.findAll().get(0);
+		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);		
+		return cita.getByPacienteOrderByNumCitaAsc(usu);
 	}
 	
 	public Citas controlCitas(Usuario paciente, CentroSalud cs, int num, LocalDate date, LocalTime time) throws FechaMaximaException {
@@ -280,4 +282,9 @@ public class CitasController {
 		}
 		return valido;
 	}
+	
+	private void validarLogin() throws TokenBorradoException {
+		if(tokenLogin.findAll().isEmpty())
+			throw new TokenBorradoException();
+		}
 }
