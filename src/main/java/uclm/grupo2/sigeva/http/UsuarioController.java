@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import uclm.grupo2.sigeva.dao.CitasDAO;
 import uclm.grupo2.sigeva.dao.TokenDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
@@ -25,6 +26,7 @@ import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
 import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
+import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
@@ -36,6 +38,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private TokenDAO tokenLogin;
+	
+	@Autowired
+	private CitasDAO cita;
 		
 	@PostMapping("/insertUsers")
 	public String insertarUsuario(@RequestBody Usuario usuarios) {
@@ -74,10 +79,10 @@ public class UsuarioController {
 		try {
 			validarLogin();
 			Optional<Usuario> optUser = user.findById(usuario.getId());
-			if (optUser.isPresent())
+			if (optUser.isPresent()) {
 				user.deleteById(usuario.getId());
-
-			else
+				cita.deleteAll(cita.getByPacienteOrderByNumCitaAsc(optUser.get()));
+			}else
 				throw new UsuarioInexistenteException();
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
