@@ -5,6 +5,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
+			
 			self.centros = ko.observableArray([]);
 			self.paciente = ko.observableArray([]);
 			self.citas = ko.observableArray([]);
@@ -27,10 +28,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 		
-		getCitas() {
+		getCitasPorCentro() {
 			let self = this;
 			let data = {
-				url : "vistaPaciente/findAllCitas",
+				url : "vistaSanitario/getCitasPorCentro",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
@@ -65,7 +66,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			accUtils.announce('Mis Citas page loaded.');
 			document.title = "Mis Citas";
 			
-			this.getCitas();
+			this.getCitasPorCentro();
 			
 		};
 		disconnected() {

@@ -39,7 +39,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					if(response.rol=="Administrador") {
 						app.router.go( { path : "gestionCentrosSalud"} );
-						//window.location.href="gestionCentrosSalud.html";
 					} else if (response.rol=="Sanitario"){
 						app.router.go( { path : "vistaSanitario"} );
 					} else {
