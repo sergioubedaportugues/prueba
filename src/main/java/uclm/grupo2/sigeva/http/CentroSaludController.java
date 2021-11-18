@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.CitasDAO;
 import uclm.grupo2.sigeva.dao.TokenDAO;
+import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.CentroConCitasException;
 import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
@@ -27,6 +28,7 @@ import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
 @RequestMapping("gestionCentroSalud")
@@ -39,6 +41,8 @@ public class CentroSaludController {
 	private CitasDAO cita;
 	
 	@Autowired TokenDAO tokenLogin;
+	
+	@Autowired UsuarioDAO user;
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSalud cs) {
@@ -168,7 +172,9 @@ public class CentroSaludController {
 	}
 	
 	private void validarLogin() throws TokenBorradoException {
-		if(tokenLogin.findAll().isEmpty())
-			throw new TokenBorradoException();
-		}
+    	List<Usuario> usuarios = user.getByLogin(tokenLogin.findAll().get(0).getLogin());
+    	Usuario usu = usuarios.get(0);
+        if(tokenLogin.findAll().isEmpty() || !usu.getRol().equals("Administrador"))
+            throw new TokenBorradoException();
+        }
 }
