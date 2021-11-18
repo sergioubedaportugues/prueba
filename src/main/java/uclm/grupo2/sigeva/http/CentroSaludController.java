@@ -137,6 +137,7 @@ public class CentroSaludController {
 		}
 		return true;
 	}
+	
 
 	private static boolean controlHoras(String hInicio, String hFin) {
 		String[] horaI = hInicio.split(":");
