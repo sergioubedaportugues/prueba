@@ -59,6 +59,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.message("Vacuna aplicada correctamente.");
+					self.getCitasPorCentro();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
