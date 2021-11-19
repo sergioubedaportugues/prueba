@@ -55,7 +55,8 @@ public class SanitarioController {
 		Token tokSanitario = tokenLogin.findAll().get(0);
 		Usuario usu = user.getByLogin(tokSanitario.getLogin()).get(0);
 		LocalDate date = LocalDate.now();
-		String formattedLocalDate = date.format(formatterDia);		
+		String formattedLocalDate = date.format(formatterDia);	
+		List <Citas> prueba = cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
 		return cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
 	}
 	
@@ -87,9 +88,11 @@ public class SanitarioController {
 			
 			int vacunaDecrementada = Integer.parseInt(optCita.get().getCs().getNumVacunas())-1;
 			
+			List <Citas> listCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
+			
 			CentroSalud preCs = optCita.get().getCs();
 			preCs.setNumVacunas(String.valueOf(vacunaDecrementada));
-			center.save(preCs);			
+			center.save(preCs);
 			
 			Usuario preUsu = optCita.get().getPaciente();
 			preUsu.setDosis(optCita.get().getPaciente().getDosis()+1);
@@ -101,6 +104,24 @@ public class SanitarioController {
 			preCita.setPaciente(preUsu);
 			preCita.setCs(preCs);
 			cita.save(preCita);
+			
+			List <Usuario> cambiarCsUsu = user.findAll();
+			for (int i=0; i<user.findAll().size();i++) {
+				cambiarCsUsu.get(i).setCs(preCs);
+				user.save(cambiarCsUsu.get(i));
+			}
+			
+			List <Citas> cambiarCsCitas = cita.findAll();
+			for (int i=0; i<cita.findAll().size();i++) {
+				cambiarCsCitas.get(i).getPaciente().setCs(preCs);
+				cambiarCsCitas.get(i).setCs(preCs);
+				cita.save(cambiarCsCitas.get(i));
+			}
+			
+			
+			listCitas.get(1).setCs(preCs);
+			listCitas.get(1).setPaciente(preUsu);
+			cita.save(listCitas.get(1));
 			
 			return "Vacuna aplicada.";
 		}

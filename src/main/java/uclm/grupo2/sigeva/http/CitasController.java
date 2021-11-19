@@ -160,7 +160,7 @@ public class CitasController {
 	public List<Citas> mostrarCitasPedidas() throws TokenBorradoException{
 		validarLogin();
 		Token tokpaciente = tokenLogin.findAll().get(0);
-		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);		
+		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);
 		return cita.getByPacienteOrderByNumCitaAsc(usu);
 	}
 	
