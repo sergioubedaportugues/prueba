@@ -1,11 +1,17 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
 
+	function appendLeadingZeroes(n) {
+			if (n <= 9) {
+				return "0" + n;
+			}
+			return n
+		}
+
 	class MenuViewModel {
 		constructor() {
 			var self = this;
-			
-			
+
 			self.centros = ko.observableArray([]);
 			self.paciente = ko.observableArray([]);
 			self.citas = ko.observableArray([]);
@@ -43,6 +49,47 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
+		
+		aplicarVacuna(cita) {
+			var self = this;
+			let data = {
+				data : JSON.stringify(cita),
+				url : "vistaSanitario/aplicarVacuna",
+				type : "post",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Vacuna aplicada correctamente.");
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+					
+
+				}
+			};
+			$.ajax(data);
+		}
+		
+		getConsultar() {
+			let self = this;
+			var date = new Date(document.getElementById('start').value);
+			let formatted_date = appendLeadingZeroes(date.getDate()) + "-" + appendLeadingZeroes(date.getMonth() + 1) + "-" + date.getFullYear()
+			let data = {
+				url : "vistaSanitario/getConsultar",
+				type : "get",
+				data : {
+					fecha : formatted_date
+				},
+				contentType : 'application/json',
+				success : function(response) {
+					self.citas(response);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		cerrarSesion(){
 			let self = this;
 			
