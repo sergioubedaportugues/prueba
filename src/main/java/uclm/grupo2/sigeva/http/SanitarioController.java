@@ -56,7 +56,6 @@ public class SanitarioController {
 		Usuario usu = user.getByLogin(tokSanitario.getLogin()).get(0);
 		LocalDate date = LocalDate.now();
 		String formattedLocalDate = date.format(formatterDia);	
-		List <Citas> prueba = cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
 		return cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
 	}
 	
@@ -119,9 +118,9 @@ public class SanitarioController {
 				cita.save(cambiarCsCitas.get(i));
 			}
 			
-                listCitas.get(1).setCs(preCs);
-                listCitas.get(1).setPaciente(preUsu);
-                listCitas.get(1).getPaciente().setCs(preCs);
+              listCitas.get(1).setCs(preCs);
+               listCitas.get(1).setPaciente(preUsu);
+               listCitas.get(1).getPaciente().setCs(preCs);
                 cita.save(listCitas.get(1));
 			return "Vacuna aplicada.";
 		}
