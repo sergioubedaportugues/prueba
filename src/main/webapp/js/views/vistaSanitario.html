@@ -18,6 +18,7 @@
         <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
         <div id="mensajeError" data-bind="html : error" style="color : red"></div>
         <table class="tablaCitas">
+        <caption>Tabla de las citas</caption>
         	<tr>
 				<th id="coltablaCitas">
 				<h3 id="tituloLista" class="listaCitas">Consultar citas</h3>
@@ -25,11 +26,9 @@
 						<label for="start"></label>
 						<input type="date" id="start" name="trip-start" min="2021-11-15" max="2022-01-31" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}">
 					</td>
-					<td><button class="btn_consult" data-bind="click : getConsultar">Consultar</button></td>
-					            
-					
+					<td><button class="btn_consult" data-bind="click : getConsultar">Consultar</button></td>				
 				</th>
-			<th>
+			<th id="coltablaCitas">
 			<h3 id="tituloLista" class="listaCitas">Lista de Citas</h3>
 			
 	        <table class="tablaCitas">
