@@ -58,6 +58,26 @@
 <head>
 <title></title>
 <style>
+.btn-logout{
+text-decoration: none;
+	float: right;
+  padding: 12px;
+  margin: 15px;
+  margin-right:40px;
+  color: white;
+  width: 80px;
+  background-color: red;
+  transition: width .35s;
+  -webkit-transition: width .35s;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor:pointer;
+}
+
+.btn-logout:hover{
+background-color:#fff;
+color:red;
+}
 #solicitarCitas {
   display: flex;
   flex-direction: row;
@@ -65,33 +85,42 @@
   margin-top: 40px;
 }
 
+
+.oj-hybrid-applayout-page {
+    min-height: 96.5vh;
+    }
 .btnNuevaCita{
 
-background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+
+    
+    margin-top: 20px;
+background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
-  border-radius: 28px;
-text-shadow: 3px 2px 1px #9daef5;
+
 font-family: Arial;
   color: #fafafa;
-  font-size: 27px;
-  padding: 19px;
+  font-size: 26px;
+  padding: 10px;
   text-decoration: none;
+margin-left:20px;
+  background: #fff;
+  font-size: 22px;
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;  
+  text-decoration: none;
+   
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
 
 }
-.btnNuevaCita:hover {
-  
-  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
-  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+button.btnNuevaCita:hover {
+
+  color:#00a0d9;
   text-decoration: none;
-  background-colo: #ffff;
+  background-color: #ffff;
 }
 
 #solicitarCitas > div {
@@ -207,60 +236,62 @@ button.btn_nuevo {
 
 button.btn_elim {
 
-background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-
 font-family: Arial;
   color: #fafafa;
-  font-size: 14px;
   padding: 5px;
+
+
+background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+
+  background: #fff;
+  font-size: 16px;
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;  
   text-decoration: none;
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+   
+
 
 }
 button.btn_elim:hover {
 
-  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
-  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  background-color:#ffff;
   text-decoration: none;
-  background-color: #ffff;
+color: #00a0d9;
 }
 
 button.btn_modif {
 
-background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
-  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
 
 font-family: Arial;
   color: #fafafa;
-  font-size: 14px;
   padding: 5px;
-  text-decoration: none;
 
+
+background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+
+  background: #fff;
+  font-size: 16px;
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;  
+  text-decoration: none;
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+   
 }
 button.btn_modif:hover {
-
-  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
-  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+background-color:#ffff;
   text-decoration: none;
-  background-color: #ffff;
+color: #00a0d9;
 }
 
 .oj-hybrid-applayout-page {

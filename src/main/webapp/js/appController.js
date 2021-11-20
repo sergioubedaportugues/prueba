@@ -26,7 +26,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
 
 
       var navDataRouter = [
-        { path: '', redirect: 'login' },
+        { path: '', redirect: 'login_' },
 		{ path: 'login', detail: { label: 'Login'} },
         { path: 'gestionUsuarios', detail: { label: 'Gestión Usuarios'} },
 		{ path: 'gestionCentrosSalud', detail: { label: 'Gestión de Centros de Salud'} },
