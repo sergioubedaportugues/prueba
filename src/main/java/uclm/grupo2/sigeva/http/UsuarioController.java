@@ -107,6 +107,7 @@ public class UsuarioController {
 			Optional<Usuario> optUser = user.findById(usuario.getId());
 			
 			if (optUser.isPresent()) {
+					List <Citas> cambiarUsuCitas = cita.getByPacienteOrderByNumCitaAsc(optUser.get());
 				 	Usuario preUsuario = optUser.get();
 				 	preUsuario.setPassword(usuario.getPassword());
 				 	comprobarCamposVacios(usuario);
@@ -128,7 +129,12 @@ public class UsuarioController {
 					if(!validarDni(preUsuario.getDni())) 
 						throw new FormatoDniException();
 					
-				 	user.save(preUsuario);			
+					for (int i=0; i<cambiarUsuCitas.size();i++) {
+						cambiarUsuCitas.get(i).setPaciente(preUsuario);
+						cita.save(cambiarUsuCitas.get(i));
+					}
+					
+				 	user.save(preUsuario);	
 			}
 			else
 				throw new UsuarioInexistenteException();

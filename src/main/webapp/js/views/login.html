@@ -23,9 +23,8 @@
 						<div class="boton-login">
 							<button class="btn-login" data-bind="click : iniciarSesion">Entrar</button>
 						</div>
-						<div class="msg-correto" data-bind="html : message"
-							style="color: blue"></div>
-						<div class="msg-error" data-bind="html : error" style="color: red">
+							<div id="msg-correto" class="alert alert-success" data-bind="html : message" style="color: blue"></div>
+							<div id="msg-error" class="alert alert-danger" data-bind="html : error" style="color: red">
 						</div>
 					</div>
 				</div>
@@ -126,6 +125,7 @@ display: block;
 input#log:focus{
 		background-color: white;
 		width: 300px;
+		color:black;
 }
 
 input#pass {
@@ -152,6 +152,7 @@ display: block;
 input#pass:focus{
 		background-color: white;
 		width: 300px;
+		color:black;
 }
 
 .credenciales {
@@ -185,13 +186,7 @@ background-image: -webkit-linear-gradient(top, #ffff, #ffff);
 }
 
 .btn-login:hover {
-
-  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
-  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
-  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
-  text-decoration: none;
+color: #00a0d9;
   background-color: #ffff;
 }
 .oj-sm-14 {
@@ -247,18 +242,17 @@ background-color: #ffff;
 }
 
 .msg-error {
-background-color: #ffff;
-	position: absolute;
-	top: 140%;
-	left: 40%;
-	transform: translate(-50%, -50%);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #fafafa;
-	margin: 10px 40px 20px 40px;
-	/* IMPORTANTE */
-	text-align: center;
+    background-color: #ffff;
+    position: absolute;
+    top: 80%;
+    left: 73%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : #ffff;
+    margin: 0px -50px 39px -57px;
+    text-align: center;
 }
 .oj-hybrid-applayout-header{
 display:none;
