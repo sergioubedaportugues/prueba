@@ -8,8 +8,11 @@
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
     <h1 class="tituloGestionUsuarios">Gesti&oacuten de Usuarios</h1>
-    <button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
-      <div class="oj-hybrid-padding" id="gestionUser">
+			<div class="boton-logout">
+				<button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
+			</div>
+			<div class="oj-hybrid-padding" id="gestionUser">
+        
         
         <div  class="crearUsuario" id ="crearUsuario">
         <h3 class="nuevoProductos" >Crear usuario</h3>
@@ -90,11 +93,8 @@
             <!-- /ko -->
         </table>
        </div>
-      
       </div>
     </div>
-    
-
 </div>
 <head>
 <title></title>
@@ -117,7 +117,6 @@ text-decoration: none;
   -webkit-transition: width .35s;
   overflow: hidden;
   border-radius: 6px;
-  cursor:pointer;
 }
 
 .btn-logout:hover{
@@ -395,23 +394,21 @@ margin-left:20px;
 
 }
 
-button.btn_nuevo:hover {
-
-  color:#00a0d9;
-  text-decoration: none;
-  background-color: #ffff;
-}
-
 .oj-hybrid-applayout-page {
       background-image: url("css/banner2.jpg");
-    min-height: 96.5vh;
+    min-height: 96vh;
      background-repeat: no-repeat;
     background-position: bottom;
     background-color: #ffff;
     background-size: 100%;
 
 }
+button.btn_nuevo:hover {
 
+  color:#00a0d9;
+  text-decoration: none;
+  background-color: #ffff;
+}
 
 button.btn_elim {
 
@@ -433,7 +430,6 @@ background-image: -webkit-linear-gradient(top, #ffff, #ffff);
     background-color: #00a0d9;
     border-radius: 6px;
     border: 2px solid #0016b0;
-   
 
 
 }
@@ -442,7 +438,6 @@ button.btn_elim:hover {
   background-color:#ffff;
   text-decoration: none;
 color: #00a0d9;
-cursor:pointer;
 }
 
 button.btn_modif {

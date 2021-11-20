@@ -29,7 +29,9 @@ import uclm.grupo2.sigeva.exceptions.FechaMaximaException;
 import uclm.grupo2.sigeva.exceptions.FechasIncorrectasException;
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.exceptions.NoModificableException;
+import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
+import uclm.grupo2.sigeva.exceptions.VacunaAplicadaException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
@@ -50,7 +52,7 @@ public class CitasController {
 	private UsuarioDAO user;
 	
 	@Autowired
-	private TokenDAO token;
+	private TokenDAO tokenLogin;
 	
 	private static final String DDMMAA = "dd-MM-yyyy";
 	private static final String HHMM = "HH:mm";
@@ -59,8 +61,9 @@ public class CitasController {
 	
 	@PostMapping("/insertCita")
 	public String insertarCita() {
-		try {			
-			Token tokpaciente = token.findAll().get(0);
+		try {
+			validarLogin();
+			Token tokpaciente = tokenLogin.findAll().get(0);
 			
 			Usuario paciente = user.getByLogin(tokpaciente.getLogin()).get(0);
 			
@@ -94,8 +97,10 @@ public class CitasController {
 	@DeleteMapping("/deleteCita")
 	public void borrarCita(@RequestBody Citas c) {
 		try {
+			validarLogin();
 			Optional<Citas> optCita = cita.findById(c.getId());
 			if (optCita.isPresent()) {
+				controlarAplicada(c);
 				List <Citas> listadoCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
 				if (listadoCitas.size()==2 && c.getNumCita()==1) {
 					cita.deleteById(c.getId());
@@ -118,10 +123,14 @@ public class CitasController {
 	@PostMapping("/modifyCita")
 	public String modificarCita(@RequestBody Citas c) {
 		try {
-			
+			validarLogin();
+
 			Optional<Citas> optCita = cita.findById(c.getId());
 			
 			if (optCita.isPresent()) {
+				
+				controlarAplicada(c);
+				
 				if(!validarHoras(c.getHoras()) || !tiempoHoras(c.getHoras()) || !validarDias(c.getDia()) || !controlDias(c.getDia()))
 					throw new FormatoHoraException();				
 				
@@ -147,15 +156,11 @@ public class CitasController {
 			return "Cita modificada";
 		}
 	
-	@GetMapping("/findAllCitas")
-	public List<Citas> getCitas(){
-		return cita.findAll();
-	}
-	
 	@GetMapping("/mostrarCitasPedidas")
-	public List<Citas> mostrarCitasPedidas(){
-		Token tokpaciente = token.findAll().get(0);
-		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);		
+	public List<Citas> mostrarCitasPedidas() throws TokenBorradoException{
+		validarLogin();
+		Token tokpaciente = tokenLogin.findAll().get(0);
+		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);
 		return cita.getByPacienteOrderByNumCitaAsc(usu);
 	}
 	
@@ -281,5 +286,20 @@ public class CitasController {
 			valido = true;
 		}
 		return valido;
+	}
+	
+	private void validarLogin() throws TokenBorradoException {
+		if(tokenLogin.findAll().isEmpty())
+			throw new TokenBorradoException();
+
+    	List<Usuario> usuarios = user.getByLogin(tokenLogin.findAll().get(0).getLogin());
+    	Usuario usu = usuarios.get(0);
+        if(!usu.getRol().equals("Paciente"))
+            throw new TokenBorradoException();
+        }
+	
+	private void controlarAplicada(Citas c) throws VacunaAplicadaException {
+		if(c.isAplicada())
+			throw new VacunaAplicadaException();
 	}
 }

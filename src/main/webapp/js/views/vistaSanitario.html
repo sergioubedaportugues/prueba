@@ -8,9 +8,7 @@
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
         <h1 class="tituloGestionCitas">Gesti&oacuten de Citas</h1>
-        <div class="boton-logout">
-							<button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
-	</div>
+        <button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
 		<div class="oj-hybrid-padding" id="gestionCitas">
 
         <br>
@@ -25,9 +23,11 @@
 				<h3 id="tituloLista" class="listaCitas">Consultar citas</h3>
 					<td>
 						<label for="start"></label>
-						<input type="date" id="start" name="trip-start" min="2021-11-15" max="2022-01-31">
+						<input type="date" id="start" name="trip-start" min="2021-11-15" max="2022-01-31" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}">
 					</td>
-					<td><button class = "btn_consult" data-bind="click : function() { $parent.consultarCitas($data); }">Consultar</button></td>
+					<td><button class="btn_consult" data-bind="click : getConsultar">Consultar</button></td>
+					            
+					
 				</th>
 			<th>
 			<h3 id="tituloLista" class="listaCitas">Lista de Citas</h3>
@@ -38,16 +38,20 @@
 	            	<th id="coltablaCitas">D&iacutea</th>
 	                <th id="coltablaCitas">Hora</th>
 	                <th id="coltablaCitas">N&uacutemero de vacuna</th>
-	                <th id="coltablaCitas">Paciente</th>
+	                <th id="coltablaCitas">Nombre</th>
+	                <th id="coltablaCitas">Apellidos</th>
 	                <th id="coltablaCitas">Centro de Salud</th>
 	            </tr>
 	            <!-- ko foreach : citas -->
 	                <tr>
-	                	<td><input type="text" data-bind="value : dia" placeholder="Dia"readonly></td>
-	                    <td><input type="text" data-bind="value : horas" placeholder="Horas"readonly></td>
-	                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"readonly></td>
-	                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Paciente"readonly></td>
-	                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"readonly></td>
+	                	<td><input type="text" data-bind="value : dia" placeholder="Dia"disabled></td>
+	                    <td><input type="text" data-bind="value : horas" placeholder="Horas"disabled></td>
+	                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"disabled></td>
+	                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Nombre"disabled></td>
+	                    <td><input type="text" data-bind="value : paciente.apellidos" placeholder="Apellidos"disabled></td>
+	                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"disabled></td>
+						<td><button class="btn_aplicar" data-bind="click : function() { $parent.aplicarVacuna($data); }">Aplicar</button></td>
+	                    
 	                </tr>
 	            <!-- /ko -->
 	        </table>
@@ -59,30 +63,12 @@
     </div>
   </div>
 </div>
-
+<div class="boton-logout">
+	<button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
+</div>
 <head>
 <title></title>
 <style>
-.btn-logout{
-text-decoration: none;
-	float: right;
-  padding: 12px;
-  margin: 15px;
-  margin-right:40px;
-  color: white;
-  width: 80px;
-  background-color: red;
-  transition: width .35s;
-  -webkit-transition: width .35s;
-  overflow: hidden;
-  border-radius: 6px;
-  cursor:pointer;
-}
-
-.btn-logout:hover{
-background-color:#fff;
-color:red;
-}
 #gestionCitas {
   display: flex;
   flex-direction: row;
@@ -90,33 +76,26 @@ color:red;
   margin-top: 40px;
   justify-content: center;
 }
-.oj-hybrid-applayout-page {
-    min-height: 96.5vh;
-    }
 
 .btnNuevaCita{
 
- margin-top: 20px;
-background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
-
+  border-radius: 28px;
+text-shadow: 3px 2px 1px #9daef5;
+  -webkit-box-shadow: 6px 5px 24px #666666;
+  -moz-box-shadow: 6px 5px 24px #666666;
+  box-shadow: 6px 5px 24px #666666;
 font-family: Arial;
   color: #fafafa;
-  font-size: 26px;
-  padding: 10px;
+  font-size: 27px;
+  padding: 19px;
   text-decoration: none;
-margin-left:20px;
-  background: #fff;
-  font-size: 22px;
-  box-shadow: 1 0 3px 0 #00a0d9;
-  cursor: pointer;  
-  text-decoration: none;
-   
-    color: #ffffff;
-    background-color: #00a0d9;
-    border-radius: 6px;
-    border: 2px solid #0016b0;
 
 }
 .btnNuevaCita:hover {
@@ -272,45 +251,81 @@ button.btn_nuevo {
 
 button.btn_consult {
 
-background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
- 
+  border-radius: 28px;
 
 font-family: Arial;
   color: #fafafa;
   font-size: 14px;
   padding: 5px;
   text-decoration: none;
-margin-top:10px;
-  background: #fff;
 
-  box-shadow: 1 0 3px 0 #00a0d9;
-  cursor: pointer;  
-  text-decoration: none;
-    color: #ffffff;
-    background-color: #00a0d9;
-    border-radius: 6px;
-    border: 2px solid #0016b0;
 }
 button.btn_consult:hover {
 
-  color:#00a0d9;
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
   background-color: #ffff;
 }
-
-
-input#start{
-margin-top:10px;
-}
-
-
-
-
 
 .oj-hybrid-applayout-navbar-app {
 	display: none;
 }
+
+.btn-logout{
+text-decoration: none;
+    float: right;
+  padding: 12px;
+  margin: 15px;
+  margin-right:40px;
+  color: white;
+  width: 80px;
+  background-color: red;
+  transition: width .35s;
+  -webkit-transition: width .35s;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+button.btn_aplicar {
+
+background-image: -webkit-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -moz-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -ms-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: -o-linear-gradient(top, #00a0d9, #2079b0);
+  background-image: linear-gradient(to bottom, #00a0d9, #2079b0);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+
+font-family: Arial;
+  color: #fafafa;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+
+}
+button.btn_aplicar:hover {
+
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-color: #ffff;
+}
+
 
 </style>
 </head>

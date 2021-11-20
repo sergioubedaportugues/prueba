@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +15,21 @@ import org.springframework.web.server.ResponseStatusException;
 
 import uclm.grupo2.sigeva.dao.CentroSaludDAO;
 import uclm.grupo2.sigeva.dao.CitasDAO;
+import uclm.grupo2.sigeva.dao.TokenDAO;
+import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.CentroConCitasException;
 import uclm.grupo2.sigeva.exceptions.CentroDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.CentroInexistenteException;
 import uclm.grupo2.sigeva.exceptions.NumeroMinimoException;
+import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.Citas;
+import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
 @RequestMapping("gestionCentroSalud")
@@ -36,10 +40,15 @@ public class CentroSaludController {
 	
 	@Autowired
 	private CitasDAO cita;
+	
+	@Autowired TokenDAO tokenLogin;
+	
+	@Autowired UsuarioDAO user;
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSalud cs) {
 		try {
+			validarLogin();
 			List<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
 			if (!optCenter.isEmpty())
 				throw new CentroDuplicadoException();
@@ -53,7 +62,6 @@ public class CentroSaludController {
 				if((!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin())) || (!controlHoras(cs.getfInicio(), cs.getfFin()))  )
 					throw new FormatoHoraException();
 				center.save(cs);
-
 				}
 			
 		} catch(Exception e) {
@@ -63,17 +71,15 @@ public class CentroSaludController {
 	}
 
 	@GetMapping("/findAllCenters")
-	public List<CentroSalud> getCentros(){
+	public List<CentroSalud> getCentros() throws TokenBorradoException{
+		validarLogin();
 		return center.findAll();
-	}
-	@GetMapping("/findAllCenters/{id}")
-	public Optional<CentroSalud> getCentro(@PathVariable String id){
-		return center.findById(id);
 	}
 
 	@DeleteMapping("/deleteCenter")
 	public String borrarCentro(@RequestBody CentroSalud cs) {
 		try {
+			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
 			if (optCenter.isPresent()) {
 				if(cita.findByCs(cs).isEmpty()) {
@@ -91,14 +97,33 @@ public class CentroSaludController {
 	@PostMapping("/modifyCenter")
 	public String modificarCentro(@RequestBody CentroSalud cs) {
 		try {
-			
+			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
-			
 			if (optCenter.isPresent()) {
-				 	CentroSalud preCentro = optCenter.get();
+				List <Usuario> cambiarCsUsu = user.getByCs(optCenter.get());
+				List <Citas> cambiarCsCitas = cita.findByCs(optCenter.get());
+				CentroSalud preCentro = optCenter.get();
+				 	if(cs.getNombre().isEmpty() || cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty())
+				 		throw new CamposVaciosException();
+				 	if(!esNumericoEntero(cs.getNumVacunas()) || Integer.parseInt(cs.getNumVacunas())<0)
+				 		throw new ValorNumericoException();
 				 	preCentro.setNombre(cs.getNombre());
 				 	preCentro.setDireccion(cs.getDireccion());
 				 	preCentro.setNumVacunas(cs.getNumVacunas());
+				 	
+					 // CAMBIARLO POR CENTROS
+					for (int i=0; i<cambiarCsUsu.size();i++) {
+						cambiarCsUsu.get(i).setCs(preCentro);
+						user.save(cambiarCsUsu.get(i));
+					}
+					
+					 // CAMBIARLO POR CENTROS
+					for (int i=0; i<cambiarCsCitas.size();i++) {
+						cambiarCsCitas.get(i).getPaciente().setCs(preCentro);
+						cambiarCsCitas.get(i).setCs(preCentro);
+						cita.save(cambiarCsCitas.get(i));
+					}
+				 	
 	                center.save(preCentro);			
 			}
 			else
@@ -137,6 +162,7 @@ public class CentroSaludController {
 		}
 		return true;
 	}
+	
 
 	private static boolean controlHoras(String hInicio, String hFin) {
 		String[] horaI = hInicio.split(":");
@@ -159,4 +185,14 @@ public class CentroSaludController {
 		}
 		return valido;
 	}
+	
+	private void validarLogin() throws TokenBorradoException {
+		if(tokenLogin.findAll().isEmpty())
+			throw new TokenBorradoException();
+
+    	List<Usuario> usuarios = user.getByLogin(tokenLogin.findAll().get(0).getLogin());
+    	Usuario usu = usuarios.get(0);
+        if(!usu.getRol().equals("Administrador"))
+            throw new TokenBorradoException();
+        }
 }

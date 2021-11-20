@@ -14,10 +14,12 @@ public class Citas{
     private Usuario paciente;
     private CentroSalud cs;
     private int numCita;
+    private boolean aplicada;
 
 	public Citas() {
     	this.id=UUID.randomUUID().toString();
     	this.setNumCita(0);
+    	this.setAplicada(false);
     }
 
 	public String getId() {
@@ -66,6 +68,14 @@ public class Citas{
 
 	public void setNumCita(int numCita) {
 		this.numCita = numCita;
+	}
+
+	public boolean isAplicada() {
+		return aplicada;
+	}
+
+	public void setAplicada(boolean aplicada) {
+		this.aplicada = aplicada;
 	}
 
 }

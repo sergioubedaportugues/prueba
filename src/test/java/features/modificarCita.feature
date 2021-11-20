@@ -16,12 +16,10 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@tag
-Feature: Crear Cita
+
+Feature: Modificar Cita
 
   @tag1
-  Scenario: Crear Vacuna Correctamente
-    Then se crea una cita de vacunacion
-
-
-
+  Scenario: Modificar Cita Vacuna Correctamente
+  	Given un user con sesion iniciada
+    Then se modfifica su cita

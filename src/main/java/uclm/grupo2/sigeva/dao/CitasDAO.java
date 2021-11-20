@@ -23,5 +23,5 @@ public interface CitasDAO extends MongoRepository<Citas,String>{
 	List<Citas> getByDiaAndCsAndHorasStartingWith(String dia, CentroSalud cs, String horas);
 	List<Citas> findAllByOrderByNumCitaAsc();
 	List<Citas> getByPacienteOrderByNumCitaAsc(Usuario paciente);
-
+	List<Citas> deleteByPaciente(Usuario paciente);
 }
