@@ -1,0 +1,262 @@
+<div class="oj-hybrid-applayout-page">
+	<div class="oj-applayout-fixed-top">
+		<header role="banner" class="oj-hybrid-applayout-header">
+			<oj-module config="[[headerConfig]]"></oj-module>
+		</header>
+	</div>
+	<!-- This is where your main page content will be loaded -->
+	<div class="oj-applayout-content">
+		<div role="main" class="oj-hybrid-applayout-content">
+			<div class="oj-hybrid-padding">
+			<div class="container">
+				<h1 id="login" class="login"></h1>
+				<h2 id="credenciales" class="credenciales"></h2>
+				<div>
+					<div class="cajaLogin">
+						<div class="oj-sm-12">
+							<input type="login" id="log" placeholder="Login" data-bind="value : login">
+						</div>
+						<div class="oj-sm-12">
+							<input type="password" id="pass" placeholder="Contrase&ntilde;a"
+								data-bind="value : password">
+						</div>
+						<div class="boton-login">
+							<button class="btn-login" data-bind="click : iniciarSesion">Entrar</button>
+						</div>
+							<div id="msg-correto" class="alert alert-success" data-bind="html : message" style="color: blue"></div>
+							<div id="msg-error" class="alert alert-danger" data-bind="html : error" style="color: red">
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<head>
+<title></title>
+<style>
+.oj-hybrid-applayout-page {
+     background-image: url(css/logo-sigevaC.jpg);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-color: #ffff;
+    background-size: 120%;
+    margin-top: -110px;
+    margin-right: 40px;
+}
+.container{
+	margin-top:300px;
+  width: 100%;
+  height: 100vh;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+html {
+    background-color: #5ad3ee;
+}
+.oj-hybrid-applayout-page{
+background-color: #ffff;	
+}
+oj-module.oj-complete {
+    background-color: #5ad3ee;
+}
+.oj-applayout-fixed-bottom {
+    display: none;
+}
+.gestionU
+.oj-applayout-content{
+background-color: #ffff;	
+}
+.oj-hybrid-padding {
+    margin-left: 50px;
+    }
+
+.oj-applayout-content.oj-complete{
+background-color: #ffff;
+}
+
+.oj-applayout-content {
+background-color: #ffff;
+	position: relative;
+	position: absolute;
+	top: 30%;
+	left: 45%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 1rem;
+	/* IMPORTANTE */
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.oj-sm-12 {
+	padding-top: 10px;
+	background-color: #ffff;
+}
+
+input#log {
+display: block;
+		appearance: none;
+		outline: 0;
+		border: 1px solid fade(white, 40%);
+		background-color: fade(white, 20%);
+		width: 250px;
+		
+		border-radius: 3px;
+		padding: 10px 15px;
+		margin: 0 auto 10px auto;
+		display: block;
+		text-align: center;
+		font-size: 18px;
+		
+		color: black;
+		
+		transition-duration: 0.25s;
+		font-weight: 300;
+}
+
+input#log:focus{
+		background-color: white;
+		width: 300px;
+		color:black;
+}
+
+input#pass {
+display: block;
+		appearance: none;
+		outline: 0;
+		border: 1px solid fade(white, 40%);
+		background-color: fade(white, 20%);
+		width: 250px;
+		
+		border-radius: 3px;
+		padding: 10px 15px;
+		margin: 0 auto 10px auto;
+		display: block;
+		text-align: center;
+		font-size: 18px;
+		
+		color: black;
+		
+		transition-duration: 0.25s;
+		font-weight: 300;
+}
+
+input#pass:focus{
+		background-color: white;
+		width: 300px;
+		color:black;
+}
+
+.credenciales {
+	padding-bottom: 230px;
+	margin-top: 10px;
+	font-size: 250%;
+	 
+    color: #00a0d9;
+    margin-left: -10px;
+}
+
+.btn-login {
+ margin-top: 50px;
+background-image: -webkit-linear-gradient(top, #ffff, #ffff);    
+      padding: 5px 0;    
+      border-radius: 3px;    
+      width: auto;
+  padding: 10px;
+  background: #fff;
+  font-size: 22px;
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;  
+  text-decoration: none;
+   
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+}
+
+.btn-login:hover {
+color: #00a0d9;
+  background-color: #ffff;
+}
+.oj-sm-14 {
+background-color: #ffffff !important;
+}
+
+
+.oj-sm-14 {
+	background-color: #ffffff;
+	position: absolute;
+	top: 95%;
+	left: 42%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 70px 40px 20px 40px;
+	/* IMPORTANTE */
+	text-align: center;
+}
+.oj-hybrid-padding {
+    background-color: transparent !important;
+}
+.oj-sm-15 {
+background-color: #ffffff !important;
+}
+.oj-applayout-content.oj-complete {
+    background-color: transparent;
+}
+.oj-sm-12 {
+    padding-top: 10px;
+    background-color: transparent;
+}
+
+.oj-sm-15 {
+background-color: #ffffff;
+	position: absolute;
+	top: 110%;
+	left: 42%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	margin: 70px 40px 20px 40px;
+	/* IMPORTANTE */
+	text-align: center;
+}
+
+.a{
+background-color: #ffff;
+}
+
+.msg-error {
+    background-color: #ffff;
+    position: absolute;
+    top: 80%;
+    left: 73%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : #ffff;
+    margin: 0px -50px 39px -57px;
+    text-align: center;
+}
+.oj-hybrid-applayout-header{
+display:none;
+}
+
+</style>
+</head>

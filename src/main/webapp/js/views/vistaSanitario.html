@@ -1,0 +1,349 @@
+<div class="oj-hybrid-applayout-page">
+  <div class="oj-applayout-fixed-top">
+    <header role="banner" class="oj-hybrid-applayout-header">
+      <oj-module config="[[headerConfig]]"></oj-module>
+    </header>
+  </div>
+  <!-- This is where your main page content will be loaded -->
+  <div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+        <h1 class="tituloGestionCitas">Gesti&oacuten de Citas</h1>
+        <button class="btn-logout" data-bind="click : cerrarSesion">Logout</button>
+		<div class="oj-hybrid-padding" id="gestionCitas">
+
+        <br>
+        <div class="listarCitas" id="listarCitas">
+        <br>
+        
+        <div id="mensajesCorrecto" data-bind="html : message" style="color : blue"></div>
+        <div id="mensajeError" data-bind="html : error" style="color : red"></div>
+        <table class="tablaCitas">
+        <caption></caption>
+        	<tr>
+				<th id="coltablaCitas">
+				<h3 id="tituloLista" class="listaCitas">Consultar citas</h3>
+					<td>
+						<label for="start"></label>
+						<input type="date" id="start" name="trip-start" min="2021-11-15" max="2022-01-31" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}">
+					</td>
+					<td><button class="btn_consult" data-bind="click : getConsultar">Consultar</button></td>				
+				</th>
+			<th id="coltablaCitas">
+			<h3 id="tituloLista" class="listaCitas">Lista de Citas</h3>
+			
+	        <table class="tablaCitas">
+	        <caption></caption>
+	            <tr>
+	            	<th id="coltablaCitas">D&iacutea</th>
+	                <th id="coltablaCitas">Hora</th>
+	                <th id="coltablaCitas">N&uacutemero de vacuna</th>
+	                <th id="coltablaCitas">Nombre</th>
+	                <th id="coltablaCitas">Apellidos</th>
+	                <th id="coltablaCitas">Centro de Salud</th>
+	            </tr>
+	            <!-- ko foreach : citas -->
+	                <tr>
+	                	<td><input type="text" data-bind="value : dia" placeholder="Dia"disabled></td>
+	                    <td><input type="text" data-bind="value : horas" placeholder="Horas"disabled></td>
+	                    <td><input type="text" data-bind="value : numCita" placeholder="Num_cita"disabled></td>
+	                    <td><input type="text" data-bind="value : paciente.nombre" placeholder="Nombre"disabled></td>
+	                    <td><input type="text" data-bind="value : paciente.apellidos" placeholder="Apellidos"disabled></td>
+	                    <td><input type="text" data-bind="value : cs.nombre" placeholder="Centro de Salud"disabled></td>
+						<td><button class="btn_aplicar" data-bind="click : function() { $parent.aplicarVacuna($data); }">Aplicar</button></td>
+	                    
+	                </tr>
+	            <!-- /ko -->
+	        </table>
+	        </th>
+	        </tr>
+        </table>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<head>
+<title></title>
+<style>
+.btn-logout{
+text-decoration: none;
+	float: right;
+  padding: 12px;
+  margin: 15px;
+  margin-right:40px;
+  color: white;
+  width: 80px;
+  background-color: red;
+  transition: width .35s;
+  -webkit-transition: width .35s;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor:pointer;
+}
+
+.btn-logout:hover{
+background-color:#fff;
+color:red;
+}
+#gestionCitas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  justify-content: center;
+}
+.oj-hybrid-applayout-page {
+    min-height: 96.5vh;
+    }
+
+.btnNuevaCita{
+
+ margin-top: 20px;
+background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+
+font-family: Arial;
+  color: #fafafa;
+  font-size: 26px;
+  padding: 10px;
+  text-decoration: none;
+margin-left:20px;
+  background: #fff;
+  font-size: 22px;
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;  
+  text-decoration: none;
+   
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+
+}
+.btnNuevaCita:hover {
+  
+  background-image: -webkit-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -moz-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -ms-linear-gradient(top, #ffff, #00a0d9);
+  background-image: -o-linear-gradient(top, #ffff, #00a0d9);
+  background-image: linear-gradient(to bottom, #ffff, #00a0d9);
+  text-decoration: none;
+  background-colo: #ffff;
+}
+
+
+div#crearCita {
+    margin-left: 100px;
+}
+header.oj-hybrid-applayout-header {
+    display: none;
+}
+.oj-applayout-fixed-bottom {
+    top: 0;
+}
+.tituloGestionCitas{
+}
+.oj-hybrid-padding {
+    margin-top: 20px;
+}
+.oj-navigationlist-item.oj-selected {
+    border-color: none;
+}
+
+.oj-navigationlist-horizontal:not(.oj-navigationlist-icon-only) .oj-navigationlist-item {
+    border-width: 0 0 0.1875rem 0;
+     margin-right: 0; 
+     border-style: none; 
+}
+.oj-applayout-fixed-bottom, oj.-hybrid-applayout-navbar-fixed-bottom, .oj-hybrid-applayout-navbar{
+bottom:null;}
+form{
+    width:300px;
+    margin-left:10px;
+    margin-bottom:10px;
+    border-radius:20px;
+    
+    
+}
+
+li#ui-id-7 {
+    border-right: 1px solid #ffff;
+    border-left: 1px  solid #ffff;
+}
+
+li#ui-id-5 {
+    border-right: 1px solid #ffff;
+    border-left: 1px  solid #ffff;
+}
+li#ui-id-3 {
+    border-right: 1px solid #ffff;
+    border-left: 1px  solid #ffff;
+}
+
+li#ui-id-9 {
+    border-right: 1px solid #ffff;
+    border-left: 1px  solid #ffff;
+}
+
+
+
+form label{
+    width:150px;
+    font-weight:bold;
+    display:inline-block;
+}
+
+form input[type="text"]{
+    width:180px;
+    padding:3px 10px;
+    border:1px solid #f6f6f6;
+    border-radius:3px;
+    background-color:#f6f6f6;
+    margin:8px 0;
+    display:inline-block;
+}
+form input[type="submit"]{
+    width:100%;
+    padding:8px 16px;
+    margin-top:32px;
+    border:1px solid #000;
+    border-radius:5px;
+    display:block;
+    color:#fff;
+    background-color:#000;
+} 
+
+form input[type="submit"]:hover{
+    cursor:pointer;
+}
+
+div#listarCitas {
+    margin-top: -20px;
+}
+
+h3#tituloLista {
+    margin-top: 8px;
+    color: #00a0d9;
+}
+
+
+
+.oj-hybrid-applayout-content {
+ background-image: url("fondoGestion2.png");
+}
+
+h3.nuevaCita {
+    margin: 10px;
+    color: #00a0d9;
+}
+
+h1.tituloGestionCitas {
+    margin-top: 45px !important;
+    margin-left: 20px;
+    text-align: center;
+    color: #00a0d9;
+    box-shadow: 2px 4px 100px #00a0d9;
+    margin-left: -10px;
+}
+
+.oj-hybrid-applayout-page {
+      background-image: url("css/banner2.jpg");
+
+     background-repeat: no-repeat;
+    background-position: bottom;
+    background-color: #ffff;
+    background-size: 100%;
+
+}
+
+ul#ui-id-1 {
+    background-color: #00a0d9;
+}
+.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+    color: #ffff;
+}
+.oj-navigationlist-horizontal .oj-navigationlist-item:not(.oj-disabled) a.oj-navigationlist-item-content > .oj-navigationlist-item-label {
+    color: #ffff;
+}
+
+button.btn_nuevo {
+    margin-left: 94px;
+    margin-top: 20px;
+}
+
+button.btn_consult {
+
+background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+ 
+
+font-family: Arial;
+  color: #fafafa;
+  font-size: 14px;
+  padding: 5px;
+  text-decoration: none;
+margin-top:10px;
+  background: #fff;
+
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;  
+  text-decoration: none;
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+}
+button.btn_consult:hover {
+
+  color:#00a0d9;
+  background-color: #ffff;
+}
+
+button.btn_aplicar {
+
+font-family: Arial;
+  color: #fafafa;
+  padding: 5px;
+
+
+background-image: -webkit-linear-gradient(top, #ffff, #ffff); 
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+
+  background: #fff;
+  font-size: 16px;
+  box-shadow: 1 0 3px 0 #00a0d9;
+  cursor: pointer;
+  text-decoration: none;
+    color: #ffffff;
+    background-color: #00a0d9;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+
+
+
+}
+button.btn_aplicar:hover {
+
+  background-color:#ffff;
+  text-decoration: none;
+color: #00a0d9;
+}
+
+
+input#start{
+margin-top:10px;
+}
+
+
+
+
+
+.oj-hybrid-applayout-navbar-app {
+	display: none;
+}
+
+</style>
+</head>

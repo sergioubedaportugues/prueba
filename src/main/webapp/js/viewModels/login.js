@@ -1,23 +1,16 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
 
-	class MenuViewModel {
+	class LoginViewModel {
 		constructor() {
 			var self = this;
 			
-			self.id = ko.observable("");
-			self.horas = ko.observable("");
-			self.dia = ko.observable("");
-			self.nombreCentro = ko.observable("");
+			self.login = ko.observable("");
+			self.password = ko.observable("");
+			self.message = ko.observable();
+			self.error = ko.observable();
 			
-			self.centros = ko.observableArray([]);
-			self.paciente = ko.observableArray([]);
-			self.citas = ko.observableArray([]);
-			
-			self.message = ko.observable(null);
-			self.error = ko.observable(null);
-			
- 			// Header Config
+			// Header Config
 			self.headerConfig = ko.observable({
 				'view' : [],
 				'viewModel' : null
@@ -31,15 +24,26 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				})
 			})
 		}
-		
-		getCitas() {
-			let self = this;
-			let data = {
-				url : "gestionCitas/findAllCitas",
-				type : "get",
+
+		iniciarSesion() {
+			var self = this;
+			var info = {
+				login : this.login(),
+				password : this.password()
+			};
+			var data = {
+				data : JSON.stringify(info),
+				url : "login/iniciarSesion",
+				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					self.citas(response);
+					if(response.rol=="Administrador") {
+						app.router.go( { path : "gestionCentrosSalud"} );
+					} else if (response.rol=="Sanitario"){
+						app.router.go( { path : "vistaSanitario"} );
+					} else {
+						app.router.go( { path : "vistaPaciente"} );
+					}
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -47,14 +51,12 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
-		
+
 		connected() {
-			accUtils.announce('Gestión de Citas page loaded.');
-			document.title = "Gestión de Citas";
-			
-			this.getCitas();
-			
+			accUtils.announce('Login page loaded.');
+			document.title = "Login";
 		};
+
 		disconnected() {
 			// Implement if needed
 		};
@@ -64,5 +66,5 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		};
 	}
 
-	return MenuViewModel;
+	return LoginViewModel;
 });

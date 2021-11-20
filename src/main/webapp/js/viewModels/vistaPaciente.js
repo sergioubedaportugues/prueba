@@ -5,16 +5,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
-			self.nombre = ko.observable("");
-			self.direccion = ko.observable("");
-			self.numVacunas = ko.observable("");
-			self.fInicio = ko.observable("08:00");
-			self.fFin = ko.observable("14:00");
-			self.franja = ko.observable("6");
-			self.cupo = ko.observable("5");
+			self.id = ko.observable("");
+			self.horas = ko.observable("");
+			self.dia = ko.observable("");
+			self.numCita = ko.observable("");
 
-			
 			self.centros = ko.observableArray([]);
+			self.paciente = ko.observableArray([]);
+			self.citas = ko.observableArray([]);
 			
 			self.message = ko.observable(null);
 			self.error = ko.observable(null);
@@ -34,31 +32,61 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 		
-		insertCenters() {
+		insertCita() {
 			var self = this;
 			let info = {
-				nombre : this.nombre(),
-				direccion : this.direccion(),
-				numVacunas : this.numVacunas(),
-				fInicio : this.fInicio(),
-				fFin : this.fFin(),
-				franja : this.franja(),
-				cupo : this.cupo()
-
+				horas : this.horas(),
+				dia : this.dia(),
+				num_cita : this.numCita()
 			};
 			let data = {
 				data : JSON.stringify(info),
-				url : "gestionCentroSalud/insertCenter",
+				url : "vistaPaciente/insertCita",
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Centro guardado en la base de datos");
-					self.getCentros();
+					self.message("Sus citas se han generado correctamente.");
+					self.getCitas();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
 					
 
+				}
+			};
+			$.ajax(data);
+		}
+		
+		getCitas() {
+			let self = this;
+			let data = {
+				url : "vistaPaciente/mostrarCitasPedidas",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					self.citas(response);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
+		deleteCita(cita){
+			let self = this;
+			
+			let data = {
+				data : JSON.stringify(cita),
+				url : "vistaPaciente/deleteCita",
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Cita cancelada");
+					self.getCitas();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
 				}
 			};
 			$.ajax(data);
@@ -82,58 +110,23 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		getCentros() {
-			let self = this;
-			let data = {
-				url : "gestionCentroSalud/findAllCenters",
-				type : "get",
-				contentType : 'application/json',
-				success : function(response) {
-					self.centros(response);
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
-		
-		deleteCenters(center) {
-			let self = this;
-			
-			let data = {
-				data : JSON.stringify(center),
-				url : "gestionCentroSalud/deleteCenter",
-				type : "delete",
-				contentType : 'application/json',
-				success : function(response) {
-					self.message("Centro de Salud eliminado");
-					self.getCentros();
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
-		
-		modifyCenters(cs) {
+		modifyCita(cita) {
             var self = this;
 
             let data = {
-                data : JSON.stringify(cs),
-                url : "gestionCentroSalud/modifyCenter",
+                data : JSON.stringify(cita),
+                url : "vistaPaciente/modifyCita",
                 type : "post",
                 contentType : 'application/json',
                 success : function(response) {
-                    self.getCentros();
+                    self.getCitas();
                     self.limpiarMensajes();
-                    self.mostrarMensajes("Centro actualizado correctamente.");
+                    self.mostrarMensajes("Cita actualizada correctamente.");
                 },
                 error : function(response) {
                     self.error(response.responseJSON.errorMessage);
-                    self.limpiarMensajes();
-                    self.mostrarMensajes(null, "Error, el centro no se ha actualizado correctamente.");
+                    self.mostrarMensajes(null, "Error, la cita no se ha actualizado correctamente.");
+					self.getCitas();
                 }
             };
            
@@ -157,11 +150,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}	
 		
 		connected() {
-			accUtils.announce('Gestión de centros de salud page loaded.');
-			document.title = "Gestión de Centros de Salud";
+			accUtils.announce('Calendario page loaded.');
+			document.title = "Calendario";
 			
-			this.getCentros();
-			
+			this.getCitas();
 		};
 		disconnected() {
 			// Implement if needed

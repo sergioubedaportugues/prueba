@@ -13,13 +13,14 @@ public class Citas{
     private String dia;
     private Usuario paciente;
     private CentroSalud cs;
-    private String nombreCentro;
+    private int numCita;
+    private boolean aplicada;
 
-    public Citas() {
+	public Citas() {
     	this.id=UUID.randomUUID().toString();
+    	this.setNumCita(0);
+    	this.setAplicada(false);
     }
-    
-    
 
 	public String getId() {
 		return id;
@@ -60,24 +61,21 @@ public class Citas{
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
-	
-	
 
-	public String getNombreCentro() {
-		return nombreCentro;
+	public int getNumCita() {
+		return numCita;
 	}
 
-
-
-	public void setNombreCentro(String nombreCentro) {
-		this.nombreCentro = nombreCentro;
+	public void setNumCita(int numCita) {
+		this.numCita = numCita;
 	}
 
+	public boolean isAplicada() {
+		return aplicada;
+	}
 
-
-	@Override
-	public String toString() {
-		return "Citas [id=" + id + ", horas=" + horas + ", dia=" + dia + ", paciente=" + paciente + ", cs=" + cs + "]";
+	public void setAplicada(boolean aplicada) {
+		this.aplicada = aplicada;
 	}
 
 }
