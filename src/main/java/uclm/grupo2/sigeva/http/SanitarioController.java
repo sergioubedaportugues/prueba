@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import uclm.grupo2.sigeva.dao.CitasDAO;
 import uclm.grupo2.sigeva.dao.TokenDAO;
@@ -34,15 +35,16 @@ public class SanitarioController {
 	
 	private static final String DDMMAA = "dd-MM-yyyy";
 	private static DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern(DDMMAA);
+	  
 	
 	@GetMapping("/getCitasPorCentro")
-	public List<Citas> getCitasPorCentro() throws TokenBorradoException{
+	public List<Citas> getCitasPorCentro(@RequestParam String fecha) throws TokenBorradoException{
 		validarLogin();
 		Token tokSanitario = tokenLogin.findAll().get(0);
 		Usuario usu = user.getByLogin(tokSanitario.getLogin()).get(0);
-		LocalDate date = LocalDate.now();
-		String formattedLocalDate = date.format(formatterDia);		
-		return cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
+		//LocalDate date = LocalDate.now();
+		// String formattedLocalDate = date.format(formatterDia);		
+		return cita.getByDiaAndCs(fecha,usu.getCs());
 	}
 
 	private void validarLogin() throws TokenBorradoException {

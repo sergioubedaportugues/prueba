@@ -21,10 +21,11 @@
 				<th id="coltablaCitas">
 				<h3 id="tituloLista" class="listaCitas">Consultar citas</h3>
 					<td>
-						<label for="start"></label>
-						<input type="date" id="start" name="trip-start" min="2021-11-15" max="2022-01-31">
+						  <p>Fecha esperada: <input type="date" name="fecha">
 					</td>
-					<td><button class = "btn_consult" data-bind="click : function() { $parent.consultarCitas($data); }">Consultar</button></td>
+					<td><button class="btn_consult" data-bind="click : getConsultar">Consultar</button></td>
+					            
+					
 				</th>
 			<th>
 			<h3 id="tituloLista" class="listaCitas">Lista de Citas</h3>
