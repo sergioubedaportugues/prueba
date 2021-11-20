@@ -55,10 +55,7 @@ public class SanitarioController {
 		Token tokSanitario = tokenLogin.findAll().get(0);
 		Usuario usu = user.getByLogin(tokSanitario.getLogin()).get(0);
 		LocalDate date = LocalDate.now();
-
 		String formattedLocalDate = date.format(formatterDia);
-		List<Citas> prueba = cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
-
 		return cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
 	}
 	
