@@ -20,12 +20,16 @@ import uclm.grupo2.sigeva.dao.TokenDAO;
 import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CamposVaciosException;
 import uclm.grupo2.sigeva.exceptions.CredencialesInvalidasException;
+import uclm.grupo2.sigeva.exceptions.EsUnAdministradorException;
 import uclm.grupo2.sigeva.exceptions.FormatoDniException;
 import uclm.grupo2.sigeva.exceptions.FormatoPasswordException;
 import uclm.grupo2.sigeva.exceptions.NoEsTelefonoException;
+import uclm.grupo2.sigeva.exceptions.PacienteConCitasException;
 import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
+import uclm.grupo2.sigeva.exceptions.UsuarioConVacunaException;
 import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
+import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
 
@@ -80,8 +84,14 @@ public class UsuarioController {
 			validarLogin();
 			Optional<Usuario> optUser = user.findById(usuario.getId());
 			if (optUser.isPresent()) {
-				user.deleteById(usuario.getId());
-				cita.deleteAll(cita.getByPacienteOrderByNumCitaAsc(optUser.get()));
+				if(!optUser.get().getRol().equals("Administrador")) {
+					if(optUser.get().getDosis()!=1) {
+						user.deleteById(usuario.getId());
+						cita.deleteAll(cita.getByPacienteOrderByNumCitaAsc(optUser.get()));
+					} else
+						throw new UsuarioConVacunaException();
+				} else 
+					throw new EsUnAdministradorException();
 			}else
 				throw new UsuarioInexistenteException();
 		} catch (Exception e) {
@@ -105,11 +115,7 @@ public class UsuarioController {
 				 	preUsuario.setTelefono(usuario.getTelefono());
 				 	preUsuario.setDni(usuario.getDni());
 				 	preUsuario.setRol(usuario.getRol());
-				 	if(usuario.getCs()==null) {
-				 		preUsuario.setCs(preUsuario.getCs());
-					}else {
-				 	preUsuario.setCs(usuario.getCs());
-					}
+				 	preUsuario=cambiarCentro(usuario, preUsuario);
 					if(!validarMovil(preUsuario.getTelefono()))
 						throw new NoEsTelefonoException();
 					
@@ -132,6 +138,19 @@ public class UsuarioController {
 		return "Usuario modificado";
 	}
 
+	private Usuario cambiarCentro(Usuario usuario, Usuario preUsuario) throws PacienteConCitasException {
+		if(usuario.getCs()==null) {
+	 		preUsuario.setCs(preUsuario.getCs());
+		}else {
+			if(cita.getByPacienteOrderByNumCitaAsc(preUsuario).isEmpty())
+				preUsuario.setCs(usuario.getCs());
+			else
+				throw new PacienteConCitasException();
+		}
+ 		return preUsuario;
+
+		
+	}
 	private static boolean validarMovil(String telefono) {
 		if(telefono.length()!=9) {
 			return false;
