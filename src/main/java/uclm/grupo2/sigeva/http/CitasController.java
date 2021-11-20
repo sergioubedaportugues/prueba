@@ -31,6 +31,7 @@ import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.exceptions.NoModificableException;
 import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
+import uclm.grupo2.sigeva.exceptions.VacunaAplicadaException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
@@ -99,6 +100,7 @@ public class CitasController {
 			validarLogin();
 			Optional<Citas> optCita = cita.findById(c.getId());
 			if (optCita.isPresent()) {
+				controlarAplicada(c);
 				List <Citas> listadoCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
 				if (listadoCitas.size()==2 && c.getNumCita()==1) {
 					cita.deleteById(c.getId());
@@ -126,6 +128,9 @@ public class CitasController {
 			Optional<Citas> optCita = cita.findById(c.getId());
 			
 			if (optCita.isPresent()) {
+				
+				controlarAplicada(c);
+				
 				if(!validarHoras(c.getHoras()) || !tiempoHoras(c.getHoras()) || !validarDias(c.getDia()) || !controlDias(c.getDia()))
 					throw new FormatoHoraException();				
 				
@@ -155,7 +160,7 @@ public class CitasController {
 	public List<Citas> mostrarCitasPedidas() throws TokenBorradoException{
 		validarLogin();
 		Token tokpaciente = tokenLogin.findAll().get(0);
-		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);		
+		Usuario usu = user.getByLogin(tokpaciente.getLogin()).get(0);
 		return cita.getByPacienteOrderByNumCitaAsc(usu);
 	}
 	
@@ -284,9 +289,17 @@ public class CitasController {
 	}
 	
 	private void validarLogin() throws TokenBorradoException {
+		if(tokenLogin.findAll().isEmpty())
+			throw new TokenBorradoException();
+
     	List<Usuario> usuarios = user.getByLogin(tokenLogin.findAll().get(0).getLogin());
     	Usuario usu = usuarios.get(0);
-        if(tokenLogin.findAll().isEmpty() || !usu.getRol().equals("Paciente"))
+        if(!usu.getRol().equals("Paciente"))
             throw new TokenBorradoException();
         }
+	
+	private void controlarAplicada(Citas c) throws VacunaAplicadaException {
+		if(c.isAplicada())
+			throw new VacunaAplicadaException();
+	}
 }
