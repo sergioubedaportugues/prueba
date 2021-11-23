@@ -107,8 +107,9 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "delete",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Centro de Salud eliminado");
 					self.getCentros();
+					self.limpiarMensajes();
+                    self.mostrarMensajes("Centro de Salud eliminado");
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -129,11 +130,11 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
                     self.getCentros();
                     self.limpiarMensajes();
                     self.mostrarMensajes("Centro actualizado correctamente.");
+                    
                 },
                 error : function(response) {
                     self.error(response.responseJSON.errorMessage);
-                    self.limpiarMensajes();
-                    self.mostrarMensajes(null, "Error, el centro no se ha actualizado correctamente.");
+					self.getCentros();
                 }
             };
            
@@ -153,7 +154,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			setTimeout(function() {
           		self.message(azul);
           		self.error(rojo);
-        	}, 3000);
+        	}, 0);
 		}	
 		
 		connected() {

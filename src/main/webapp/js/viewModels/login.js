@@ -51,7 +51,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
-
 		connected() {
 			accUtils.announce('Login page loaded.');
 			document.title = "Login";

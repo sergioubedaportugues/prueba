@@ -58,13 +58,12 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Vacuna aplicada correctamente.");
 					self.getCitasPorCentro();
+					self.limpiarMensajes();
+                    self.mostrarMensajes("Vacuna aplicada correctamente.");
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
-					
-
 				}
 			};
 			$.ajax(data);
@@ -83,6 +82,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.citas(response);
+					self.limpiarMensajes();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -109,6 +109,22 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		}
+		
+		limpiarMensajes() {
+			let self = this;
+			setTimeout(function() {
+          		self.message(null);
+          		self.error(null);
+        	}, 0);
+		}
+		
+		mostrarMensajes(azul, rojo) {
+			let self = this;
+			setTimeout(function() {
+          		self.message(azul);
+          		self.error(rojo);
+        	}, 0);
+		}	
 		
 		connected() {
 			accUtils.announce('Mis Citas page loaded.');

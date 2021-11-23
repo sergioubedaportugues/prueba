@@ -61,8 +61,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
-					
-
 				}
 			};
 			$.ajax(data);
@@ -151,8 +149,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
                 },
                 error : function(response) {
                     self.error(response.responseJSON.errorMessage);
-                    self.limpiarMensajes();
-                    self.mostrarMensajes(null, "Error, el usuario no se ha actualizado correctamente.");
+                    self.getUsuarios();
                 }
             };
            
@@ -172,7 +169,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			setTimeout(function() {
           		self.message(azul);
           		self.error(rojo);
-        	}, 3000);
+        	}, 0);
 		}	
 		
 		connected() {
