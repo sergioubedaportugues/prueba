@@ -11,6 +11,6 @@ public class FechasIncorrectasException extends SigevaExceptions{
 	private static final long serialVersionUID = 2644546288340161178L;
 
 	public FechasIncorrectasException() {
-		super(HttpStatus.CONFLICT, "La cita 1 debe ser anterior a la cita 2.");
+		super(HttpStatus.CONFLICT, "La cita 2 debe ser 21 días posterior a la cita 1.");
 	}
 }

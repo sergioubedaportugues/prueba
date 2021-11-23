@@ -45,13 +45,12 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Sus citas se han generado correctamente.");
 					self.getCitas();
+					self.limpiarMensajes();
+                    self.mostrarMensajes("Sus citas se han generado correctamente.");
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
-					
-
 				}
 			};
 			$.ajax(data);
@@ -82,11 +81,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "delete",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Cita cancelada");
 					self.getCitas();
+					self.limpiarMensajes();
+                    self.mostrarMensajes("Cita cancelada.");
+					
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
+					self.getCitas();
 				}
 			};
 			$.ajax(data);
@@ -125,8 +127,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
                 },
                 error : function(response) {
                     self.error(response.responseJSON.errorMessage);
-                    self.mostrarMensajes(null, "Error, la cita no se ha actualizado correctamente.");
-					self.getCitas();
+                    self.getCitas();
+
                 }
             };
            
@@ -146,7 +148,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			setTimeout(function() {
           		self.message(azul);
           		self.error(rojo);
-        	}, 3000);
+        	}, 0);
 		}	
 		
 		connected() {
