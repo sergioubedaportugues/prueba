@@ -130,7 +130,7 @@ public class CitasController {
 				
 				controlarAplicada(c);
 				
-				if(!validarHoras(c.getHoras()) || !tiempoHoras(c.getHoras()) || !validarDias(c.getDia()) || !controlDias(c.getDia()))
+				if(!comprobarFormatorHoras(c.getHoras()) || !tiempoHoras(c.getHoras()) || !validarDias(c.getDia()) || !controlDias(c.getDia()))
 					throw new FormatoHoraException();				
 				
 				if(c.getPaciente().getDosis()>=c.getNumCita())
@@ -239,15 +239,15 @@ public class CitasController {
 	}
 	
 	
-	private static boolean validarHoras(String hora) {
-		if (hora.length() != 5)
+	private static boolean comprobarFormatorHoras(String h) {
+		if (h.length() != 5)
 			return false;
-		for (int i = 0; i < hora.length() - 1; i++) {
+		for (int i = 0; i < h.length() - 1; i++) {
 			if (i == 2) {
-				if (hora.charAt(i) != ':')
+				if (h.charAt(i) != ':')
 					return false;
 			} else {
-				if (!Character.isDigit(hora.charAt(i))) {
+				if (!Character.isDigit(h.charAt(i))) {
 					return false;
 				}
 			}
