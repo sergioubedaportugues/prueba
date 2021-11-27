@@ -119,6 +119,7 @@ public class SanitarioController {
 			user.save(preUsu);		
 			cita.save(preCita);
 			
+
 			if(preCita.getNumCita()==1) {
                 listCitas.get(1).setCs(preCs);
                 listCitas.get(1).setPaciente(preUsu);

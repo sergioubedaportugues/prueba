@@ -15,11 +15,15 @@
 	<name>sigeva</name>
 	<description>Lanzadora de SIGEVA</description>
 	<properties>
+		<jacoco.version>0.8.6</jacoco.version>
 		<java.version>1.8</java.version>
-		<sonar.organization>sergioubedaportugues</sonar.organization>
+		<junit-platform.version>5.3.1</junit-platform.version>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.organization>sigevag2</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<maven.compiler.source>7</maven.compiler.source>
-		<maven.compiler.target>7</maven.compiler.target>
+		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+
 	</properties>
 
 	<dependencies>
@@ -67,13 +71,13 @@
 			<scope>test</scope>
 		</dependency>
 
-	<dependency>
-		<groupId>io.cucumber</groupId>
-		<artifactId>cucumber-spring</artifactId>
-		<version>7.0.0</version>
-		<scope>test</scope>
-	</dependency>
-		
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>7.0.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -96,7 +100,35 @@
 			<artifactId>spring-data-rest-webmvc</artifactId>
 			<version>3.5.5</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-surefire-provider -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-surefire-provider</artifactId>
+			<version>1.3.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.0-RC1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.0-RC1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+		</dependency>
 	</dependencies>
 
 
@@ -108,9 +140,51 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit4</artifactId>
+						<version>2.22.0</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.2</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.3</version>
+				<version>${jacoco.version}</version>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
@@ -131,12 +205,9 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
-
-							<dataFile>target/jacoco.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
-							<outputDirectory>target/my-reports</outputDirectory>
+						<configuration> <!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>target/jacoco.exec</dataFile> <!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>target/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
