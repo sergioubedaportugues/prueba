@@ -11,6 +11,7 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.CitasController;
 import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -30,9 +31,20 @@ public class PruebaPedirCita {
 	
 	@Given("un usuario loggeado")
 	public void un_usuario_loggeado() {
+		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("paciente");
-		LoginCtrl.iniciarSesion(optUser.get());	
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		LoginCtrl.iniciarSesion(uDTO);	
 		assertEquals("Cita creada",CitasCtrl.insertarCita());
 		cita.deleteAll(cita.getByPacienteOrderByNumCitaAsc(optUser.get()));
 		LoginCtrl.cerrarSesion();

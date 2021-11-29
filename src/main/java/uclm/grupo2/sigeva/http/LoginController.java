@@ -19,6 +19,7 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.exceptions.CredencialesInvalidasException;
 import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 import uclm.grupo2.sigeva.model.Token;
 
 
@@ -33,7 +34,18 @@ public class LoginController {
 	private UsuarioDAO user;
 	
 	@PostMapping("/iniciarSesion")
-    public Usuario iniciarSesion(@RequestBody Usuario usuarios){
+    public Usuario iniciarSesion(@RequestBody UsuarioDTO uDTO){
+		Usuario usuarios = new Usuario();
+		usuarios.setId(uDTO.getId());
+		usuarios.setLogin(uDTO.getLogin());
+		usuarios.setPassword(uDTO.getPassword());
+		usuarios.setNombre(uDTO.getNombre());
+		usuarios.setApellidos(uDTO.getApellidos());
+		usuarios.setTelefono(uDTO.getTelefono());
+		usuarios.setDni(uDTO.getDni());
+		usuarios.setRol(uDTO.getRol());
+		usuarios.setCs(uDTO.getCs());
+		usuarios.setDosis(uDTO.getDosis());
         try {
         	token.deleteAll();
             List <Usuario> optUser = user.getByLogin(usuarios.getLogin());
@@ -65,6 +77,7 @@ public class LoginController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
 	
 	
 }

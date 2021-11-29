@@ -25,6 +25,7 @@ import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
 import uclm.grupo2.sigeva.exceptions.VacunaAplicadaException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
+import uclm.grupo2.sigeva.model.CitasDTO;
 import uclm.grupo2.sigeva.model.Token;
 import uclm.grupo2.sigeva.model.Usuario;
 
@@ -72,7 +73,15 @@ public class SanitarioController {
 	}
 	
 	@PostMapping("/aplicarVacuna")
-	public String aplicarVacuna(@RequestBody Citas c) throws TokenBorradoException, DiaDistintoVacunaException, StockInsuficienteException, VacunaAplicadaException {
+	public String aplicarVacuna(@RequestBody CitasDTO cDTO) throws TokenBorradoException, DiaDistintoVacunaException, StockInsuficienteException, VacunaAplicadaException {
+		Citas c = new Citas();
+		c.setId(cDTO.getId());
+		c.setHoras(cDTO.getHoras());
+		c.setDia(cDTO.getDia());
+		c.setPaciente(cDTO.getPaciente());
+		c.setCs(cDTO.getCs());
+		c.setNumCita(cDTO.getNumCita());
+		c.setAplicada(cDTO.isAplicada());
 		validarLogin();
 		Optional<Citas> optCita = cita.findById(c.getId());
 		if(optCita.isPresent()) {

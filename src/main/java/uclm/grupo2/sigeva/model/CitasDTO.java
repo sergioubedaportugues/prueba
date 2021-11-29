@@ -1,13 +1,9 @@
 package uclm.grupo2.sigeva.model;
-import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Citas") 
-public class Citas{
+public class CitasDTO{
 
-    @Id
+
     private String id;
     private String horas;
     private String dia;
@@ -16,10 +12,20 @@ public class Citas{
     private int numCita;
     private boolean aplicada;
 
-	public Citas() {
-    	this.id=UUID.randomUUID().toString();
-    	this.setNumCita(0);
-    	this.setAplicada(false);
+    
+
+	public CitasDTO(Citas c) {
+		this.id=c.getId();
+		this.horas = c.getHoras();
+		this.dia = c.getDia();
+		this.paciente = c.getPaciente();
+		this.cs = c.getCs();
+		this.numCita = c.getNumCita();
+		this.aplicada =c.isAplicada();
+	}
+
+	public CitasDTO() {
+   
     }
 
 	public String getId() {
@@ -77,6 +83,5 @@ public class Citas{
 	public void setAplicada(boolean aplicada) {
 		this.aplicada = aplicada;
 	}
-	
 
 }

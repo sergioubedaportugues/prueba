@@ -12,7 +12,9 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.CitasController;
 import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.Citas;
+import uclm.grupo2.sigeva.model.CitasDTO;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 public class PruebaEliminarCita {
@@ -31,14 +33,43 @@ public class PruebaEliminarCita {
 	
 	@Given("un user loggeado")
 	public void un_user_loggeado() {
+		UsuarioDTO uDTO= new UsuarioDTO();
+		
 		Optional<Usuario> optUser = user.findByLogin("paciente");
-		LoginCtrl.iniciarSesion(optUser.get());	
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		LoginCtrl.iniciarSesion(uDTO);	
 		assertEquals("Cita creada",CitasCtrl.insertarCita());
 		
 		List <Citas> citasUser = cita.getByPacienteOrderByNumCitaAsc(optUser.get());
+		CitasDTO cDTO= new CitasDTO();
+		CitasDTO cDTO1= new CitasDTO();
+		cDTO.setId(citasUser.get(0).getId());
+		cDTO.setHoras(citasUser.get(0).getHoras());
+		cDTO.setDia(citasUser.get(0).getDia());
+		cDTO.setPaciente(citasUser.get(0).getPaciente());
+		cDTO.setCs(citasUser.get(0).getCs());
+		cDTO.setNumCita(citasUser.get(0).getNumCita());
+		cDTO.setAplicada(citasUser.get(0).isAplicada());
 		
-		CitasCtrl.borrarCita(citasUser.get(0));
-		CitasCtrl.borrarCita(citasUser.get(1));
+		cDTO1.setId(citasUser.get(1).getId());
+		cDTO1.setHoras(citasUser.get(1).getHoras());
+		cDTO1.setDia(citasUser.get(1).getDia());
+		cDTO1.setPaciente(citasUser.get(1).getPaciente());
+		cDTO1.setCs(citasUser.get(1).getCs());
+		cDTO1.setNumCita(citasUser.get(1).getNumCita());
+		cDTO1.setAplicada(citasUser.get(1).isAplicada());
+		
+		CitasCtrl.borrarCita(cDTO);
+		CitasCtrl.borrarCita(cDTO1);
 		citasUser = cita.getByPacienteOrderByNumCitaAsc(optUser.get());
 		assertEquals(true,citasUser.isEmpty());
 		LoginCtrl.cerrarSesion();

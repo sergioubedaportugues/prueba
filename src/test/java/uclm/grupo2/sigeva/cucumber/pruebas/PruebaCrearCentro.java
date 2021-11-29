@@ -11,7 +11,9 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.CentroSaludController;
 import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.CentroSaludDTO;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 import io.cucumber.java.en.Then;
 import io.cucumber.spring.CucumberContextConfiguration;
 
@@ -30,9 +32,20 @@ public class PruebaCrearCentro{
 
 	@Given("un {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void un_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin,String franja, String cupo) {
+		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		LoginCtrl.iniciarSesion(optUser.get());
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		LoginCtrl.iniciarSesion(uDTO);
 		
 		nombreCentro= "MiguelturraTest23"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00";franja="6"; cupo="5";
 		CentroSalud centro = new CentroSalud();
@@ -43,8 +56,18 @@ public class PruebaCrearCentro{
 		centro.setfFin(fFin);
 		centro.setFranja(franja);
 		centro.setCupo(cupo);
-		assertEquals("Centro con id: "+centro.getId(),CentroCtrl.insertarCentro(centro));
-		CentroCtrl.borrarCentro(centro);
+		
+		CentroSaludDTO csDTO= new CentroSaludDTO();
+		csDTO.setId(centro.getId());
+		csDTO.setNombre(centro.getNombre());
+		csDTO.setDireccion(centro.getDireccion());
+		csDTO.setNumVacunas(centro.getNumVacunas());
+		csDTO.setfInicio(centro.getfInicio());
+		csDTO.setfFin(centro.getfFin());
+		csDTO.setFranja(centro.getFranja());
+		csDTO.setCupo(centro.getCupo());
+		assertEquals("Centro con id: "+centro.getId(),CentroCtrl.insertarCentro(csDTO));
+		CentroCtrl.borrarCentro(csDTO);
 	}
 
 	@Then("se crea un centro de salud")

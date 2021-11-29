@@ -10,7 +10,9 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.CentroSaludController;
 import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.CentroSaludDTO;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 import io.cucumber.java.en.Then;
 public class PruebaModificarDatosCentro {
 	
@@ -26,9 +28,21 @@ public class PruebaModificarDatosCentro {
 	
 	@Given("los datos asociados {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void los_datos_asociados_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin, String franja, String cupo) {
+		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		LoginCtrl.iniciarSesion(optUser.get());
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		
+		LoginCtrl.iniciarSesion(uDTO);
 		
 		nombreCentro= "Miguelturra33"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "09:30"; fFin = "14:00"; franja= "6"; cupo="5";
 		String nombreCentroN= "Miguelturra34"; String direccionCentroN="Avenida Parque 6"; String numeroVacunasN="8780";
@@ -41,14 +55,27 @@ public class PruebaModificarDatosCentro {
 		centro.setfFin(fFin);
 		centro.setFranja(franja);
 		centro.setCupo(cupo);
-		CentroCtrl.insertarCentro(centro);
+		
+		CentroSaludDTO csDTO= new CentroSaludDTO();
+		csDTO.setId(centro.getId());
+		csDTO.setNombre(centro.getNombre());
+		csDTO.setDireccion(centro.getDireccion());
+		csDTO.setNumVacunas(centro.getNumVacunas());
+		csDTO.setfInicio(centro.getfInicio());
+		csDTO.setfFin(centro.getfFin());
+		csDTO.setFranja(centro.getFranja());
+		csDTO.setCupo(centro.getCupo());
+		CentroCtrl.insertarCentro(csDTO);
 		
 		centro.setNombre(nombreCentroN);
 		centro.setDireccion(direccionCentroN);
 		centro.setNumVacunas(numeroVacunasN);
+		csDTO.setNombre(centro.getNombre());
+		csDTO.setDireccion(centro.getDireccion());
+		csDTO.setNumVacunas(centro.getNumVacunas());
 		
-		assertEquals("Centro modificado",CentroCtrl.modificarCentro(centro));
-		CentroCtrl.borrarCentro(centro);
+		assertEquals("Centro modificado",CentroCtrl.modificarCentro(csDTO));
+		CentroCtrl.borrarCentro(csDTO);
 	}
 
 	@Then("se ha modificado la informacion del centro correctamente")

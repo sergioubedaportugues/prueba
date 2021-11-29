@@ -13,6 +13,7 @@ import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.http.UsuarioController;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 
 public class PruebaCrearUsuario {
 	
@@ -27,9 +28,20 @@ public class PruebaCrearUsuario {
 
 	@Given("nuevo usuario con {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void nuevo_usuario_con_y(String login, String password, String nombre, String apellidos, String telefono, String dni, String rol) {
+		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		LoginCtrl.iniciarSesion(optUser.get());
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		LoginCtrl.iniciarSesion(uDTO);
 		
 		Usuario user = new Usuario();
 		login= "Antonio32"; password="Patata68"; nombre="Antonio"; apellidos="Fernandez"; telefono="888888878"; dni="98888888A"; rol="Admin"; 
@@ -50,8 +62,21 @@ public class PruebaCrearUsuario {
 		user.setTelefono(telefono);
 		user.setRol(rol);
 		user.setCs(centro);
-		assertEquals("Usuario con id: "+user.getId(),UserCtrl.insertarUsuario(user));
-		UserCtrl.borrarUsuario(user);
+		UsuarioDTO uDTO1= new UsuarioDTO();
+		uDTO1.setId(user.getId());
+		uDTO1.setLogin(user.getLogin());
+		uDTO1.setPassword(user.getPassword());
+		uDTO1.setNombre(user.getNombre());
+		uDTO1.setApellidos(user.getApellidos());
+		uDTO1.setTelefono(user.getTelefono());
+		uDTO1.setDni(user.getDni());
+		uDTO1.setRol(user.getRol());
+		uDTO1.setCs(user.getCs());
+		uDTO1.setDosis(user.getDosis());
+		
+		
+		assertEquals("Usuario con id: "+user.getId(),UserCtrl.insertarUsuario(uDTO1));
+		UserCtrl.borrarUsuario(uDTO1);
 
 	}
 

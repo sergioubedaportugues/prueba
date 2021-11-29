@@ -29,6 +29,7 @@ import uclm.grupo2.sigeva.exceptions.UsuarioDuplicadoException;
 import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 
 @RestController
 @RequestMapping("gestionUsuarios")
@@ -44,7 +45,18 @@ public class UsuarioController {
 	private CitasDAO cita;
 		
 	@PostMapping("/insertUsers")
-	public String insertarUsuario(@RequestBody Usuario usuarios) {
+	public String insertarUsuario(@RequestBody UsuarioDTO uDTO) {
+		Usuario usuarios = new Usuario();
+		usuarios.setId(uDTO.getId());
+		usuarios.setLogin(uDTO.getLogin());
+		usuarios.setPassword(uDTO.getPassword());
+		usuarios.setNombre(uDTO.getNombre());
+		usuarios.setApellidos(uDTO.getApellidos());
+		usuarios.setTelefono(uDTO.getTelefono());
+		usuarios.setDni(uDTO.getDni());
+		usuarios.setRol(uDTO.getRol());
+		usuarios.setCs(uDTO.getCs());
+		usuarios.setDosis(uDTO.getDosis());
 		try {
 			validarLogin();
 			Optional<Usuario> optUser = user.findByLogin(usuarios.getLogin());
@@ -76,7 +88,18 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping("/deleteUser")
-	public String borrarUsuario(@RequestBody Usuario usuario) {
+	public String borrarUsuario(@RequestBody UsuarioDTO uDTO) {
+		Usuario usuario = new Usuario();
+		usuario.setId(uDTO.getId());
+		usuario.setLogin(uDTO.getLogin());
+		usuario.setPassword(uDTO.getPassword());
+		usuario.setNombre(uDTO.getNombre());
+		usuario.setApellidos(uDTO.getApellidos());
+		usuario.setTelefono(uDTO.getTelefono());
+		usuario.setDni(uDTO.getDni());
+		usuario.setRol(uDTO.getRol());
+		usuario.setCs(uDTO.getCs());
+		usuario.setDosis(uDTO.getDosis());
 		try {
 			validarLogin();
 			Optional<Usuario> optUser = user.findById(usuario.getId());
@@ -98,7 +121,18 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/modifyUser")
-	public String modificarUsuario(@RequestBody Usuario usuario) {
+	public String modificarUsuario(@RequestBody UsuarioDTO uDTO) {
+		Usuario usuario = new Usuario();
+		usuario.setId(uDTO.getId());
+		usuario.setLogin(uDTO.getLogin());
+		usuario.setPassword(uDTO.getPassword());
+		usuario.setNombre(uDTO.getNombre());
+		usuario.setApellidos(uDTO.getApellidos());
+		usuario.setTelefono(uDTO.getTelefono());
+		usuario.setDni(uDTO.getDni());
+		usuario.setRol(uDTO.getRol());
+		usuario.setCs(uDTO.getCs());
+		usuario.setDosis(uDTO.getDosis());
 		try {			
 			validarLogin();			
 			Optional<Usuario> optUser = user.findById(usuario.getId());
