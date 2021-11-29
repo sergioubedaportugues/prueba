@@ -4,84 +4,86 @@ package uclm.grupo2.sigeva.model;
 public class CitasDTO{
 
 
-    private String id;
-    private String horas;
-    private String dia;
-    private Usuario paciente;
-    private CentroSalud cs;
-    private int numCita;
-    private boolean aplicada;
+    private String idDTO;
+    private String horasDTO;
+    private String diaDTO;
+    private Usuario pacienteDTO;
+    private CentroSalud csDTO;
+    private int numCitaDTO;
+    private boolean aplicadaDTO;
 
     
 
 	public CitasDTO(Citas c) {
-		this.id=c.getId();
-		this.horas = c.getHoras();
-		this.dia = c.getDia();
-		this.paciente = c.getPaciente();
-		this.cs = c.getCs();
-		this.numCita = c.getNumCita();
-		this.aplicada =c.isAplicada();
+		this.idDTO=c.getId();
+		this.horasDTO = c.getHoras();
+		this.diaDTO = c.getDia();
+		this.pacienteDTO = c.getPaciente();
+		this.csDTO = c.getCs();
+		this.numCitaDTO = c.getNumCita();
+		this.aplicadaDTO =c.isAplicada();
 	}
 
 	public CitasDTO() {
    
     }
 
-	public String getId() {
-		return id;
+	public String getIdDTO() {
+		return idDTO;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdDTO(String idDTO) {
+		this.idDTO = idDTO;
 	}
 
-	public String getHoras() {
-		return horas;
+	public String getHorasDTO() {
+		return horasDTO;
 	}
 
-	public void setHoras(String horas) {
-		this.horas = horas;
+	public void setHorasDTO(String horasDTO) {
+		this.horasDTO = horasDTO;
 	}
 
-	public Usuario getPaciente() {
-		return paciente;
+	public String getDiaDTO() {
+		return diaDTO;
 	}
 
-	public void setPaciente(Usuario paciente) {
-		this.paciente = paciente;
+	public void setDiaDTO(String diaDTO) {
+		this.diaDTO = diaDTO;
 	}
 
-	public CentroSalud getCs() {
-		return cs;
+	public Usuario getPacienteDTO() {
+		return pacienteDTO;
 	}
 
-	public void setCs(CentroSalud cs) {
-		this.cs = cs;
+	public void setPacienteDTO(Usuario pacienteDTO) {
+		this.pacienteDTO = pacienteDTO;
 	}
 
-	public String getDia() {
-		return dia;
+	public CentroSalud getCsDTO() {
+		return csDTO;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
+	public void setCsDTO(CentroSalud csDTO) {
+		this.csDTO = csDTO;
 	}
 
-	public int getNumCita() {
-		return numCita;
+	public int getNumCitaDTO() {
+		return numCitaDTO;
 	}
 
-	public void setNumCita(int numCita) {
-		this.numCita = numCita;
+	public void setNumCitaDTO(int numCitaDTO) {
+		this.numCitaDTO = numCitaDTO;
 	}
 
-	public boolean isAplicada() {
-		return aplicada;
+	public boolean isAplicadaDTO() {
+		return aplicadaDTO;
 	}
 
-	public void setAplicada(boolean aplicada) {
-		this.aplicada = aplicada;
+	public void setAplicadaDTO(boolean aplicadaDTO) {
+		this.aplicadaDTO = aplicadaDTO;
 	}
+
+	
 
 }

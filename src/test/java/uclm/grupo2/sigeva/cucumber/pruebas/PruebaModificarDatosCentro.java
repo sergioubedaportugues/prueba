@@ -31,16 +31,16 @@ public class PruebaModificarDatosCentro {
 		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		uDTO.setId(optUser.get().getId());
-		uDTO.setLogin(optUser.get().getLogin());
-		uDTO.setPassword(optUser.get().getPassword());
-		uDTO.setNombre(optUser.get().getNombre());
-		uDTO.setApellidos(optUser.get().getApellidos());
-		uDTO.setTelefono(optUser.get().getTelefono());
-		uDTO.setDni(optUser.get().getDni());
-		uDTO.setRol(optUser.get().getRol());
-		uDTO.setCs(optUser.get().getCs());
-		uDTO.setDosis(optUser.get().getDosis());
+		uDTO.setIdDTO(optUser.get().getId());
+		uDTO.setLoginDTO(optUser.get().getLogin());
+		uDTO.setPasswordDTO(optUser.get().getPassword());
+		uDTO.setNombreDTO(optUser.get().getNombre());
+		uDTO.setApellidosDTO(optUser.get().getApellidos());
+		uDTO.setTelefonoDTO(optUser.get().getTelefono());
+		uDTO.setDniDTO(optUser.get().getDni());
+		uDTO.setRolDTO(optUser.get().getRol());
+		uDTO.setCsDTO(optUser.get().getCs());
+		uDTO.setDosisDTO(optUser.get().getDosis());
 		
 		LoginCtrl.iniciarSesion(uDTO);
 		
@@ -57,22 +57,22 @@ public class PruebaModificarDatosCentro {
 		centro.setCupo(cupo);
 		
 		CentroSaludDTO csDTO= new CentroSaludDTO();
-		csDTO.setId(centro.getId());
-		csDTO.setNombre(centro.getNombre());
-		csDTO.setDireccion(centro.getDireccion());
-		csDTO.setNumVacunas(centro.getNumVacunas());
-		csDTO.setfInicio(centro.getfInicio());
-		csDTO.setfFin(centro.getfFin());
-		csDTO.setFranja(centro.getFranja());
-		csDTO.setCupo(centro.getCupo());
+		csDTO.setIdDTO(centro.getId());
+		csDTO.setNombreDTO(centro.getNombre());
+		csDTO.setDireccionDTO(centro.getDireccion());
+		csDTO.setNumVacunasDTO(centro.getNumVacunas());
+		csDTO.setfInicioDTO(centro.getfInicio());
+		csDTO.setfFinDTO(centro.getfFin());
+		csDTO.setFranjaDTO(centro.getFranja());
+		csDTO.setCupoDTO(centro.getCupo());
 		CentroCtrl.insertarCentro(csDTO);
 		
 		centro.setNombre(nombreCentroN);
 		centro.setDireccion(direccionCentroN);
 		centro.setNumVacunas(numeroVacunasN);
-		csDTO.setNombre(centro.getNombre());
-		csDTO.setDireccion(centro.getDireccion());
-		csDTO.setNumVacunas(centro.getNumVacunas());
+		csDTO.setNombreDTO(centro.getNombre());
+		csDTO.setDireccionDTO(centro.getDireccion());
+		csDTO.setNumVacunasDTO(centro.getNumVacunas());
 		
 		assertEquals("Centro modificado",CentroCtrl.modificarCentro(csDTO));
 		CentroCtrl.borrarCentro(csDTO);

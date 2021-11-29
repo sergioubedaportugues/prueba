@@ -74,14 +74,8 @@ public class SanitarioController {
 	
 	@PostMapping("/aplicarVacuna")
 	public String aplicarVacuna(@RequestBody CitasDTO cDTO) throws TokenBorradoException, DiaDistintoVacunaException, StockInsuficienteException, VacunaAplicadaException {
-		Citas c = new Citas();
-		c.setId(cDTO.getId());
-		c.setHoras(cDTO.getHoras());
-		c.setDia(cDTO.getDia());
-		c.setPaciente(cDTO.getPaciente());
-		c.setCs(cDTO.getCs());
-		c.setNumCita(cDTO.getNumCita());
-		c.setAplicada(cDTO.isAplicada());
+		Citas c = cambiarCitaDTO(cDTO);
+		
 		validarLogin();
 		Optional<Citas> optCita = cita.findById(c.getId());
 		if(optCita.isPresent()) {
@@ -154,4 +148,15 @@ public class SanitarioController {
         if(!usu.getRol().equals("Sanitario"))
             throw new TokenBorradoException();
         }
+	private Citas cambiarCitaDTO(CitasDTO cDTO) {
+		Citas c = new Citas();
+		c.setId(cDTO.getIdDTO());
+		c.setHoras(cDTO.getHorasDTO());
+		c.setDia(cDTO.getDiaDTO());
+		c.setPaciente(cDTO.getPacienteDTO());
+		c.setCs(cDTO.getCsDTO());
+		c.setNumCita(cDTO.getNumCitaDTO());
+		c.setAplicada(cDTO.isAplicadaDTO());
+		return c;
+	}
 }

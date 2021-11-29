@@ -30,16 +30,16 @@ public class PruebaModificarUsuarioAdmin {
 		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		uDTO.setId(optUser.get().getId());
-		uDTO.setLogin(optUser.get().getLogin());
-		uDTO.setPassword(optUser.get().getPassword());
-		uDTO.setNombre(optUser.get().getNombre());
-		uDTO.setApellidos(optUser.get().getApellidos());
-		uDTO.setTelefono(optUser.get().getTelefono());
-		uDTO.setDni(optUser.get().getDni());
-		uDTO.setRol(optUser.get().getRol());
-		uDTO.setCs(optUser.get().getCs());
-		uDTO.setDosis(optUser.get().getDosis());
+		uDTO.setIdDTO(optUser.get().getId());
+		uDTO.setLoginDTO(optUser.get().getLogin());
+		uDTO.setPasswordDTO(optUser.get().getPassword());
+		uDTO.setNombreDTO(optUser.get().getNombre());
+		uDTO.setApellidosDTO(optUser.get().getApellidos());
+		uDTO.setTelefonoDTO(optUser.get().getTelefono());
+		uDTO.setDniDTO(optUser.get().getDni());
+		uDTO.setRolDTO(optUser.get().getRol());
+		uDTO.setCsDTO(optUser.get().getCs());
+		uDTO.setDosisDTO(optUser.get().getDosis());
 		LoginCtrl.iniciarSesion(uDTO);
 		
 		Usuario user = new Usuario();
@@ -66,16 +66,16 @@ public class PruebaModificarUsuarioAdmin {
 		user.setRol(rol);
 		user.setCs(centro);
 		
-		uDTO.setId(user.getId());
-		uDTO.setLogin(user.getLogin());
-		uDTO.setPassword(user.getPassword());
-		uDTO.setNombre(user.getNombre());
-		uDTO.setApellidos(user.getApellidos());
-		uDTO.setTelefono(user.getTelefono());
-		uDTO.setDni(user.getDni());
-		uDTO.setRol(user.getRol());
-		uDTO.setCs(user.getCs());
-		uDTO.setDosis(user.getDosis());
+		uDTO.setIdDTO(user.getId());
+		uDTO.setLoginDTO(user.getLogin());
+		uDTO.setPasswordDTO(user.getPassword());
+		uDTO.setNombreDTO(user.getNombre());
+		uDTO.setApellidosDTO(user.getApellidos());
+		uDTO.setTelefonoDTO(user.getTelefono());
+		uDTO.setDniDTO(user.getDni());
+		uDTO.setRolDTO(user.getRol());
+		uDTO.setCsDTO(user.getCs());
+		uDTO.setDosisDTO(user.getDosis());
 		
 		UserCtrl.insertarUsuario(uDTO);
 		
@@ -88,16 +88,16 @@ public class PruebaModificarUsuarioAdmin {
 		centro.setNombre("Miguelturra23M");
 		user.setCs(centro);
 		
-		uDTO.setId(user.getId());
-		uDTO.setLogin(user.getLogin());
-		uDTO.setPassword(user.getPassword());
-		uDTO.setNombre(user.getNombre());
-		uDTO.setApellidos(user.getApellidos());
-		uDTO.setTelefono(user.getTelefono());
-		uDTO.setDni(user.getDni());
-		uDTO.setRol(user.getRol());
-		uDTO.setCs(user.getCs());
-		uDTO.setDosis(user.getDosis());
+		uDTO.setIdDTO(user.getId());
+		uDTO.setLoginDTO(user.getLogin());
+		uDTO.setPasswordDTO(user.getPassword());
+		uDTO.setNombreDTO(user.getNombre());
+		uDTO.setApellidosDTO(user.getApellidos());
+		uDTO.setTelefonoDTO(user.getTelefono());
+		uDTO.setDniDTO(user.getDni());
+		uDTO.setRolDTO(user.getRol());
+		uDTO.setCsDTO(user.getCs());
+		uDTO.setDosisDTO(user.getDosis());
 		
 		assertEquals("Usuario modificado",UserCtrl.modificarUsuario(uDTO));
 		UserCtrl.borrarUsuario(uDTO);

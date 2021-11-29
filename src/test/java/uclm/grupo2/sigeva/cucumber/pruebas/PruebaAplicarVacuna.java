@@ -64,16 +64,16 @@ public class PruebaAplicarVacuna {
 		
 
 		Optional<Usuario> optUser = user.findByLogin("paciente");
-		uDTO.setId(optUser.get().getId());
-		uDTO.setLogin(optUser.get().getLogin());
-		uDTO.setPassword(optUser.get().getPassword());
-		uDTO.setNombre(optUser.get().getNombre());
-		uDTO.setApellidos(optUser.get().getApellidos());
-		uDTO.setTelefono(optUser.get().getTelefono());
-		uDTO.setDni(optUser.get().getDni());
-		uDTO.setRol(optUser.get().getRol());
-		uDTO.setCs(optUser.get().getCs());
-		uDTO.setDosis(optUser.get().getDosis());
+		uDTO.setIdDTO(optUser.get().getId());
+		uDTO.setLoginDTO(optUser.get().getLogin());
+		uDTO.setPasswordDTO(optUser.get().getPassword());
+		uDTO.setNombreDTO(optUser.get().getNombre());
+		uDTO.setApellidosDTO(optUser.get().getApellidos());
+		uDTO.setTelefonoDTO(optUser.get().getTelefono());
+		uDTO.setDniDTO(optUser.get().getDni());
+		uDTO.setRolDTO(optUser.get().getRol());
+		uDTO.setCsDTO(optUser.get().getCs());
+		uDTO.setDosisDTO(optUser.get().getDosis());
 		
 		LoginCtrl.iniciarSesion(uDTO);	
 		CitasCtrl.insertarCita();
@@ -89,26 +89,26 @@ public class PruebaAplicarVacuna {
 		
 		
 		Optional<Usuario> optUser2 = user.findByLogin("sanitario");
-		uDTO2.setId(optUser2.get().getId());
-		uDTO2.setLogin(optUser2.get().getLogin());
-		uDTO2.setPassword(optUser2.get().getPassword());
-		uDTO2.setNombre(optUser2.get().getNombre());
-		uDTO2.setApellidos(optUser2.get().getApellidos());
-		uDTO2.setTelefono(optUser2.get().getTelefono());
-		uDTO2.setDni(optUser2.get().getDni());
-		uDTO2.setRol(optUser2.get().getRol());
-		uDTO2.setCs(optUser2.get().getCs());
-		uDTO2.setDosis(optUser2.get().getDosis());
+		uDTO2.setIdDTO(optUser2.get().getId());
+		uDTO2.setLoginDTO(optUser2.get().getLogin());
+		uDTO2.setPasswordDTO(optUser2.get().getPassword());
+		uDTO2.setNombreDTO(optUser2.get().getNombre());
+		uDTO2.setApellidosDTO(optUser2.get().getApellidos());
+		uDTO2.setTelefonoDTO(optUser2.get().getTelefono());
+		uDTO2.setDniDTO(optUser2.get().getDni());
+		uDTO2.setRolDTO(optUser2.get().getRol());
+		uDTO2.setCsDTO(optUser2.get().getCs());
+		uDTO2.setDosisDTO(optUser2.get().getDosis());
 		LoginCtrl.iniciarSesion(uDTO2);
 		
 		CitasDTO cDTO= new CitasDTO();
-		cDTO.setId(c.get(0).getId());
-		cDTO.setHoras(c.get(0).getHoras());
-		cDTO.setDia(c.get(0).getDia());
-		cDTO.setPaciente(c.get(0).getPaciente());
-		cDTO.setCs(c.get(0).getCs());
-		cDTO.setNumCita(c.get(0).getNumCita());
-		cDTO.setAplicada(c.get(0).isAplicada());
+		cDTO.setIdDTO(c.get(0).getId());
+		cDTO.setHorasDTO(c.get(0).getHoras());
+		cDTO.setDiaDTO(c.get(0).getDia());
+		cDTO.setPacienteDTO(c.get(0).getPaciente());
+		cDTO.setCsDTO(c.get(0).getCs());
+		cDTO.setNumCitaDTO(c.get(0).getNumCita());
+		cDTO.setAplicadaDTO(c.get(0).isAplicada());
 		
 		
 		assertEquals("Vacuna aplicada.",SanitarioCtrl.aplicarVacuna(cDTO));
@@ -124,27 +124,27 @@ public class PruebaAplicarVacuna {
 		LoginCtrl.cerrarSesion();
 		
 		Optional<Usuario> optUser3 = user.findByLogin("administrador");
-		uDTO3.setId(optUser3.get().getId());
-		uDTO3.setLogin(optUser3.get().getLogin());
-		uDTO3.setPassword(optUser3.get().getPassword());
-		uDTO3.setNombre(optUser3.get().getNombre());
-		uDTO3.setApellidos(optUser3.get().getApellidos());
-		uDTO3.setTelefono(optUser3.get().getTelefono());
-		uDTO3.setDni(optUser3.get().getDni());
-		uDTO3.setRol(optUser3.get().getRol());
-		uDTO3.setCs(optUser3.get().getCs());
-		uDTO3.setDosis(optUser3.get().getDosis());
+		uDTO3.setIdDTO(optUser3.get().getId());
+		uDTO3.setLoginDTO(optUser3.get().getLogin());
+		uDTO3.setPasswordDTO(optUser3.get().getPassword());
+		uDTO3.setNombreDTO(optUser3.get().getNombre());
+		uDTO3.setApellidosDTO(optUser3.get().getApellidos());
+		uDTO3.setTelefonoDTO(optUser3.get().getTelefono());
+		uDTO3.setDniDTO(optUser3.get().getDni());
+		uDTO3.setRolDTO(optUser3.get().getRol());
+		uDTO3.setCsDTO(optUser3.get().getCs());
+		uDTO3.setDosisDTO(optUser3.get().getDosis());
 		
 		LoginCtrl.iniciarSesion(uDTO3);	
 		
-		csDTO.setId(centro.getId());
-		csDTO.setNombre(centro.getNombre());
-		csDTO.setDireccion(centro.getDireccion());
-		csDTO.setNumVacunas(centro.getNumVacunas());
-		csDTO.setfInicio(centro.getfInicio());
-		csDTO.setfFin(centro.getfFin());
-		csDTO.setFranja(centro.getFranja());
-		csDTO.setCupo(centro.getCupo());
+		csDTO.setIdDTO(centro.getId());
+		csDTO.setNombreDTO(centro.getNombre());
+		csDTO.setDireccionDTO(centro.getDireccion());
+		csDTO.setNumVacunasDTO(centro.getNumVacunas());
+		csDTO.setfInicioDTO(centro.getfInicio());
+		csDTO.setfFinDTO(centro.getfFin());
+		csDTO.setFranjaDTO(centro.getFranja());
+		csDTO.setCupoDTO(centro.getCupo());
 		CentroCtrl.modificarCentro(csDTO);
 		
 		LoginCtrl.cerrarSesion();
