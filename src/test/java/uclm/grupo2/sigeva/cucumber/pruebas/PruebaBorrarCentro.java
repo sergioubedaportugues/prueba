@@ -10,7 +10,9 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.CentroSaludController;
 import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.CentroSaludDTO;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 import io.cucumber.java.en.Then;
 public class PruebaBorrarCentro {
 	
@@ -25,9 +27,21 @@ public class PruebaBorrarCentro {
 	
 	@Given("los atributos {string}, {string}, {string}, {string}, {string}, {string} y {string}")
 	public void los_atributos_y(String nombreCentro, String direccionCentro, String numeroVacunas, String fInicio, String fFin,String franja, String cupo) {
+		UsuarioDTO uDTO= new UsuarioDTO();
+		
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		LoginCtrl.iniciarSesion(optUser.get());
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		LoginCtrl.iniciarSesion(uDTO);
 		
 		nombreCentro= "Miguelturra24"; direccionCentro="Avenida Parque 8"; numeroVacunas="7780"; fInicio = "08:00"; fFin = "14:00"; franja="6"; cupo="5";
 		CentroSalud centro = new CentroSalud();
@@ -38,8 +52,18 @@ public class PruebaBorrarCentro {
 		centro.setfFin(fFin);
 		centro.setFranja(franja);
 		centro.setCupo(cupo);
-		CentroCtrl.insertarCentro(centro);
-		assertEquals("Centro eliminado",CentroCtrl.borrarCentro(centro));
+		
+		CentroSaludDTO csDTO= new CentroSaludDTO();
+		csDTO.setId(centro.getId());
+		csDTO.setNombre(centro.getNombre());
+		csDTO.setDireccion(centro.getDireccion());
+		csDTO.setNumVacunas(centro.getNumVacunas());
+		csDTO.setfInicio(centro.getfInicio());
+		csDTO.setfFin(centro.getfFin());
+		csDTO.setFranja(centro.getFranja());
+		csDTO.setCupo(centro.getCupo());
+		CentroCtrl.insertarCentro(csDTO);
+		assertEquals("Centro eliminado",CentroCtrl.borrarCentro(csDTO));
 	}
 
 	@Then("se elimina el centro")

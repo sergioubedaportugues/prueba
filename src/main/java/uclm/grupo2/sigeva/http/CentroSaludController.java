@@ -28,6 +28,7 @@ import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.CentroSaludDTO;
 import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
 
@@ -46,7 +47,17 @@ public class CentroSaludController {
 	@Autowired UsuarioDAO user;
 
 	@PostMapping("/insertCenter")
-	public String insertarCentro(@RequestBody CentroSalud cs) {
+	public String insertarCentro(@RequestBody CentroSaludDTO csDTO) {
+		CentroSalud cs = new CentroSalud();
+		cs.setId(csDTO.getId());
+		cs.setNombre(csDTO.getNombre());
+		cs.setDireccion(csDTO.getDireccion());
+		cs.setNumVacunas(csDTO.getNumVacunas());
+		cs.setfInicio(csDTO.getfInicio());
+		cs.setfFin(csDTO.getfFin());
+		cs.setFranja(csDTO.getFranja());
+		cs.setCupo(csDTO.getCupo());
+
 		try {
 			validarLogin();
 			List<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
@@ -77,7 +88,17 @@ public class CentroSaludController {
 	}
 
 	@DeleteMapping("/deleteCenter")
-	public String borrarCentro(@RequestBody CentroSalud cs) {
+	public String borrarCentro(@RequestBody CentroSaludDTO csDTO) {
+		CentroSalud cs = new CentroSalud();
+		cs.setId(csDTO.getId());
+		cs.setNombre(csDTO.getNombre());
+		cs.setDireccion(csDTO.getDireccion());
+		cs.setNumVacunas(csDTO.getNumVacunas());
+		cs.setfInicio(csDTO.getfInicio());
+		cs.setfFin(csDTO.getfFin());
+		cs.setFranja(csDTO.getFranja());
+		cs.setCupo(csDTO.getCupo());
+
 		try {
 			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
@@ -95,7 +116,16 @@ public class CentroSaludController {
 	}
 	
 	@PostMapping("/modifyCenter")
-	public String modificarCentro(@RequestBody CentroSalud cs) {
+	public String modificarCentro(@RequestBody CentroSaludDTO csDTO) {
+		CentroSalud cs = new CentroSalud();
+		cs.setId(csDTO.getId());
+		cs.setNombre(csDTO.getNombre());
+		cs.setDireccion(csDTO.getDireccion());
+		cs.setNumVacunas(csDTO.getNumVacunas());
+		cs.setfInicio(csDTO.getfInicio());
+		cs.setfFin(csDTO.getfFin());
+		cs.setFranja(csDTO.getFranja());
+		cs.setCupo(csDTO.getCupo());
 		try {
 			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());

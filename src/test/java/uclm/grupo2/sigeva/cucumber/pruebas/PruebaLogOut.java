@@ -14,6 +14,7 @@ import uclm.grupo2.sigeva.dao.UsuarioDAO;
 import uclm.grupo2.sigeva.http.LoginController;
 import uclm.grupo2.sigeva.model.Token;
 import uclm.grupo2.sigeva.model.Usuario;
+import uclm.grupo2.sigeva.model.UsuarioDTO;
 
 
 
@@ -30,9 +31,20 @@ public class PruebaLogOut {
 	
 	@Given("el identificador {string}")
 	public void el_identificador(String string) {
-		
+		UsuarioDTO uDTO= new UsuarioDTO();
 		Optional<Usuario> optUser = user.findByLogin("administrador");
-		LoginCtrl.iniciarSesion(optUser.get());
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
+		
+		LoginCtrl.iniciarSesion(uDTO);
 		LoginCtrl.cerrarSesion();
 		List <Token> optToken = token.findAll();
 		assertEquals(true,optToken.isEmpty());

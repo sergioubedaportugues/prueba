@@ -33,6 +33,7 @@ import uclm.grupo2.sigeva.exceptions.UsuarioInexistenteException;
 import uclm.grupo2.sigeva.exceptions.VacunaAplicadaException;
 import uclm.grupo2.sigeva.model.CentroSalud;
 import uclm.grupo2.sigeva.model.Citas;
+import uclm.grupo2.sigeva.model.CitasDTO;
 import uclm.grupo2.sigeva.model.Usuario;
 import uclm.grupo2.sigeva.model.Token;
 
@@ -94,7 +95,15 @@ public class CitasController {
 	}
 	
 	@DeleteMapping("/deleteCita")
-	public void borrarCita(@RequestBody Citas c) {
+	public void borrarCita(@RequestBody CitasDTO cDTO) {
+		Citas c = new Citas();
+		c.setId(cDTO.getId());
+		c.setHoras(cDTO.getHoras());
+		c.setDia(cDTO.getDia());
+		c.setPaciente(cDTO.getPaciente());
+		c.setCs(cDTO.getCs());
+		c.setNumCita(cDTO.getNumCita());
+		c.setAplicada(cDTO.isAplicada());
 		try {
 			validarLogin();
 			Optional<Citas> optCita = cita.findById(c.getId());
@@ -120,7 +129,15 @@ public class CitasController {
 	}
 	
 	@PostMapping("/modifyCita")
-	public String modificarCita(@RequestBody Citas c) {
+	public String modificarCita(@RequestBody CitasDTO cDTO) {
+		Citas c = new Citas();
+		c.setId(cDTO.getId());
+		c.setHoras(cDTO.getHoras());
+		c.setDia(cDTO.getDia());
+		c.setPaciente(cDTO.getPaciente());
+		c.setCs(cDTO.getCs());
+		c.setNumCita(cDTO.getNumCita());
+		c.setAplicada(cDTO.isAplicada());
 		try {
 			validarLogin();
 
