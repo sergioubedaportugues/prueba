@@ -35,17 +35,7 @@ public class LoginController {
 	
 	@PostMapping("/iniciarSesion")
     public Usuario iniciarSesion(@RequestBody UsuarioDTO uDTO){
-		Usuario usuarios = new Usuario();
-		usuarios.setId(uDTO.getId());
-		usuarios.setLogin(uDTO.getLogin());
-		usuarios.setPassword(uDTO.getPassword());
-		usuarios.setNombre(uDTO.getNombre());
-		usuarios.setApellidos(uDTO.getApellidos());
-		usuarios.setTelefono(uDTO.getTelefono());
-		usuarios.setDni(uDTO.getDni());
-		usuarios.setRol(uDTO.getRol());
-		usuarios.setCs(uDTO.getCs());
-		usuarios.setDosis(uDTO.getDosis());
+		Usuario usuarios = cambiarDTO(uDTO);
         try {
         	token.deleteAll();
             List <Usuario> optUser = user.getByLogin(usuarios.getLogin());
@@ -77,6 +67,21 @@ public class LoginController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+	
+	private Usuario cambiarDTO(UsuarioDTO uDTO) {
+		Usuario usuarios = new Usuario();
+		usuarios.setId(uDTO.getIdDTO());
+		usuarios.setLogin(uDTO.getLoginDTO());
+		usuarios.setPassword(uDTO.getPasswordDTO());
+		usuarios.setNombre(uDTO.getNombreDTO());
+		usuarios.setApellidos(uDTO.getApellidosDTO());
+		usuarios.setTelefono(uDTO.getTelefonoDTO());
+		usuarios.setDni(uDTO.getDniDTO());
+		usuarios.setRol(uDTO.getRolDTO());
+		usuarios.setCs(uDTO.getCsDTO());
+		usuarios.setDosis(uDTO.getDosisDTO());
+		return usuarios;
+	}
 
 	
 	

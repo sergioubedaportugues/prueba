@@ -96,14 +96,7 @@ public class CitasController {
 	
 	@DeleteMapping("/deleteCita")
 	public void borrarCita(@RequestBody CitasDTO cDTO) {
-		Citas c = new Citas();
-		c.setId(cDTO.getId());
-		c.setHoras(cDTO.getHoras());
-		c.setDia(cDTO.getDia());
-		c.setPaciente(cDTO.getPaciente());
-		c.setCs(cDTO.getCs());
-		c.setNumCita(cDTO.getNumCita());
-		c.setAplicada(cDTO.isAplicada());
+		Citas c = CitaDTOcambio(cDTO);
 		try {
 			validarLogin();
 			Optional<Citas> optCita = cita.findById(c.getId());
@@ -130,14 +123,7 @@ public class CitasController {
 	
 	@PostMapping("/modifyCita")
 	public String modificarCita(@RequestBody CitasDTO cDTO) {
-		Citas c = new Citas();
-		c.setId(cDTO.getId());
-		c.setHoras(cDTO.getHoras());
-		c.setDia(cDTO.getDia());
-		c.setPaciente(cDTO.getPaciente());
-		c.setCs(cDTO.getCs());
-		c.setNumCita(cDTO.getNumCita());
-		c.setAplicada(cDTO.isAplicada());
+		Citas c = CitaDTOcambio(cDTO);
 		try {
 			validarLogin();
 
@@ -317,5 +303,16 @@ public class CitasController {
 	private void controlarAplicada(Citas c) throws VacunaAplicadaException {
 		if(c.isAplicada())
 			throw new VacunaAplicadaException();
+	}
+	private Citas CitaDTOcambio(CitasDTO cDTO) {
+		Citas c = new Citas();
+		c.setId(cDTO.getIdDTO());
+		c.setHoras(cDTO.getHorasDTO());
+		c.setDia(cDTO.getDiaDTO());
+		c.setPaciente(cDTO.getPacienteDTO());
+		c.setCs(cDTO.getCsDTO());
+		c.setNumCita(cDTO.getNumCitaDTO());
+		c.setAplicada(cDTO.isAplicadaDTO());
+		return c;
 	}
 }

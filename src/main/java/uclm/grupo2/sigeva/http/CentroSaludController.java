@@ -48,15 +48,7 @@ public class CentroSaludController {
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSaludDTO csDTO) {
-		CentroSalud cs = new CentroSalud();
-		cs.setId(csDTO.getId());
-		cs.setNombre(csDTO.getNombre());
-		cs.setDireccion(csDTO.getDireccion());
-		cs.setNumVacunas(csDTO.getNumVacunas());
-		cs.setfInicio(csDTO.getfInicio());
-		cs.setfFin(csDTO.getfFin());
-		cs.setFranja(csDTO.getFranja());
-		cs.setCupo(csDTO.getCupo());
+		CentroSalud cs = cambiarCentroDTO(csDTO);
 
 		try {
 			validarLogin();
@@ -89,15 +81,7 @@ public class CentroSaludController {
 
 	@DeleteMapping("/deleteCenter")
 	public String borrarCentro(@RequestBody CentroSaludDTO csDTO) {
-		CentroSalud cs = new CentroSalud();
-		cs.setId(csDTO.getId());
-		cs.setNombre(csDTO.getNombre());
-		cs.setDireccion(csDTO.getDireccion());
-		cs.setNumVacunas(csDTO.getNumVacunas());
-		cs.setfInicio(csDTO.getfInicio());
-		cs.setfFin(csDTO.getfFin());
-		cs.setFranja(csDTO.getFranja());
-		cs.setCupo(csDTO.getCupo());
+		CentroSalud cs = cambiarCentroDTO(csDTO);
 
 		try {
 			validarLogin();
@@ -117,15 +101,8 @@ public class CentroSaludController {
 	
 	@PostMapping("/modifyCenter")
 	public String modificarCentro(@RequestBody CentroSaludDTO csDTO) {
-		CentroSalud cs = new CentroSalud();
-		cs.setId(csDTO.getId());
-		cs.setNombre(csDTO.getNombre());
-		cs.setDireccion(csDTO.getDireccion());
-		cs.setNumVacunas(csDTO.getNumVacunas());
-		cs.setfInicio(csDTO.getfInicio());
-		cs.setfFin(csDTO.getfFin());
-		cs.setFranja(csDTO.getFranja());
-		cs.setCupo(csDTO.getCupo());
+		CentroSalud cs = cambiarCentroDTO(csDTO);
+		
 		try {
 			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
@@ -225,4 +202,16 @@ public class CentroSaludController {
         if(!usu.getRol().equals("Administrador"))
             throw new TokenBorradoException();
         }
+	private CentroSalud cambiarCentroDTO(CentroSaludDTO csDTO) {
+		CentroSalud cs = new CentroSalud();
+		cs.setId(csDTO.getIdDTO());
+		cs.setNombre(csDTO.getNombreDTO());
+		cs.setDireccion(csDTO.getDireccionDTO());
+		cs.setNumVacunas(csDTO.getNumVacunasDTO());
+		cs.setfInicio(csDTO.getfInicioDTO());
+		cs.setfFin(csDTO.getfFinDTO());
+		cs.setFranja(csDTO.getFranjaDTO());
+		cs.setCupo(csDTO.getCupoDTO());
+		return cs;
+	}
 }

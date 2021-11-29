@@ -2,96 +2,92 @@ package uclm.grupo2.sigeva.model;
 
 public class UsuarioDTO{
 
-    private String id;
-    private String login;
-    private String password;
-    private String nombre;
-    private String apellidos;
-    private String telefono;
-    private String dni;
-    private String rol;
-    private CentroSalud cs;
-    private int dosis;
+    private String idDTO;
+    private String loginDTO;
+    private String passwordDTO;
+    private String nombreDTO;
+    private String apellidosDTO;
+    private String telefonoDTO;
+    private String dniDTO;
+    private String rolDTO;
+    private CentroSalud csDTO;
+    private int dosisDTO;
 
     public UsuarioDTO(Usuario u) {
-    	this.id=u.getId();
-    	this.login=u.getLogin();
-    	this.password=u.getPassword();
-    	this.nombre=u.getNombre();
-    	this.apellidos=u.getApellidos();
-    	this.telefono=u.getTelefono();
-    	this.dni=u.getDni();
-    	this.rol=u.getRol();
-    	this.cs=u.getCs();
-    	this.dosis=u.getDosis();
+    	this.idDTO=u.getId();
+    	this.loginDTO=u.getLogin();
+    	this.passwordDTO=u.getPassword();
+    	this.nombreDTO=u.getNombre();
+    	this.apellidosDTO=u.getApellidos();
+    	this.telefonoDTO=u.getTelefono();
+    	this.dniDTO=u.getDni();
+    	this.rolDTO=u.getRol();
+    	this.csDTO=u.getCs();
+    	this.dosisDTO=u.getDosis();
     	
     	}
     public UsuarioDTO() {
 	
 	}
-	public String getApellidos() {
-        return apellidos;
-    }
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-    public String getDni() {
-        return dni;
-    }
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-    public String getRol() {
-        return rol;
-    }
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-	public String getTelefono() {
-		return telefono;
+	public String getIdDTO() {
+		return idDTO;
 	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setIdDTO(String idDTO) {
+		this.idDTO = idDTO;
 	}
-
-	public CentroSalud getCs() {
-		return cs;
+	public String getLoginDTO() {
+		return loginDTO;
 	}
-	public void setCs(CentroSalud cs) {
-		this.cs = cs;
+	public void setLoginDTO(String loginDTO) {
+		this.loginDTO = loginDTO;
 	}
-	public int getDosis() {
-		return dosis;
+	public String getPasswordDTO() {
+		return passwordDTO;
 	}
-	public void setDosis(int dosis) {
-		this.dosis = dosis;
+	public void setPasswordDTO(String passwordDTO) {
+		this.passwordDTO = passwordDTO;
 	}
+	public String getNombreDTO() {
+		return nombreDTO;
+	}
+	public void setNombreDTO(String nombreDTO) {
+		this.nombreDTO = nombreDTO;
+	}
+	public String getApellidosDTO() {
+		return apellidosDTO;
+	}
+	public void setApellidosDTO(String apellidosDTO) {
+		this.apellidosDTO = apellidosDTO;
+	}
+	public String getTelefonoDTO() {
+		return telefonoDTO;
+	}
+	public void setTelefonoDTO(String telefonoDTO) {
+		this.telefonoDTO = telefonoDTO;
+	}
+	public String getDniDTO() {
+		return dniDTO;
+	}
+	public void setDniDTO(String dniDTO) {
+		this.dniDTO = dniDTO;
+	}
+	public String getRolDTO() {
+		return rolDTO;
+	}
+	public void setRolDTO(String rolDTO) {
+		this.rolDTO = rolDTO;
+	}
+	public CentroSalud getCsDTO() {
+		return csDTO;
+	}
+	public void setCsDTO(CentroSalud csDTO) {
+		this.csDTO = csDTO;
+	}
+	public int getDosisDTO() {
+		return dosisDTO;
+	}
+	public void setDosisDTO(int dosisDTO) {
+		this.dosisDTO = dosisDTO;
+	}
+	
 }
