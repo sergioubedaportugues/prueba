@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="12" time="44.107">
-<testcase classname="Aplicar vacuna" name="Aplicar vacuna correctamente" time="9.615">
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="12" time="43.044">
+<testcase classname="Aplicar vacuna" name="Aplicar vacuna correctamente" time="9.052">
 <system-out><![CDATA[Given un usuario sanitario loggeado.........................................passed
 Then se aplica una vacuna...................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Borrar Centro" name="Borrar Centro correctamente" time="1.543">
+<testcase classname="Borrar Centro" name="Borrar Centro correctamente" time="1.582">
 <system-out><![CDATA[Given los atributos "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin", "franja" y "cupo".passed
 Then se elimina el centro...................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Borrar Cita" name="Borrar Cita Vacuna Correctamente" time="4.65">
+<testcase classname="Borrar Cita" name="Borrar Cita Vacuna Correctamente" time="4.941">
 <system-out><![CDATA[Given un user loggeado......................................................passed
 Then se eliminan las citas..................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Cerrar sesion" name="Cerrado de sesion satisfactoria" time="0.725">
+<testcase classname="Cerrar sesion" name="Cerrado de sesion satisfactoria" time="0.796">
 <system-out><![CDATA[Given el identificador "login"..............................................passed
 Then acceder a ventana login................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Crear centro" name="Crear centro correctamente" time="1.541">
+<testcase classname="Crear centro" name="Crear centro correctamente" time="1.641">
 <system-out><![CDATA[Given un "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin", "franja" y "cupo".passed
 Then se crea un centro de salud.............................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Crear usuario" name="Crear usuario correctamente" time="1.572">
+<testcase classname="Crear usuario" name="Crear usuario correctamente" time="1.641">
 <system-out><![CDATA[Given nuevo usuario con "login", "password", "nombre", "apellidos", "telefono", "dni" y "rol".passed
 Then se ha creado un usuario................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Eliminar Usuario" name="Eliminar usuario correctamente" time="1.535">
+<testcase classname="Eliminar Usuario" name="Eliminar usuario correctamente" time="1.763">
 <system-out><![CDATA[Given un usuario con "login", "password", "nombre", "apellidos", "telefono", "dni" y "rol".passed
 Then se ha eliminado el usuario.............................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Inicio sesion" name="Inicio de sesion satisfactoria" time="0.437">
+<testcase classname="Inicio sesion" name="Inicio de sesion satisfactoria" time="0.419">
 <system-out><![CDATA[Given dados unos "login" y "password" correctos.............................passed
 Then acceso a la funcionalidad..............................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Modificar Cita" name="Modificar Cita Vacuna Correctamente" time="4.302">
+<testcase classname="Modificar Cita" name="Modificar Cita Vacuna Correctamente" time="3.809">
 <system-out><![CDATA[Given un user con sesion iniciada...........................................passed
 Then se modfifica su cita...................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Admin modifica datos usuario" name="Modificar datos usuario" time="2.242">
+<testcase classname="Admin modifica datos usuario" name="Modificar datos usuario" time="2.238">
 <system-out><![CDATA[Given en la vista administrador "login","password", "nombre", "apellidos", "telefono", "dni" y "rol".passed
 Then se han modificado los datos............................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Modificar Datos Centro" name="Modificar Datos Centro correctamente" time="2.221">
+<testcase classname="Modificar Datos Centro" name="Modificar Datos Centro correctamente" time="2.224">
 <system-out><![CDATA[Given los datos asociados "nombreCentro", "direccionCentro", "numeroVacunas", "fInicio", "fFin", "franja" y "cupo".passed
 Then se ha modificado la informacion del centro correctamente...............passed
 ]]></system-out>
 </testcase>
-<testcase classname="Pedir Cita" name="Pedir Vacuna Correctamente" time="3.387">
+<testcase classname="Pedir Cita" name="Pedir Vacuna Correctamente" time="2.902">
 <system-out><![CDATA[Given un usuario loggeado...................................................passed
 Then se genera las citas....................................................passed
 ]]></system-out>

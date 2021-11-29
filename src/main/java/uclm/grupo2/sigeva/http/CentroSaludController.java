@@ -2,6 +2,7 @@ package uclm.grupo2.sigeva.http;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,9 @@ public class CentroSaludController {
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSaludDTO csDTO) {
+		//csDTO.setId(UUID.randomUUID().toString());
 		CentroSalud cs = cambiarCentroDTO(csDTO);
+		
 
 		try {
 			validarLogin();
@@ -204,14 +207,14 @@ public class CentroSaludController {
         }
 	private CentroSalud cambiarCentroDTO(CentroSaludDTO csDTO) {
 		CentroSalud cs = new CentroSalud();
-		cs.setId(csDTO.getIdDTO());
-		cs.setNombre(csDTO.getNombreDTO());
-		cs.setDireccion(csDTO.getDireccionDTO());
-		cs.setNumVacunas(csDTO.getNumVacunasDTO());
-		cs.setfInicio(csDTO.getfInicioDTO());
-		cs.setfFin(csDTO.getfFinDTO());
-		cs.setFranja(csDTO.getFranjaDTO());
-		cs.setCupo(csDTO.getCupoDTO());
+		cs.setId(csDTO.getId());
+		cs.setNombre(csDTO.getNombre());
+		cs.setDireccion(csDTO.getDireccion());
+		cs.setNumVacunas(csDTO.getNumVacunas());
+		cs.setfInicio(csDTO.getfInicio());
+		cs.setfFin(csDTO.getfFin());
+		cs.setFranja(csDTO.getFranja());
+		cs.setCupo(csDTO.getCupo());
 		return cs;
 	}
 }

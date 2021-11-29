@@ -33,16 +33,16 @@ public class PruebaEliminarUsuario {
 		
 		Optional<Usuario> optUser = user.findByLogin("administrador");
 		
-		uDTO.setIdDTO(optUser.get().getId());
-		uDTO.setLoginDTO(optUser.get().getLogin());
-		uDTO.setPasswordDTO(optUser.get().getPassword());
-		uDTO.setNombreDTO(optUser.get().getNombre());
-		uDTO.setApellidosDTO(optUser.get().getApellidos());
-		uDTO.setTelefonoDTO(optUser.get().getTelefono());
-		uDTO.setDniDTO(optUser.get().getDni());
-		uDTO.setRolDTO(optUser.get().getRol());
-		uDTO.setCsDTO(optUser.get().getCs());
-		uDTO.setDosisDTO(optUser.get().getDosis()); 
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis()); 
 		
 		LoginCtrl.iniciarSesion(uDTO);
 		
@@ -67,16 +67,16 @@ public class PruebaEliminarUsuario {
 		user.setCs(centro);
 		
 		UsuarioDTO uDTO1= new UsuarioDTO();
-		uDTO1.setIdDTO(user.getId());
-		uDTO1.setLoginDTO(user.getLogin());
-		uDTO1.setPasswordDTO(user.getPassword());
-		uDTO1.setNombreDTO(user.getNombre());
-		uDTO1.setApellidosDTO(user.getApellidos());
-		uDTO1.setTelefonoDTO(user.getTelefono());
-		uDTO1.setDniDTO(user.getDni());
-		uDTO1.setRolDTO(user.getRol());
-		uDTO1.setCsDTO(user.getCs());
-		uDTO1.setDosisDTO(user.getDosis()); 
+		uDTO1.setId(user.getId());
+		uDTO1.setLogin(user.getLogin());
+		uDTO1.setPassword(user.getPassword());
+		uDTO1.setNombre(user.getNombre());
+		uDTO1.setApellidos(user.getApellidos());
+		uDTO1.setTelefono(user.getTelefono());
+		uDTO1.setDni(user.getDni());
+		uDTO1.setRol(user.getRol());
+		uDTO1.setCs(user.getCs());
+		uDTO1.setDosis(user.getDosis()); 
 		
 		
 		UserCtrl.insertarUsuario(uDTO1);

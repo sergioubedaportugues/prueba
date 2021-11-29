@@ -3,80 +3,80 @@ package uclm.grupo2.sigeva.model;
 public class CentroSaludDTO{
 
 
-    private String idDTO;
-    private String nombreDTO;
-    private String direccionDTO;
-    private String numVacunasDTO;
+    private String id;
+    private String nombre;
+    private String direccion;
+    private String numVacunas;
 
-    private String fInicioDTO;
-    private String fFinDTO;
-    private String franjaDTO;
-    private String cupoDTO;
+    private String fInicio;
+    private String fFin;
+    private String franja;
+    private String cupo;
     
 
 
 
 	public CentroSaludDTO(CentroSalud cs) {
-		this.idDTO=cs.getId();
-		this.nombreDTO = cs.getNombre();
-		this.direccionDTO = cs.getDireccion();
-		this.numVacunasDTO = cs.getNumVacunas();
-		this.fInicioDTO = cs.getfInicio();
-		this.fFinDTO = cs.getfFin();
-		this.franjaDTO = cs.getFranja();
-		this.cupoDTO = cs.getCupo();
+		this.id=cs.getId();
+		this.nombre = cs.getNombre();
+		this.direccion = cs.getDireccion();
+		this.numVacunas = cs.getNumVacunas();
+		this.fInicio = cs.getfInicio();
+		this.fFin = cs.getfFin();
+		this.franja = cs.getFranja();
+		this.cupo = cs.getCupo();
 		
 	}
 	public CentroSaludDTO() {
 		
 	}
-	public String getIdDTO() {
-		return idDTO;
+	public String getId() {
+		return id;
 	}
-	public void setIdDTO(String idDTO) {
-		this.idDTO = idDTO;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getNombreDTO() {
-		return nombreDTO;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setNombreDTO(String nombreDTO) {
-		this.nombreDTO = nombreDTO;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public String getDireccionDTO() {
-		return direccionDTO;
+	public String getDireccion() {
+		return direccion;
 	}
-	public void setDireccionDTO(String direccionDTO) {
-		this.direccionDTO = direccionDTO;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
-	public String getNumVacunasDTO() {
-		return numVacunasDTO;
+	public String getNumVacunas() {
+		return numVacunas;
 	}
-	public void setNumVacunasDTO(String numVacunasDTO) {
-		this.numVacunasDTO = numVacunasDTO;
+	public void setNumVacunas(String numVacunas) {
+		this.numVacunas = numVacunas;
 	}
-	public String getfInicioDTO() {
-		return fInicioDTO;
+	public String getfInicio() {
+		return fInicio;
 	}
-	public void setfInicioDTO(String fInicioDTO) {
-		this.fInicioDTO = fInicioDTO;
+	public void setfInicio(String fInicio) {
+		this.fInicio = fInicio;
 	}
-	public String getfFinDTO() {
-		return fFinDTO;
+	public String getfFin() {
+		return fFin;
 	}
-	public void setfFinDTO(String fFinDTO) {
-		this.fFinDTO = fFinDTO;
+	public void setfFin(String fFin) {
+		this.fFin = fFin;
 	}
-	public String getFranjaDTO() {
-		return franjaDTO;
+	public String getFranja() {
+		return franja;
 	}
-	public void setFranjaDTO(String franjaDTO) {
-		this.franjaDTO = franjaDTO;
+	public void setFranja(String franja) {
+		this.franja = franja;
 	}
-	public String getCupoDTO() {
-		return cupoDTO;
+	public String getCupo() {
+		return cupo;
 	}
-	public void setCupoDTO(String cupoDTO) {
-		this.cupoDTO = cupoDTO;
+	public void setCupo(String cupo) {
+		this.cupo = cupo;
 	}
 
 	

@@ -37,7 +37,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			let info = {
 				horas : this.horas(),
 				dia : this.dia(),
-				num_cita : this.numCita()
+				numCita : this.numCita()
 			};
 			let data = {
 				data : JSON.stringify(info),

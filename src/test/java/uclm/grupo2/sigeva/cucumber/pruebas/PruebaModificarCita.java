@@ -37,16 +37,16 @@ public class PruebaModificarCita {
 		UsuarioDTO uDTO= new UsuarioDTO();
 		
 		Optional<Usuario> optUser = user.findByLogin("paciente");
-		uDTO.setIdDTO(optUser.get().getId());
-		uDTO.setLoginDTO(optUser.get().getLogin());
-		uDTO.setPasswordDTO(optUser.get().getPassword());
-		uDTO.setNombreDTO(optUser.get().getNombre());
-		uDTO.setApellidosDTO(optUser.get().getApellidos());
-		uDTO.setTelefonoDTO(optUser.get().getTelefono());
-		uDTO.setDniDTO(optUser.get().getDni());
-		uDTO.setRolDTO(optUser.get().getRol());
-		uDTO.setCsDTO(optUser.get().getCs());
-		uDTO.setDosisDTO(optUser.get().getDosis());
+		uDTO.setId(optUser.get().getId());
+		uDTO.setLogin(optUser.get().getLogin());
+		uDTO.setPassword(optUser.get().getPassword());
+		uDTO.setNombre(optUser.get().getNombre());
+		uDTO.setApellidos(optUser.get().getApellidos());
+		uDTO.setTelefono(optUser.get().getTelefono());
+		uDTO.setDni(optUser.get().getDni());
+		uDTO.setRol(optUser.get().getRol());
+		uDTO.setCs(optUser.get().getCs());
+		uDTO.setDosis(optUser.get().getDosis());
 		
 		LoginCtrl.iniciarSesion(uDTO);	
 		CitasCtrl.insertarCita();
@@ -57,13 +57,13 @@ public class PruebaModificarCita {
 		citasUser.get(1).setHoras("11:25");
 		
 		CitasDTO cDTO= new CitasDTO();
-		cDTO.setIdDTO(citasUser.get(1).getId());
-		cDTO.setHorasDTO(citasUser.get(1).getHoras());
-		cDTO.setDiaDTO(citasUser.get(1).getDia());
-		cDTO.setPacienteDTO(citasUser.get(1).getPaciente());
-		cDTO.setCsDTO(citasUser.get(1).getCs());
-		cDTO.setNumCitaDTO(citasUser.get(1).getNumCita());
-		cDTO.setAplicadaDTO(citasUser.get(1).isAplicada());
+		cDTO.setId(citasUser.get(1).getId());
+		cDTO.setHoras(citasUser.get(1).getHoras());
+		cDTO.setDia(citasUser.get(1).getDia());
+		cDTO.setPaciente(citasUser.get(1).getPaciente());
+		cDTO.setCs(citasUser.get(1).getCs());
+		cDTO.setNumCita(citasUser.get(1).getNumCita());
+		cDTO.setAplicada(citasUser.get(1).isAplicada());
 		assertEquals("Cita modificada",CitasCtrl.modificarCita(cDTO));
 		
 		cita.deleteAll(cita.getByPacienteOrderByNumCitaAsc(optUser.get()));
