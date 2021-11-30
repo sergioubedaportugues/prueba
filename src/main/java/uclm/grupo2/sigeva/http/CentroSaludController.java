@@ -2,7 +2,7 @@ package uclm.grupo2.sigeva.http;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +49,6 @@ public class CentroSaludController {
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSaludDTO csDTO) {
-		//csDTO.setId(UUID.randomUUID().toString());
 		CentroSalud cs = cambiarCentroDTO(csDTO);
 		
 
