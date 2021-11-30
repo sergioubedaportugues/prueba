@@ -150,13 +150,13 @@ public class SanitarioController {
         }
 	private Citas cambiarCitaDTO(CitasDTO cDTO) {
 		Citas c = new Citas();
-		c.setId(cDTO.getIdDTO());
-		c.setHoras(cDTO.getHorasDTO());
-		c.setDia(cDTO.getDiaDTO());
-		c.setPaciente(cDTO.getPacienteDTO());
-		c.setCs(cDTO.getCsDTO());
-		c.setNumCita(cDTO.getNumCitaDTO());
-		c.setAplicada(cDTO.isAplicadaDTO());
+		c.setId(cDTO.getId());
+		c.setHoras(cDTO.getHoras());
+		c.setDia(cDTO.getDia());
+		c.setPaciente(cDTO.getPaciente());
+		c.setCs(cDTO.getCs());
+		c.setNumCita(cDTO.getNumCita());
+		c.setAplicada(cDTO.isAplicada());
 		return c;
 	}
 }

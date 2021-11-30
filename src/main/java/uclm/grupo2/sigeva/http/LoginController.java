@@ -69,18 +69,18 @@ public class LoginController {
     }
 	
 	private Usuario cambiarDTO(UsuarioDTO uDTO) {
-		Usuario usuarios = new Usuario();
-		usuarios.setId(uDTO.getIdDTO());
-		usuarios.setLogin(uDTO.getLoginDTO());
-		usuarios.setPassword(uDTO.getPasswordDTO());
-		usuarios.setNombre(uDTO.getNombreDTO());
-		usuarios.setApellidos(uDTO.getApellidosDTO());
-		usuarios.setTelefono(uDTO.getTelefonoDTO());
-		usuarios.setDni(uDTO.getDniDTO());
-		usuarios.setRol(uDTO.getRolDTO());
-		usuarios.setCs(uDTO.getCsDTO());
-		usuarios.setDosis(uDTO.getDosisDTO());
-		return usuarios;
+		Usuario usu = new Usuario();
+		usu.setId(uDTO.getId());
+		usu.setLogin(uDTO.getLogin());
+		usu.setPassword(uDTO.getPassword());
+		usu.setNombre(uDTO.getNombre());
+		usu.setApellidos(uDTO.getApellidos());
+		usu.setTelefono(uDTO.getTelefono());
+		usu.setDni(uDTO.getDni());
+		usu.setRol(uDTO.getRol());
+		usu.setCs(uDTO.getCs());
+		usu.setDosis(uDTO.getDosis());
+		return usu;
 	}
 
 	
