@@ -5,12 +5,12 @@ public class CitasDTO{
 
 
     private String id;
-    private String horas;
-    private String dia;
-    private Usuario paciente;
     private CentroSalud cs;
-    private int numCita;
+    private String horas;
+    private Usuario paciente;
     private boolean aplicada;
+    private int numCita;
+    private String dia;
 
     
 
@@ -36,20 +36,20 @@ public class CitasDTO{
 		this.id = id;
 	}
 
+	public CentroSalud getCs() {
+		return cs;
+	}
+
+	public void setCs(CentroSalud cs) {
+		this.cs = cs;
+	}
+
 	public String getHoras() {
 		return horas;
 	}
 
 	public void setHoras(String horas) {
 		this.horas = horas;
-	}
-
-	public String getDia() {
-		return dia;
-	}
-
-	public void setDia(String dia) {
-		this.dia = dia;
 	}
 
 	public Usuario getPaciente() {
@@ -60,12 +60,12 @@ public class CitasDTO{
 		this.paciente = paciente;
 	}
 
-	public CentroSalud getCs() {
-		return cs;
+	public boolean isAplicada() {
+		return aplicada;
 	}
 
-	public void setCs(CentroSalud cs) {
-		this.cs = cs;
+	public void setAplicada(boolean aplicada) {
+		this.aplicada = aplicada;
 	}
 
 	public int getNumCita() {
@@ -76,13 +76,15 @@ public class CitasDTO{
 		this.numCita = numCita;
 	}
 
-	public boolean isAplicada() {
-		return aplicada;
+	public String getDia() {
+		return dia;
 	}
 
-	public void setAplicada(boolean aplicada) {
-		this.aplicada = aplicada;
+	public void setDia(String dia) {
+		this.dia = dia;
 	}
+	
+	
 
 	
 

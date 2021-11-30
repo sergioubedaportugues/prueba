@@ -4,14 +4,15 @@ public class UsuarioDTO{
 
     private String id;
     private String login;
-    private String password;
-    private String nombre;
     private String apellidos;
     private String telefono;
+    private String password;
+    private String nombre;
     private String dni;
+    private int dosis;
     private String rol;
     private CentroSalud cs;
-    private int dosis;
+   
 
     public UsuarioDTO(Usuario u) {
     	this.id=u.getId();
@@ -32,26 +33,11 @@ public class UsuarioDTO{
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getLogin() {
 		return login;
 	}
 	public void setLogin(String login) {
 		this.login = login;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 	public String getApellidos() {
 		return apellidos;
@@ -65,11 +51,29 @@ public class UsuarioDTO{
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public String getDni() {
 		return dni;
 	}
 	public void setDni(String dni) {
 		this.dni = dni;
+	}
+	public int getDosis() {
+		return dosis;
+	}
+	public void setDosis(int dosis) {
+		this.dosis = dosis;
 	}
 	public String getRol() {
 		return rol;
@@ -83,11 +87,10 @@ public class UsuarioDTO{
 	public void setCs(CentroSalud cs) {
 		this.cs = cs;
 	}
-	public int getDosis() {
-		return dosis;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public void setDosis(int dosis) {
-		this.dosis = dosis;
-	}
+	
+	
 	
 }
