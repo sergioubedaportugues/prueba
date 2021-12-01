@@ -57,6 +57,7 @@ public class CentroSaludController {
 				throw new CentroDuplicadoException();
 			else {
 				comprobarCampos(cs);
+				comprobarCamposComplejidad(cs);
 				center.save(cs);
 				}
 			
@@ -207,11 +208,14 @@ public class CentroSaludController {
 		cs.setCupo(csDTO.getCupo());
 		return cs;
 	}
-	private CentroSalud comprobarCampos(CentroSalud cs) throws CamposVaciosException, ValorNumericoException, NumeroMinimoException, FormatoHoraException {
+	private CentroSalud comprobarCampos(CentroSalud cs) throws CamposVaciosException, ValorNumericoException {
 		if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())
 			throw new CamposVaciosException();
 		if(!esNumericoEntero(cs.getNumVacunas()) || !esNumericoEntero(cs.getCupo()) || !esNumericoEntero(cs.getFranja()))
 			throw new ValorNumericoException(); 
+		return cs;
+	}
+	private CentroSalud comprobarCamposComplejidad(CentroSalud cs) throws NumeroMinimoException, FormatoHoraException {
 		if(Integer.parseInt(cs.getNumVacunas())<0 || Integer.parseInt(cs.getCupo())<0)
 			throw new NumeroMinimoException();
 		if((!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin())) || (!controlHoras(cs.getfInicio(), cs.getfFin()))  )
