@@ -2,7 +2,6 @@ package uclm.grupo2.sigeva.http;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,24 +48,14 @@ public class CentroSaludController {
 
 	@PostMapping("/insertCenter")
 	public String insertarCentro(@RequestBody CentroSaludDTO csDTO) {
-		//csDTO.setId(UUID.randomUUID().toString());
 		CentroSalud cs = cambiarCentroDTO(csDTO);
-		
-
 		try {
 			validarLogin();
 			List<CentroSalud> optCenter = center.findByNombre(cs.getNombre());
 			if (!optCenter.isEmpty())
 				throw new CentroDuplicadoException();
 			else {
-				if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())
-					throw new CamposVaciosException();
-				if(!esNumericoEntero(cs.getNumVacunas()) || !esNumericoEntero(cs.getCupo()) || !esNumericoEntero(cs.getFranja()))
-					throw new ValorNumericoException(); 
-				if(Integer.parseInt(cs.getNumVacunas())<0 || Integer.parseInt(cs.getCupo())<0)
-					throw new NumeroMinimoException();
-				if((!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin())) || (!controlHoras(cs.getfInicio(), cs.getfFin()))  )
-					throw new FormatoHoraException();
+				comprobarCampos(cs);
 				center.save(cs);
 				}
 			
@@ -217,4 +206,16 @@ public class CentroSaludController {
 		cs.setCupo(csDTO.getCupo());
 		return cs;
 	}
+	private CentroSalud comprobarCampos(CentroSalud cs) throws CamposVaciosException, ValorNumericoException, NumeroMinimoException, FormatoHoraException {
+		if(cs.getNombre().isEmpty()||cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty() ||cs.getfInicio().isEmpty() || cs.getfFin().isEmpty()   || cs.getCupo().isEmpty())
+			throw new CamposVaciosException();
+		if(!esNumericoEntero(cs.getNumVacunas()) || !esNumericoEntero(cs.getCupo()) || !esNumericoEntero(cs.getFranja()))
+			throw new ValorNumericoException(); 
+		if(Integer.parseInt(cs.getNumVacunas())<0 || Integer.parseInt(cs.getCupo())<0)
+			throw new NumeroMinimoException();
+		if((!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin())) || (!controlHoras(cs.getfInicio(), cs.getfFin()))  )
+			throw new FormatoHoraException();
+		return cs;
+	}
+	
 }
