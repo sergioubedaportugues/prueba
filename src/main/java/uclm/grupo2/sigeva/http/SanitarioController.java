@@ -89,6 +89,7 @@ public class SanitarioController {
 			int vacunaDecrementada = Integer.parseInt(optCita.get().getCs().getNumVacunas())-1;
 			
 			List <Citas> listCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
+
 			
 			CentroSalud preCs = optCita.get().getCs();
 			preCs.setNumVacunas(String.valueOf(vacunaDecrementada));
@@ -97,7 +98,7 @@ public class SanitarioController {
 			Usuario preUsu = optCita.get().getPaciente();
 			preUsu.setDosis(optCita.get().getPaciente().getDosis()+1);
 			preUsu.setCs(preCs);
-			user.save(preUsu);
+			user.save(preUsu);		
 			
 			Citas preCita = optCita.get();
 			preCita.setAplicada(true);
@@ -118,11 +119,10 @@ public class SanitarioController {
 				cita.save(cambiarCsCitas.get(i));
 			}
 			
-			
-			listCitas.get(1).setCs(preCs);
-			listCitas.get(1).setPaciente(preUsu);
-			cita.save(listCitas.get(1));
-			
+                listCitas.get(1).setCs(preCs);
+                listCitas.get(1).setPaciente(preUsu);
+                listCitas.get(1).getPaciente().setCs(preCs);
+                cita.save(listCitas.get(1));
 			return "Vacuna aplicada.";
 		}
 		return null;
