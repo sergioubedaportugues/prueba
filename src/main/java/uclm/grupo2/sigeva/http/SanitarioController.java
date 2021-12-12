@@ -55,8 +55,9 @@ public class SanitarioController {
 		Token tokSanitario = tokenLogin.findAll().get(0);
 		Usuario usu = user.getByLogin(tokSanitario.getLogin()).get(0);
 		LocalDate date = LocalDate.now();
-		String formattedLocalDate = date.format(formatterDia);	
-		List <Citas> prueba = cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
+		String formattedLocalDate = date.format(formatterDia);
+		List<Citas> prueba = cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
+
 		return cita.getByDiaAndCs(formattedLocalDate,usu.getCs());
 	}
 	
@@ -89,6 +90,8 @@ public class SanitarioController {
 			int vacunaDecrementada = Integer.parseInt(optCita.get().getCs().getNumVacunas())-1;
 			
 			List <Citas> listCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
+			List <Usuario> cambiarCsUsu = user.getByCs(optCita.get().getCs());
+			List <Citas> cambiarCsCitas = cita.findByCs(optCita.get().getCs());
 			
 			CentroSalud preCs = optCita.get().getCs();
 			preCs.setNumVacunas(String.valueOf(vacunaDecrementada));
@@ -97,26 +100,26 @@ public class SanitarioController {
 			Usuario preUsu = optCita.get().getPaciente();
 			preUsu.setDosis(optCita.get().getPaciente().getDosis()+1);
 			preUsu.setCs(preCs);
-			user.save(preUsu);		
 			
 			Citas preCita = optCita.get();
 			preCita.setAplicada(true);
 			preCita.setPaciente(preUsu);
 			preCita.setCs(preCs);
-			cita.save(preCita);
 			
-			List <Usuario> cambiarCsUsu = user.findAll(); // CAMBIARLO POR CENTROS
-			for (int i=0; i<user.findAll().size();i++) {
+			 // CAMBIARLO POR CENTROS
+			for (int i=0; i<cambiarCsUsu.size();i++) {
 				cambiarCsUsu.get(i).setCs(preCs);
 				user.save(cambiarCsUsu.get(i));
 			}
 			
-			List <Citas> cambiarCsCitas = cita.findAll(); // CAMBIARLO POR CENTROS
-			for (int i=0; i<cita.findAll().size();i++) {
+			 // CAMBIARLO POR CENTROS
+			for (int i=0; i<cambiarCsCitas.size();i++) {
 				cambiarCsCitas.get(i).getPaciente().setCs(preCs);
 				cambiarCsCitas.get(i).setCs(preCs);
 				cita.save(cambiarCsCitas.get(i));
 			}
+			user.save(preUsu);		
+			cita.save(preCita);
 			
 			if(preCita.getNumCita()==1) {
                 listCitas.get(1).setCs(preCs);
@@ -131,7 +134,7 @@ public class SanitarioController {
 			}
 			return "Vacuna aplicada.";
 		}
-		return null;
+		return "Vacuna no aplicada.";
 	}
 	
 	private void validarLogin() throws TokenBorradoException {
