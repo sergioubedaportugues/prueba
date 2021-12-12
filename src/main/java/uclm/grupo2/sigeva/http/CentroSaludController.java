@@ -28,6 +28,7 @@ import uclm.grupo2.sigeva.exceptions.ValorNumericoException;
 
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.model.CentroSalud;
+import uclm.grupo2.sigeva.model.Citas;
 import uclm.grupo2.sigeva.model.Usuario;
 
 @RestController
@@ -61,7 +62,6 @@ public class CentroSaludController {
 				if((!validarHoras(cs.getfInicio()) || !tiempoHoras(cs.getfInicio()) || !validarHoras(cs.getfFin()) || !tiempoHoras(cs.getfFin())) || (!controlHoras(cs.getfInicio(), cs.getfFin()))  )
 					throw new FormatoHoraException();
 				center.save(cs);
-
 				}
 			
 		} catch(Exception e) {
@@ -99,9 +99,10 @@ public class CentroSaludController {
 		try {
 			validarLogin();
 			Optional<CentroSalud> optCenter = center.findById(cs.getId());
-			
 			if (optCenter.isPresent()) {
-				 	CentroSalud preCentro = optCenter.get();
+				List <Usuario> cambiarCsUsu = user.getByCs(optCenter.get());
+				List <Citas> cambiarCsCitas = cita.findByCs(optCenter.get());
+				CentroSalud preCentro = optCenter.get();
 				 	if(cs.getNombre().isEmpty() || cs.getDireccion().isEmpty() || cs.getNumVacunas().isEmpty())
 				 		throw new CamposVaciosException();
 				 	if(!esNumericoEntero(cs.getNumVacunas()) || Integer.parseInt(cs.getNumVacunas())<0)
@@ -109,6 +110,20 @@ public class CentroSaludController {
 				 	preCentro.setNombre(cs.getNombre());
 				 	preCentro.setDireccion(cs.getDireccion());
 				 	preCentro.setNumVacunas(cs.getNumVacunas());
+				 	
+					 // CAMBIARLO POR CENTROS
+					for (int i=0; i<cambiarCsUsu.size();i++) {
+						cambiarCsUsu.get(i).setCs(preCentro);
+						user.save(cambiarCsUsu.get(i));
+					}
+					
+					 // CAMBIARLO POR CENTROS
+					for (int i=0; i<cambiarCsCitas.size();i++) {
+						cambiarCsCitas.get(i).getPaciente().setCs(preCentro);
+						cambiarCsCitas.get(i).setCs(preCentro);
+						cita.save(cambiarCsCitas.get(i));
+					}
+				 	
 	                center.save(preCentro);			
 			}
 			else
