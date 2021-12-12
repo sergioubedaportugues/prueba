@@ -89,7 +89,6 @@ public class SanitarioController {
 			int vacunaDecrementada = Integer.parseInt(optCita.get().getCs().getNumVacunas())-1;
 			
 			List <Citas> listCitas = cita.getByPacienteOrderByNumCitaAsc(c.getPaciente());
-
 			
 			CentroSalud preCs = optCita.get().getCs();
 			preCs.setNumVacunas(String.valueOf(vacunaDecrementada));
@@ -106,23 +105,30 @@ public class SanitarioController {
 			preCita.setCs(preCs);
 			cita.save(preCita);
 			
-			List <Usuario> cambiarCsUsu = user.findAll();
+			List <Usuario> cambiarCsUsu = user.findAll(); // CAMBIARLO POR CENTROS
 			for (int i=0; i<user.findAll().size();i++) {
 				cambiarCsUsu.get(i).setCs(preCs);
 				user.save(cambiarCsUsu.get(i));
 			}
 			
-			List <Citas> cambiarCsCitas = cita.findAll();
+			List <Citas> cambiarCsCitas = cita.findAll(); // CAMBIARLO POR CENTROS
 			for (int i=0; i<cita.findAll().size();i++) {
 				cambiarCsCitas.get(i).getPaciente().setCs(preCs);
 				cambiarCsCitas.get(i).setCs(preCs);
 				cita.save(cambiarCsCitas.get(i));
 			}
 			
+			if(preCita.getNumCita()==1) {
                 listCitas.get(1).setCs(preCs);
                 listCitas.get(1).setPaciente(preUsu);
                 listCitas.get(1).getPaciente().setCs(preCs);
                 cita.save(listCitas.get(1));
+			} else {
+				 listCitas.get(0).setCs(preCs);
+	             listCitas.get(0).setPaciente(preUsu);
+	             listCitas.get(0).getPaciente().setCs(preCs);
+	             cita.save(listCitas.get(0));
+			}
 			return "Vacuna aplicada.";
 		}
 		return null;
