@@ -1,0 +1,273 @@
+<div class="oj-hybrid-applayout-page">
+	<div class="oj-applayout-fixed-top">
+		<header role="banner" class="oj-hybrid-applayout-header">
+			<oj-module config="[[headerConfig]]"></oj-module>
+		</header>
+	</div>
+	<!-- This is where your main page content will be loaded -->
+	<div class="oj-applayout-content">
+		<div role="main" class="oj-hybrid-applayout-content">
+			<div class="oj-hybrid-padding">
+				<table>
+					<caption></caption>
+					<td>
+						<h1 id="tittle" class="tittle">TIENDA</h1>
+					</td>
+					<td id="colCarrito" class="colCarrito"><img
+						src="https://st.depositphotos.com/2544585/3791/v/600/depositphotos_37911141-stock-illustration-shopping-cart-icon.jpg"
+						width="100" height="85" alt="Imagen carrito">
+						<div>
+							<button id="btn_pagar" class="btn_pagar"
+								onclick="location.href='http://localhost/?ojr=payment'">Pagar</button>
+						</div>
+					<tr>
+						<th id="colCarrito">Unidades</th>
+						<th id="colCarrito">Producto</th>
+						<th id="colCarrito">Precio</th>
+					</tr>
+					<!-- ko foreach : carrito  -->
+					<tr>
+						<td data-bind="html : amount"></td>
+						<td data-bind="html : name"></td>
+						<td data-bind="html : prize"></td>
+					</tr>
+					<!-- /ko  -->
+
+
+					<p>
+						Precio total : <span data-bind="html : totalPrice"></span> &#8364
+					</p>
+					</td>
+				</table>
+
+
+				<h3 class="tituloProductos">Productos</h3>
+				<p class="tituloSelec">Seleccione la categoria que desea visualizar:</p>
+				<div class="botonesCats">
+					<button class="btn_categs" data-bind="click : getProductos">Mostrar
+						todos los productos</button>
+					<br> <br>
+					<!-- ko foreach : categoria  -->
+					<button class="btn_categs"
+						data-bind=" html : $data.nombre, click : function() { $parent.getCategoriaProducto($data.idCategoria); }"></button>
+					<!-- /ko -->
+					<br> <br>
+					<!-- ko foreach : categoria  -->
+					<td class="nstock" data-bind="html : $data.numeroDeProductos"></td>
+					<!-- /ko -->
+
+
+
+				</div>
+				<br>
+
+
+
+				<table class="tablaProductos">
+					<caption></caption>
+					<tr>
+						<th id="colPros" class="colProd">Nombre</th>
+						<th id="colPros" class="colProd">Precio</th>
+						<th id="colPros" class="colProd">Stock</th>
+						<th id="colPros" class="colProd">Categoria</th>
+
+					</tr>
+					<!-- ko foreach : productos -->
+					<tr>
+						<td class="tittProd" data-bind="html : nombre"></td>
+						<td class="tittProd" data-bind="html : precio"></td>
+						<td class="tittProd" data-bind="html : stock"></td>
+						<td class="tittProd" data-bind="html : categoria.nombre"></td>
+						<td class="tittProd"><img data-bind="attr:{src : picture}"
+							width="110" height="auto" alt="Imagen producto"></td>
+						<td class="tittProd">
+							<button class="btn_Anadir"
+								data-bind="click : function() { $parent.addAlCarrito(idProduct); }">Anadir
+								al carrito</button>
+						</td>
+
+						<td class="colProd">
+							<button class="btn_Eliminar"
+								data-bind="click : function() { $parent.borrarCarrito(idProduct); }">Eliminar
+								del carrito</button>
+						</td>
+					</tr>
+					<!-- /ko -->
+				</table>
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<head>
+<title></title>
+<style>
+.oj-applayout-content {
+	background-color: #ffff;
+	margin-top: 20px;
+}
+
+.btn_pagar {
+	background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left: 150px;
+}
+
+.colProd {
+	padding-left: 40px;
+	padding-rigth: 30px;
+}
+
+.tituloProductos {
+	padding-left: 100px;
+	color: #1883ba;
+}
+
+.tittProd {
+	padding-left: 40px;
+	padding-rigth: 30px
+}
+
+.nstock {
+	padding-left: 40px;
+	padding-right: 30px;
+}
+
+.tablaProductos {
+	column-gap: 10px;
+	margin-left: 100px;
+}
+
+.btn_pagar:hover {
+	background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+.btn_categs {
+	background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left: 10px;
+}
+
+.botonesCats {
+	margin-left: 100px;
+}
+
+.btn_categs:hover {
+	background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+.btn_Anadir {
+	background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left: 10px;
+}
+.tituloSelec{
+	padding-left: 100px;
+}
+.btn_Anadir:hover {
+	background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+.btn_Eliminar {
+	background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+	margin-left: 10px;
+}
+
+.btn_Eliminar:hover {
+	background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+.colCarrito {
+	padding-left: 50px;
+	padding-right: 80px;
+	padding-top: -100px;
+	position: relative;
+	background-color: #fff;
+	border: 6px dashed #1883ba;
+	padding-bottom: 40px;
+}
+
+.producto {
+	border: 1px solid #1883ba;
+}
+
+.colProductos {
+	padding-left: 200px;
+}
+
+.tittle {
+	background-color: #ffff;
+	position: relative;
+	padding-bottom: 30px;
+	margin-top: 220px;
+	padding-top: 10px;
+	padding-right: 350px;
+	color: #3392FF;
+	font-size: 350%;
+	left: 45%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+	text-align: center;
+}
+
+h1#tittle {
+	padding-top: 95px;
+	padding-left: 100px;
+}
+
+.oj-hybrid-applayout-header {
+	display: none;
+}
+
+html {
+	background-color: #fff;
+}
+
+.oj-hybrid-applayout-page {
+	background-color: #ffff;
+}
+</style>
+</head>

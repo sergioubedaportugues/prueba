@@ -1,0 +1,174 @@
+<div class="oj-hybrid-applayout-page">
+	<div class="oj-applayout-fixed-top">
+		<header role="banner" class="oj-hybrid-applayout-header">
+			<oj-module config="[[headerConfig]]"></oj-module>
+		</header>
+	</div>
+	<!-- This is where your main page content will be loaded -->
+	<div class="oj-applayout-content">
+		<div role="main" class="oj-hybrid-applayout-content">
+			<div class="oj-hybrid-padding">
+				<h1 id="categorias" class="categorias">Gestor de Categorias</h1>
+				<table id="tablaCat" class="tablaCat">
+				<caption></caption>
+				<caption></caption>
+					<tr>
+						<th id="th"></th>
+						<td id="Colcategorias" class="Colcategorias">
+						<h3 id="Ncategorias" class="Ncategorias">Nueva Categoria</h3>
+						<div>
+							<input type="text" data-bind="value : nombre"
+								placeholder="Nombre de la categoria">
+							<button class="btn_nuevaCat" data-bind="click : addCategoria">Nueva Categoria</button>
+							<div id="mensajesCorrecto" data-bind="html : message"
+								style="color: blue"></div>
+							<div id="mensajeError" data-bind="html : error"
+								style="color: red"></div>
+						</div>
+						</td>
+						<td id="LisCategorias" class="LisCategorias">
+						<h3 id="Lcategorias" class="Lcategorias">Lista de Categorias</h3>
+						<table class="tablacategorias" >
+						<caption></caption>
+						<caption></caption>
+							<!-- ko foreach : categorias -->
+							<tr>
+								<th id="th"></th>
+								<td><input type="text" data-bind="value : nombre"
+									placeholder="Nombre"></td>
+								<td data-bind="html : numeroDeProductos"></td> 
+								<td><button class="btn_modifCat"
+										data-bind="click : function() { $parent.modificarCategoria($data); }">Modificar</button></td>
+								<td><button class="btn_elimCat"
+										data-bind="click : function() { $parent.eliminarCategoria(idCategoria); }">Eliminar</button></td>
+							</tr>
+							<!-- /ko -->
+						</table>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+<head >
+
+<title></title>
+<style>
+.oj-hybrid-applayout-page {
+	background-color: #ffff;
+	padding-top: 80px;
+}
+.btn_nuevaCat{
+background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+}
+.btn_nuevaCat:hover {
+background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+.btn_modifCat{
+background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+
+}
+.btn_modifCat:hover {
+background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+.btn_elimCat{
+background-color: #ffff;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	color: #ffffff;
+	background-color: #1883ba;
+	border-radius: 6px;
+	border: 2px solid #0016b0;
+}
+.btn_elimCat:hover {
+background-color: #ffff;
+	color: #1883ba;
+	background-color: #ffffff;
+}
+
+
+.categorias {
+background-color: #ffff;
+	position: relative;
+	padding-bottom: 30px;
+	margin-top: 120px;
+	padding-top: 20px;
+	color: #3392FF;
+	font-size: 200%;
+	top: 30%;
+	left: 45%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+	/* IMPORTANTE */
+	text-align: center;
+	
+}
+
+.tablaCat{
+margin-left: 50px;
+padding-left: 50px;
+}
+
+.Ncategorias {
+background-color: #ffff;
+	padding-bottom: 30px;
+	margin-top: 30px;
+	color: #3392FF;
+	font-size: 200%;
+	
+}
+
+.Lcategorias {
+background-color: #ffff;
+	padding-bottom: 30px;
+	margin-top: 30px;
+	color: #3392FF;
+	font-size: 200%;
+	
+}
+td {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0 20px;
+    text-align: justify;
+    vertical-align: top;
+    width: 50%;
+}
+
+td.first {
+    border-right: 5px solid #4BB495  ;
+}
+.oj-hybrid-applayout-header{
+display:none;
+}
+</style>
+</head>
