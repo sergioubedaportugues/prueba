@@ -25,7 +25,7 @@ import uclm.grupo2.sigeva.exceptions.CitaInexistenteException;
 import uclm.grupo2.sigeva.exceptions.CitaNoDisponibleException;
 import uclm.grupo2.sigeva.exceptions.CitasMaximasException;
 import uclm.grupo2.sigeva.exceptions.FechaMaximaException;
-import uclm.grupo2.sigeva.exceptions.FechasIncorrectasException;
+//import uclm.grupo2.sigeva.exceptions.FechasIncorrectasException;
 import uclm.grupo2.sigeva.exceptions.FormatoHoraException;
 import uclm.grupo2.sigeva.exceptions.NoModificableException;
 import uclm.grupo2.sigeva.exceptions.TokenBorradoException;
@@ -166,7 +166,7 @@ public class CitasController {
 		return cita.getByPacienteOrderByNumCitaAsc(usu);
 	}
 	
-	public Citas controlCitas(Usuario paciente, CentroSalud cs, int num, LocalDate date, LocalTime time) throws FechaMaximaException {
+	public Citas controlCitas(Usuario paciente, CentroSalud cs, int num, LocalDate date, LocalTime time) {
 		boolean insertada = false;
 		Citas citaNueva = new Citas();
 		citaNueva.setCs(cs);
@@ -174,8 +174,9 @@ public class CitasController {
 		if (num==2)
 			date = date.plusDays(21);
 		citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-		if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==2)
-			throw new FechaMaximaException();
+		/*if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==2)
+			throw new FechaMaximaException();*/
+		
 		citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 		citaNueva.setPaciente(paciente);
 		citaNueva.setNumCita(num);
@@ -207,13 +208,13 @@ public class CitasController {
 		return citaNueva;
 	}
 	
-	public void controlModificarCitas(Usuario paciente, CentroSalud cs, int num, LocalDate date, LocalTime time) throws FechaMaximaException, CitaNoDisponibleException {
+	public void controlModificarCitas(Usuario paciente, CentroSalud cs, int num, LocalDate date, LocalTime time) throws  CitaNoDisponibleException {
 		Citas citaNueva = new Citas();
 		citaNueva.setCs(cs);
 
 		citaNueva.setDia(date.format(DateTimeFormatter.ofPattern(DDMMAA)));
-		if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==1)
-			throw new FechaMaximaException();
+		/*if (date.isAfter(LocalDate.parse("10-01-2022",formatterDia)) && num==1)
+			throw new FechaMaximaException();*/
 		citaNueva.setHoras(time.format(DateTimeFormatter.ofPattern(HHMM)));
 		citaNueva.setPaciente(paciente);
 		citaNueva.setNumCita(num);
@@ -230,15 +231,15 @@ public class CitasController {
 			throw new CitaNoDisponibleException();
 	}
 	
-	public void administrarFechas(long diferenciaDias, List<Citas> listadoCitas, Citas c) throws FechaMaximaException, CitaNoDisponibleException, FechasIncorrectasException {
+	public void administrarFechas(long diferenciaDias, List<Citas> listadoCitas, Citas c) throws FechaMaximaException, CitaNoDisponibleException {
 		if(listadoCitas.size()==2 && c.getNumCita()==1 && LocalDate.parse(listadoCitas.get(1).getDia(),formatterDia).isAfter(LocalDate.parse(listadoCitas.get(0).getDia(),formatterDia))) {
 			controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(0).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(0).getHoras(), formatterHora));
 			cita.deleteById(c.getId());
 		} else if(listadoCitas.size()==2 && c.getNumCita()==2 && diferenciaDias>=21) {
 			controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(1).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(1).getHoras(), formatterHora));
 			cita.deleteById(c.getId());
-		} else
-			throw new FechasIncorrectasException();
+		} /*else
+			throw new FechasIncorrectasException();*/
 	}
 	
 	
