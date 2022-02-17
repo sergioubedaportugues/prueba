@@ -239,7 +239,7 @@ public class CitasController {
 			controlModificarCitas(c.getPaciente(),c.getCs(),c.getNumCita(),LocalDate.parse(listadoCitas.get(1).getDia(), formatterDia), LocalTime.parse(listadoCitas.get(1).getHoras(), formatterHora));
 			cita.deleteById(c.getId());
 		} /*else
-			throw new FechasIncorrectasException();*/
+			throw new FechasIncorrectasException();*///
 	}
 	
 	
