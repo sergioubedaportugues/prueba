@@ -12,7 +12,7 @@
 	<groupId>uclm.grupo2</groupId>
 	<artifactId>sigeva</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sigeva</name>ç
+	<name>sigeva</name>
 	<description>Lanzadora de SIGEVA</description>
 	<properties>
 		<jacoco.version>0.8.6</jacoco.version>
